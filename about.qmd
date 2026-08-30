@@ -2,8 +2,14 @@
 title: "About"
 ---
 
-About this site
+## Biography
 
-```{r}
-1 + 1
-```
+I am a PhD student in Statistics at the Federal University of Pernambuco (UFPE), Recife, Brazil. My academic background is in Statistics, with research experience spanning statistical modelling, machine learning, data analysis, and applied research.
+
+My MPhil research focused on modeling and forecasting the inflation rate of Pakistan using time series, machine learning, and deep learning techniques. The work was implemented in R and Python.
+
+My academic profile combines statistical methodology with computational approaches, with particular emphasis on Data Envelopment Analysis, nonparametric analysis, machine learning, and data science.
+
+## Academic Profile
+
+I have experience in university-level teaching and in supervising bachelor students on research projects. My teaching experience includes Data Mining, Time Series Analysis and Forecasting, Probability and Probability Distribution, Multivariate Analysis, Exploratory Data Analysis and Visualization, and Introduction to Statistics.

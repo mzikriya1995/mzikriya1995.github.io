@@ -1,11 +1,36 @@
 ---
 title: "Muhammad Zikriya"
+about:
+  template: jolla
+  image: images/my pic.jpg
+  links:
+    - icon: github
+      #text: Github
+      href: https://github.com/mzikriya1995
+      aria-label: GitHub
+    - icon: linkedin
+      #text: Linkedin
+      href: https://www.linkedin.com/in/mzikriya1995
+      aria-label: LinkedIn
+    - icon: google
+      #href: YOUR-GOOGLE-SCHOLAR-LINK
+      aria-label: Google Scholar
+    - icon: person-badge
+      #href: YOUR-ORCID-LINK
+      aria-label: ORCID
 ---
 
-This is a Quarto website.
+*PhD Scholar at the Department of Statistics*
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Federal University of Pernambuco (UFPE), Recife, Brasil
 
-```{r}
-1 + 1
-```
+## Research Area
+
+Data Envelopment Analysis | Nonparametric Statistics | Machine Learning | Data Science
+
+
+## Education
+
+M.Phil , Abdul Wali Khan University Mardan
+
+Graduation, Govenament Post Graduate Colllge, Mardan
