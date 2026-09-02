@@ -1,5 +1,54 @@
 [
   {
+    "objectID": "skills.html",
+    "href": "skills.html",
+    "title": "Skills",
+    "section": "",
+    "text": "Ⓡ R Programming\n\n\n🐍 Python Programming\n\n\n🗄️ SQL\n\n\n📊 IBM SPSS\n\n\n\n\n\n🧮 Machine Learning\n\n\n🧠 Deep Learning\n\n\n📈 Time Series Analysis and Forecasting\n\n\n📊 Data Visualization\n\n\n🔎 Exploratory Data Analysis\n\n\n\n\n\n📊 Power BI\n\n\n⚡ Power Apps\n\n\n🔄 Power Automate\n\n\n📝 Microsoft Office\n\n\n\n\n\n📐 Statistical Modeling\n\n\n〽️ Regression Analysis\n\n\n🔮 Forecasting\n\n\n📋 Data Analysis\n\n\n⚙️ Statistical Computing\n\n\n\n\n\n🤖 Machine Learning Algorithms\n\n\n🕸️ Neural Networks\n\n\n🧠 Deep Learning Models\n\n\n🎯 Predictive Modeling\n\n\n\n\n\n📉 Nonparametric Statistics\n\n\n📊 Data Envelopment Analysis\n\n\n⏳ Time Series Modeling\n\n\n🧪 Quantitative Research"
+  },
+  {
+    "objectID": "skills.html#statistical-programming",
+    "href": "skills.html#statistical-programming",
+    "title": "Skills",
+    "section": "",
+    "text": "Ⓡ R Programming\n\n\n🐍 Python Programming\n\n\n🗄️ SQL\n\n\n📊 IBM SPSS"
+  },
+  {
+    "objectID": "skills.html#data-science-analytics",
+    "href": "skills.html#data-science-analytics",
+    "title": "Skills",
+    "section": "",
+    "text": "🧮 Machine Learning\n\n\n🧠 Deep Learning\n\n\n📈 Time Series Analysis and Forecasting\n\n\n📊 Data Visualization\n\n\n🔎 Exploratory Data Analysis"
+  },
+  {
+    "objectID": "skills.html#microsoft-technologies",
+    "href": "skills.html#microsoft-technologies",
+    "title": "Skills",
+    "section": "",
+    "text": "📊 Power BI\n\n\n⚡ Power Apps\n\n\n🔄 Power Automate\n\n\n📝 Microsoft Office"
+  },
+  {
+    "objectID": "skills.html#statistical-research-skills",
+    "href": "skills.html#statistical-research-skills",
+    "title": "Skills",
+    "section": "",
+    "text": "📐 Statistical Modeling\n\n\n〽️ Regression Analysis\n\n\n🔮 Forecasting\n\n\n📋 Data Analysis\n\n\n⚙️ Statistical Computing"
+  },
+  {
+    "objectID": "skills.html#artificial-intelligence",
+    "href": "skills.html#artificial-intelligence",
+    "title": "Skills",
+    "section": "",
+    "text": "🤖 Machine Learning Algorithms\n\n\n🕸️ Neural Networks\n\n\n🧠 Deep Learning Models\n\n\n🎯 Predictive Modeling"
+  },
+  {
+    "objectID": "skills.html#research-methods",
+    "href": "skills.html#research-methods",
+    "title": "Skills",
+    "section": "",
+    "text": "📉 Nonparametric Statistics\n\n\n📊 Data Envelopment Analysis\n\n\n⏳ Time Series Modeling\n\n\n🧪 Quantitative Research"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Muhammad Zikriya",
@@ -14,11 +63,25 @@
     "text": "Research Area\nData Envelopment Analysis | Nonparametric Statistics | Machine Learning | Data Science"
   },
   {
-    "objectID": "index.html#education",
-    "href": "index.html#education",
-    "title": "Muhammad Zikriya",
-    "section": "Education",
-    "text": "Education\nM.Phil , Abdul Wali Khan University Mardan\nGraduation, Govenament Post Graduate Colllge, Mardan"
+    "objectID": "education.html",
+    "href": "education.html",
+    "title": "Education",
+    "section": "",
+    "text": "Federal University of Pernambuco (UFPE)\nRecife, Brazil\nStatus: In Progress\nCurrently pursuing a Doctor of Philosophy in Statistics at UFPE.\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nPost Graduate Research Seminar\nMathematical Statistics\nData Envelopment Analysis\nAdvance Probability Analysis\nSpecial Topics in Applied Statistics\nMultivariate Analysis\n\n\n\n\nAbdul Wali Khan University\nMardan, Pakistan\nCompleted: February 2023\nThesis:\nModeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nTime Series Analysis and Forecasting\nAdvanced Regression Analysis\nStatistical Quality Control\nAdvanced Categorical Data Analysis\nSurvival Data Analysis\nGeneralized Linear Models\nRobust Statistics\n\n\n\n\nGovernment Post Graduate College\nMardan, Pakistan\nCompleted: November 2018\nAffiliated with Abdul Wali Khan University Mardan.\nThesis:\nModified Exponential Type Variance Estimator for Finite Population Variance"
+  },
+  {
+    "objectID": "education.html#academic-background",
+    "href": "education.html#academic-background",
+    "title": "Education",
+    "section": "",
+    "text": "Federal University of Pernambuco (UFPE)\nRecife, Brazil\nStatus: In Progress\nCurrently pursuing a Doctor of Philosophy in Statistics at UFPE.\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nPost Graduate Research Seminar\nMathematical Statistics\nData Envelopment Analysis\nAdvance Probability Analysis\nSpecial Topics in Applied Statistics\nMultivariate Analysis\n\n\n\n\nAbdul Wali Khan University\nMardan, Pakistan\nCompleted: February 2023\nThesis:\nModeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nTime Series Analysis and Forecasting\nAdvanced Regression Analysis\nStatistical Quality Control\nAdvanced Categorical Data Analysis\nSurvival Data Analysis\nGeneralized Linear Models\nRobust Statistics\n\n\n\n\nGovernment Post Graduate College\nMardan, Pakistan\nCompleted: November 2018\nAffiliated with Abdul Wali Khan University Mardan.\nThesis:\nModified Exponential Type Variance Estimator for Finite Population Variance"
+  },
+  {
+    "objectID": "education.html#professional-certificates-short-courses",
+    "href": "education.html#professional-certificates-short-courses",
+    "title": "Education",
+    "section": "Professional Certificates & Short Courses",
+    "text": "Professional Certificates & Short Courses\n\n\n\n\n\n\n\n\nCertificate\nOrganization\nDuration\n\n\n\n\nNeural Networks and Deep Learning\nDeepLearning.AI\nOct 2023 – Nov 2023\n\n\nData Visualization with Python\nIBM\nSep 2023 – Oct 2023\n\n\nGoogle Data Analytics\nGoogle\nDec 2022 – Jun 2023\n\n\nData Analytics and Business Intelligence\nDigiSkills.com\nFeb 2022 – Jun 2022\n\n\nArtificial Intelligence (Machine Learning & Deep Learning)\nNAVTTC, Government of Pakistan\nJun 2021 – Dec 2021"
   },
   {
     "objectID": "about.html",
@@ -40,5 +103,47 @@
     "title": "About",
     "section": "Academic Profile",
     "text": "Academic Profile\nI have experience in university-level teaching and in supervising bachelor students on research projects. My teaching experience includes Data Mining, Time Series Analysis and Forecasting, Probability and Probability Distribution, Multivariate Analysis, Exploratory Data Analysis and Visualization, and Introduction to Statistics."
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "📄\n\n\n\nDownload my complete CV:\n\n ⬇️ Download CV PDF"
+  },
+  {
+    "objectID": "cv.html#curriculum-vitae",
+    "href": "cv.html#curriculum-vitae",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Download my complete CV:\n\n ⬇️ Download CV PDF"
+  },
+  {
+    "objectID": "experience.html",
+    "href": "experience.html",
+    "title": "Experience",
+    "section": "",
+    "text": "Teaching Assistant\nFederal University of Pernambuco (UFPE)\nRecife, Brazil\n\nPeriod: August 2026 – December 2026\n\nAssisting in teaching activities for undergraduate courses under the supervision of:\n\n\nProf. Dr. Thyago Celso Cavalcante Nepomuceno\nCourse:\n\n\n\nClass(es)\nStart\nEnd\n\n\n\n\nIntroduction to Game Theory (2026.2)\n10/08/2026\n12/12/2026\n\n\n\n\n\nProf. Dr. Jodavid de Araujo Ferreira\nCourse:\n\n\n\nClass(es)\nStart\nEnd\n\n\n\n\nNeural Networks (2026.2)\n10/08/2026\n12/12/2026\n\n\n\n\n\n\nVisiting Lecture — Govt. Post Graduate College Nowshera\nHigher Education Department, Khyber Pakhtunkhwa\nNowshera, Khyber Pakhtunkhwa, Pakistan\n\nPeriod: September 2022 – December 2024\n\nTeaching Experience\nDelivered lectures in:\n\nData Mining\nTime Series Analysis & Forecasting\nProbability and Probability Distribution\nMultivariate Analysis\nExpository Data Analysis & Visualization\nIntroduction to Statistics\n\nEmployed effective teaching methodologies to engage students and support their understanding of statistical concepts.\nResearch Supervision\nSupervised bachelor students on the following research projects:\n\nThe Impact of Political Instability on Pakistan’s Economic Growth\nEffects of Socio-Economic Status on Academic Performance of BS Students: A Case Study of GPGC Nowshera\nEating Habits and Obesity: A Case Study of GPGC Students (NSR)\nImpact of TikTok on Students’ Academic Performance: A Case Study of GPGC Nowshera\n\n\n\nVisiting Lecture — Govt. Degree College Toru\nHigher Education Department, Khyber Pakhtunkhwa\nMardan, Khyber Pakhtunkhwa, Pakistan\n\nPeriod: September 2021 – December 2021\n\nDelivered lectures in:\n\nIntroduction to Statistics"
+  },
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "My research interests include:\nData Envelopment Analysis (DEA)\nNonparametric Statistics\nMachine Learning\nDeep Learning\nTime Series Analysis and Forecasting\nMy research focuses on developing statistical models and computational approaches for data-driven decision-making, prediction, and performance analysis."
+  },
+  {
+    "objectID": "research.html#modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques",
+    "href": "research.html#modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques",
+    "title": "Research",
+    "section": "Modeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques",
+    "text": "Modeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques\nMaster of Philosophy (MPhil) Research Project\nAbdul Wali Khan University Mardan\n\nAbstract\nInflation forecasting is an important area of economic research because accurate prediction of inflation helps policymakers and decision-makers develop effective economic strategies. This research investigated the modeling and forecasting of Pakistan’s inflation rate using traditional time series models, machine learning techniques, and deep learning approaches.\nThe study compared different forecasting methodologies to identify efficient models for predicting inflation trends. The implementation and analysis were performed using R and Python programming languages.\n\n\nMethods and Tools\n\nTime Series Analysis\nMachine Learning Models\nDeep Learning Models\nStatistical Forecasting\nR Programming\nPython Programming"
+  },
+  {
+    "objectID": "research.html#modified-exponential-type-variance-estimator-for-finite-population-variance",
+    "href": "research.html#modified-exponential-type-variance-estimator-for-finite-population-variance",
+    "title": "Research",
+    "section": "Modified Exponential Type Variance Estimator for Finite Population Variance",
+    "text": "Modified Exponential Type Variance Estimator for Finite Population Variance\nBachelor Research Project\nGovernment Post Graduate College Mardan\n\nAbstract\nThis research focused on the development of a modified exponential type variance estimator for estimating finite population variance. The study aimed to improve estimation efficiency by proposing an alternative estimator and evaluating its statistical properties.\nThe research contributes to the field of survey sampling and finite population estimation by exploring improved variance estimation techniques.\n\n\nResearch Area\n\nSampling Theory\nSurvey Statistics\nVariance Estimation\nFinite Population Sampling"
   }
 ]

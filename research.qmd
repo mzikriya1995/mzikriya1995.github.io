@@ -1,0 +1,84 @@
+---
+title: "Research"
+---
+
+```{=html}
+<style>
+.research-card {
+  border: 1px solid #dee2e6;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.research-profile {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.research-card h3 {
+  margin-top: 0;
+}
+</style>
+```
+
+# Research Profile
+
+::: research-profile
+My research interests include:
+
+**Data Envelopment Analysis (DEA)**\
+**Nonparametric Statistics**\
+**Machine Learning**\
+**Deep Learning**\
+**Time Series Analysis and Forecasting**
+
+My research focuses on developing statistical models and computational approaches for data-driven decision-making, prediction, and performance analysis.
+:::
+
+# Research Projects
+
+::: research-card
+## Modeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques
+
+**Master of Philosophy (MPhil) Research Project**\
+**Abdul Wali Khan University Mardan**
+
+### Abstract
+
+Inflation forecasting is an important area of economic research because accurate prediction of inflation helps policymakers and decision-makers develop effective economic strategies. This research investigated the modeling and forecasting of Pakistan's inflation rate using traditional time series models, machine learning techniques, and deep learning approaches.
+
+The study compared different forecasting methodologies to identify efficient models for predicting inflation trends. The implementation and analysis were performed using **R and Python programming languages**.
+
+### Methods and Tools
+
+- Time Series Analysis
+- Machine Learning Models
+- Deep Learning Models
+- Statistical Forecasting
+- R Programming
+- Python Programming
+:::
+
+::: research-card
+## Modified Exponential Type Variance Estimator for Finite Population Variance
+
+**Bachelor Research Project**\
+**Government Post Graduate College Mardan**
+
+### Abstract
+
+This research focused on the development of a modified exponential type variance estimator for estimating finite population variance. The study aimed to improve estimation efficiency by proposing an alternative estimator and evaluating its statistical properties.
+
+The research contributes to the field of survey sampling and finite population estimation by exploring improved variance estimation techniques.
+
+### Research Area
+
+- Sampling Theory
+- Survey Statistics
+- Variance Estimation
+- Finite Population Sampling
+:::

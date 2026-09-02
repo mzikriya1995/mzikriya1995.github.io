@@ -1,0 +1,111 @@
+---
+title: "Experience"
+---
+
+```{=html}
+<style>
+.experience-card {
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  padding: 1.4rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.experience-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+
+.experience-meta {
+  margin-bottom: 0.9rem;
+  font-size: 0.95rem;
+}
+
+.experience-card ul {
+  margin-bottom: 0;
+}
+</style>
+```
+
+:::: experience-card
+### Teaching Assistant
+
+**Federal University of Pernambuco (UFPE)**\
+Recife, Brazil
+
+::: experience-meta
+<strong>Period:</strong> August 2026 – December 2026
+:::
+
+Assisting in teaching activities for undergraduate courses under the supervision of:
+
+### Prof. Dr. Thyago Celso Cavalcante Nepomuceno
+
+**Course:**
+
+| Class(es) | Start | End |
+|:---|:---:|:---:|
+| Introduction to Game Theory (2026.2) | 10/08/2026 | 12/12/2026 |
+
+### Prof. Dr. Jodavid de Araujo Ferreira
+
+**Course:**
+
+| Class(es) | Start | End |
+|:---|:---:|:---:|
+| Neural Networks (2026.2) | 10/08/2026 | 12/12/2026 |
+
+::::
+
+
+:::: experience-card
+### Visiting Lecture — Govt. Post Graduate College Nowshera
+
+**Higher Education Department, Khyber Pakhtunkhwa**\
+Nowshera, Khyber Pakhtunkhwa, Pakistan
+
+::: experience-meta
+<strong>Period:</strong> September 2022 – December 2024
+:::
+
+**Teaching Experience**
+
+Delivered lectures in:
+
+- Data Mining
+- Time Series Analysis & Forecasting
+- Probability and Probability Distribution
+- Multivariate Analysis
+- Expository Data Analysis & Visualization
+- Introduction to Statistics
+
+Employed effective teaching methodologies to engage students and support their understanding of statistical concepts.
+
+**Research Supervision**
+
+Supervised bachelor students on the following research projects:
+
+- *The Impact of Political Instability on Pakistan's Economic Growth*
+- *Effects of Socio-Economic Status on Academic Performance of BS Students: A Case Study of GPGC Nowshera*
+- *Eating Habits and Obesity: A Case Study of GPGC Students (NSR)*
+- *Impact of TikTok on Students' Academic Performance: A Case Study of GPGC Nowshera*
+
+::::
+
+
+:::: experience-card
+### Visiting Lecture — Govt. Degree College Toru
+
+**Higher Education Department, Khyber Pakhtunkhwa**\
+Mardan, Khyber Pakhtunkhwa, Pakistan
+
+::: experience-meta
+<strong>Period:</strong> September 2021 – December 2021
+:::
+
+Delivered lectures in:
+
+- Introduction to Statistics
+
+::::

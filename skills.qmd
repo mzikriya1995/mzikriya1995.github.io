@@ -1,0 +1,103 @@
+---
+title: "Skills"
+---
+
+<style>
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+}
+
+.skill-icon {
+  width: 35px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.skill-card {
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+</style>
+
+# Technical Skills
+
+
+<div class="skill-card">
+
+## 💻 Statistical Programming
+
+<div class="skill-item"><span class="skill-icon">Ⓡ</span> R Programming</div>
+<div class="skill-item"><span class="skill-icon">🐍</span> Python Programming</div>
+<div class="skill-item"><span class="skill-icon">🗄️</span> SQL</div>
+<div class="skill-item"><span class="skill-icon">📊</span> IBM SPSS</div>
+
+</div>
+
+
+<div class="skill-card">
+
+## 🤖 Data Science & Analytics
+
+<div class="skill-item"><span class="skill-icon">🧮</span> Machine Learning</div>
+<div class="skill-item"><span class="skill-icon">🧠</span> Deep Learning</div>
+<div class="skill-item"><span class="skill-icon">📈</span> Time Series Analysis and Forecasting</div>
+<div class="skill-item"><span class="skill-icon">📊</span> Data Visualization</div>
+<div class="skill-item"><span class="skill-icon">🔎</span> Exploratory Data Analysis</div>
+
+</div>
+
+
+<div class="skill-card">
+
+## 🏢 Microsoft Technologies
+
+<div class="skill-item"><span class="skill-icon">📊</span> Power BI</div>
+<div class="skill-item"><span class="skill-icon">⚡</span> Power Apps</div>
+<div class="skill-item"><span class="skill-icon">🔄</span> Power Automate</div>
+<div class="skill-item"><span class="skill-icon">📝</span> Microsoft Office</div>
+
+</div>
+
+
+<div class="skill-card">
+
+## 📈 Statistical & Research Skills
+
+<div class="skill-item"><span class="skill-icon">📐</span> Statistical Modeling</div>
+<div class="skill-item"><span class="skill-icon">〽️</span> Regression Analysis</div>
+<div class="skill-item"><span class="skill-icon">🔮</span> Forecasting</div>
+<div class="skill-item"><span class="skill-icon">📋</span> Data Analysis</div>
+<div class="skill-item"><span class="skill-icon">⚙️</span> Statistical Computing</div>
+
+</div>
+
+
+<div class="skill-card">
+
+## 🧠 Artificial Intelligence
+
+<div class="skill-item"><span class="skill-icon">🤖</span> Machine Learning Algorithms</div>
+<div class="skill-item"><span class="skill-icon">🕸️</span> Neural Networks</div>
+<div class="skill-item"><span class="skill-icon">🧠</span> Deep Learning Models</div>
+<div class="skill-item"><span class="skill-icon">🎯</span> Predictive Modeling</div>
+
+</div>
+
+
+<div class="skill-card">
+
+## 🔬 Research Methods
+
+<div class="skill-item"><span class="skill-icon">📉</span> Nonparametric Statistics</div>
+<div class="skill-item"><span class="skill-icon">📊</span> Data Envelopment Analysis</div>
+<div class="skill-item"><span class="skill-icon">⏳</span> Time Series Modeling</div>
+<div class="skill-item"><span class="skill-icon">🧪</span> Quantitative Research</div>
+
+</div>

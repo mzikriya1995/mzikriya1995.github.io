@@ -1,0 +1,45 @@
+---
+title: "Curriculum Vitae"
+---
+
+```{=html}
+<style>
+.cv-card {
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 25px;
+  margin-top: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.cv-icon {
+  font-size: 45px;
+  margin-bottom: 15px;
+}
+
+.download-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 10px;
+  background-color: #0d6efd;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+</style>
+```
+
+:::: cv-card
+::: cv-icon
+📄
+:::
+
+## Curriculum Vitae
+
+Download my complete CV:
+
+<br>
+
+<a class="download-btn" href="M.%20Zikriya%20CV.pdf"> ⬇️ Download CV PDF </a>
+::::

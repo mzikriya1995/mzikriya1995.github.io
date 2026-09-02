@@ -26,11 +26,4 @@ Federal University of Pernambuco (UFPE), Recife, Brasil
 
 ## Research Area
 
-Data Envelopment Analysis | Nonparametric Statistics | Machine Learning | Data Science
-
-
-## Education
-
-M.Phil , Abdul Wali Khan University Mardan
-
-Graduation, Govenament Post Graduate Colllge, Mardan
+Data Envelopment Analysis \| Nonparametric Statistics \| Machine Learning \| Data Science
