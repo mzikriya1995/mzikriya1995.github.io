@@ -67,7 +67,7 @@ The study compared different forecasting methodologies to identify efficient mod
 ## Modified Exponential Type Variance Estimator for Finite Population Variance
 
 **Bachelor Research Project**\
-**Government Post Graduate College Mardan**
+**Government Postgraduate College Mardan**
 
 ### Abstract
 

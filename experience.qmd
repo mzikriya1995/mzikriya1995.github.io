@@ -44,7 +44,7 @@ Assisting in teaching activities for undergraduate courses under the supervision
 
 **Course:**
 
-| Class(es) | Start | End |
+| Class | Start | End |
 |:---|:---:|:---:|
 | Introduction to Game Theory (2026.2) | 10/08/2026 | 12/12/2026 |
 
@@ -52,7 +52,7 @@ Assisting in teaching activities for undergraduate courses under the supervision
 
 **Course:**
 
-| Class(es) | Start | End |
+| Class | Start | End |
 |:---|:---:|:---:|
 | Neural Networks (2026.2) | 10/08/2026 | 12/12/2026 |
 
@@ -60,7 +60,7 @@ Assisting in teaching activities for undergraduate courses under the supervision
 
 
 :::: experience-card
-### Visiting Lecture — Govt. Post Graduate College Nowshera
+### Visiting Lecture — Govt. Postgraduate College Nowshera
 
 **Higher Education Department, Khyber Pakhtunkhwa**\
 Nowshera, Khyber Pakhtunkhwa, Pakistan
@@ -88,14 +88,14 @@ Supervised bachelor students on the following research projects:
 
 - *The Impact of Political Instability on Pakistan's Economic Growth*
 - *Effects of Socio-Economic Status on Academic Performance of BS Students: A Case Study of GPGC Nowshera*
-- *Eating Habits and Obesity: A Case Study of GPGC Students (NSR)*
-- *Impact of TikTok on Students' Academic Performance: A Case Study of GPGC Nowshera*
+- *Eating Habits and Obesity: A Case Study of Govt Postgraduate College Nowshera Students (NSR)*
+- *Impact of TikTok on Students' Academic Performance: A Case Study of Govt Postgraduate College Nowshera*
 
 ::::
 
 
 :::: experience-card
-### Visiting Lecture — Govt. Degree College Toru
+### Visiting Lecture — Gov Degree College Toru
 
 **Higher Education Department, Khyber Pakhtunkhwa**\
 Mardan, Khyber Pakhtunkhwa, Pakistan

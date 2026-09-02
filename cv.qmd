@@ -41,5 +41,5 @@ Download my complete CV:
 
 <br>
 
-<a class="download-btn" href="M.%20Zikriya%20CV.pdf"> ⬇️ Download CV PDF </a>
+<a class="download-btn" href="M_Zikriya_CV.pdf"> ⬇️ Download CV PDF </a>
 ::::

@@ -16,8 +16,11 @@ about:
       #href: YOUR-GOOGLE-SCHOLAR-LINK
       aria-label: Google Scholar
     - icon: person-badge
-      #href: YOUR-ORCID-LINK
+      href: https://orcid.org/my-orcid?orcid=0009-0009-6784-3380
       aria-label: ORCID
+    - icon: person-vcard
+      href: https://lattes.cnpq.br/0260709814170571
+      aria-label: Lattes CNPq CV
 ---
 
 *PhD Scholar at the Department of Statistics*

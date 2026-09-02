@@ -62,12 +62,15 @@ Mardan, Pakistan
 
 ### Bachelor of Studies (BS) in Statistics
 
-**Government Post Graduate College**  
+**Government Postgraduate College**  
 Mardan, Pakistan  
+
+
+Affiliated with Abdul Wali Khan University Mardan.
+
 
 **Completed:** November 2018
 
-Affiliated with Abdul Wali Khan University Mardan.
 
 **Thesis:**  
 *Modified Exponential Type Variance Estimator for Finite Population Variance*
