@@ -5,15 +5,12 @@ about:
   image: images/my pic.jpg
   links:
     - icon: github
-      #text: Github
       href: https://github.com/mzikriya1995
       aria-label: GitHub
     - icon: linkedin
-      #text: Linkedin
       href: https://www.linkedin.com/in/mzikriya1995
       aria-label: LinkedIn
     - icon: google
-      #href: YOUR-GOOGLE-SCHOLAR-LINK
       aria-label: Google Scholar
     - icon: person-badge
       href: https://orcid.org/my-orcid?orcid=0009-0009-6784-3380
@@ -25,8 +22,27 @@ about:
 
 *PhD Scholar at the Department of Statistics*
 
-Federal University of Pernambuco (UFPE), Recife, Brasil
+Federal University of Pernambuco (UFPE), Recife, Brazil
+
 
 ## Research Area
 
-Data Envelopment Analysis \| Nonparametric Statistics \| Machine Learning \| Data Science
+Data Envelopment Analysis | Nonparametric Statistics | Machine Learning | Data Science
+
+::: {.wanda-feature}
+<span class="wanda-eyebrow">CONFERENCE PRESENTATION</span>
+
+## Presentation at WANDA
+
+**Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload**
+
+**Presenter:** Muhammad Zikriya  
+**Affiliation:** Federal University of Pernambuco (UFPE) · GEDAI
+
+[**View Presentation at WANDA**](slides/police-bcc/index.html){.btn .btn-primary target="_blank" rel="noopener noreferrer"}
+
+<div class="wanda-logos">
+<img src="slides/police-bcc/UFPE_logo.png" alt="UFPE logo">
+<img src="slides/police-bcc/GEDAI_logo.png" alt="GEDAI logo">
+</div>
+:::

@@ -53,14 +53,14 @@
     "href": "index.html",
     "title": "Muhammad Zikriya",
     "section": "",
-    "text": "PhD Scholar at the Department of Statistics\nFederal University of Pernambuco (UFPE), Recife, Brasil"
+    "text": "PhD Scholar at the Department of Statistics\nFederal University of Pernambuco (UFPE), Recife, Brazil"
   },
   {
     "objectID": "index.html#research-area",
     "href": "index.html#research-area",
     "title": "Muhammad Zikriya",
     "section": "Research Area",
-    "text": "Research Area\nData Envelopment Analysis | Nonparametric Statistics | Machine Learning | Data Science"
+    "text": "Research Area\nData Envelopment Analysis | Nonparametric Statistics | Machine Learning | Data Science\n\nCONFERENCE PRESENTATION\n\nPresentation at WANDA\nPolice Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nPresenter: Muhammad Zikriya\nAffiliation: Federal University of Pernambuco (UFPE) · GEDAI\nView Presentation at WANDA"
   },
   {
     "objectID": "education.html",
@@ -137,13 +137,202 @@
     "href": "research.html#modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques",
     "title": "Research",
     "section": "Modeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques",
-    "text": "Modeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques\nMaster of Philosophy (MPhil) Research Project\nAbdul Wali Khan University Mardan\n\nAbstract\nInflation forecasting is an important area of economic research because accurate prediction of inflation helps policymakers and decision-makers develop effective economic strategies. This research investigated the modeling and forecasting of Pakistan’s inflation rate using traditional time series models, machine learning techniques, and deep learning approaches.\nThe study compared different forecasting methodologies to identify efficient models for predicting inflation trends. The implementation and analysis were performed using R and Python programming languages.\n\n\nMethods and Tools\n\nTime Series Analysis\nMachine Learning Models\nDeep Learning Models\nStatistical Forecasting\nR Programming\nPython Programming"
+    "text": "Modeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques\nMaster of Philosophy (MPhil) Research Project\nAbdul Wali Khan University Mardan ### Abstract\nInflation forecasting is an important area of economic research because accurate prediction of inflation helps policymakers and decision-makers develop effective economic strategies. This research investigated the modeling and forecasting of Pakistan’s inflation rate using traditional time series models, machine learning techniques, and deep learning approaches. The study compared different forecasting methodologies to identify efficient models for predicting inflation trends. The implementation and analysis were performed using R and Python programming languages. ### Methods and Tools\n\nTime Series Analysis\nMachine Learning Models\nDeep Learning Models\nStatistical Forecasting\nR Programming\nPython Programming"
   },
   {
     "objectID": "research.html#modified-exponential-type-variance-estimator-for-finite-population-variance",
     "href": "research.html#modified-exponential-type-variance-estimator-for-finite-population-variance",
     "title": "Research",
     "section": "Modified Exponential Type Variance Estimator for Finite Population Variance",
-    "text": "Modified Exponential Type Variance Estimator for Finite Population Variance\nBachelor Research Project\nGovernment Postgraduate College Mardan\n\nAbstract\nThis research focused on the development of a modified exponential type variance estimator for estimating finite population variance. The study aimed to improve estimation efficiency by proposing an alternative estimator and evaluating its statistical properties.\nThe research contributes to the field of survey sampling and finite population estimation by exploring improved variance estimation techniques.\n\n\nResearch Area\n\nSampling Theory\nSurvey Statistics\nVariance Estimation\nFinite Population Sampling"
+    "text": "Modified Exponential Type Variance Estimator for Finite Population Variance\nBachelor Research Project\nGovernment Postgraduate College Mardan ### Abstract\nThis research focused on the development of a modified exponential type variance estimator for estimating finite population variance. The study aimed to improve estimation efficiency by proposing an alternative estimator and evaluating its statistical properties.\nThe research contributes to the field of survey sampling and finite population estimation by exploring improved variance estimation techniques. ### Research Area\n\nSampling Theory\nSurvey Statistics\nVariance Estimation\nFinite Population Sampling"
+  },
+  {
+    "objectID": "index.html#presentation-at-wanda",
+    "href": "index.html#presentation-at-wanda",
+    "title": "Muhammad Zikriya",
+    "section": "Presentation at WANDA",
+    "text": "Presentation at WANDA\nPolice Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nPresenter: Muhammad Zikriya\nAffiliation: Federal University of Pernambuco (UFPE) · GEDAI\nView Presentation at WANDA"
+  },
+  {
+    "objectID": "slides/police-bcc/index.html",
+    "href": "slides/police-bcc/index.html",
+    "title": "Muhammad Zikriya",
+    "section": "",
+    "text": "Muhammad Zikriya\n\n\nPostgraduate Program in Statistics · Universidade Federal de Pernambuco (UFPE)GEDAI Research Group"
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#police-operational-efficiency-using-output-oriented-bcc-dea-with-exogenous-crime-workload",
+    "href": "slides/police-bcc/index.html#police-operational-efficiency-using-output-oriented-bcc-dea-with-exogenous-crime-workload",
+    "title": "Muhammad Zikriya",
+    "section": "Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload",
+    "text": "Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\n\nMuhammad Zikriya\n\n\nPostgraduate Program in Statistics · Universidade Federal de Pernambuco (UFPE)GEDAI Research Group"
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#the-operational-question",
+    "href": "slides/police-bcc/index.html#the-operational-question",
+    "title": "Muhammad Zikriya",
+    "section": "The operational question",
+    "text": "The operational question\n\n\n\nHow efficiently do police units convert existing staff and vehicles into criminal clear-ups, given their observed crime workload?\n\nCrime burden is external workload, not a discretionary police output.\nClear-ups are the desirable operational output.\nDEA identifies a relative best-practice frontier, not causal effects.\n\n\n\n\n\n\n\nNote\n\n\nScope: operational efficiency, not overall public-safety effectiveness."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#why-this-problem-matters",
+    "href": "slides/police-bcc/index.html#why-this-problem-matters",
+    "title": "Muhammad Zikriya",
+    "section": "Why this problem matters",
+    "text": "Why this problem matters\n\n\n\n\nPolice units face different crime burdens and operate at different scales.\nStaffing and vehicles are relatively fixed in the short run.\nA simple clear-up rate ignores resource use and workload comparability.\nA non-parametric frontier can identify peers and improvement opportunities.\n\nResearch objective: compare observed clear-ups with feasible best-practice combinations under resource and workload restrictions."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#what-the-study-contributes",
+    "href": "slides/police-bcc/index.html#what-the-study-contributes",
+    "title": "Muhammad Zikriya",
+    "section": "What the study contributes",
+    "text": "What the study contributes\n\n\n\n\nOutput-oriented evaluation: expand clear-ups while holding resources fixed.\nBCC / variable returns to scale: allow different operating scales.\nExogenous workload restriction: compare a unit against combinations with at least its crime burden.\nActionable diagnostics: targets, slacks and peer references.\n\nThis is an application of an established DEA specification, not a claim to invent BCC DEA."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#data-and-decision-making-units",
+    "href": "slides/police-bcc/index.html#data-and-decision-making-units",
+    "title": "Muhammad Zikriya",
+    "section": "Data and decision-making units",
+    "text": "Data and decision-making units\n\n\n\n\n\n\n\n\n\n\nElement\nSpecification\n\n\n\n\nObservations\n26 police units (DMUs)\n\n\nDiscretionary inputs\nSTAFF, Vehicles\n\n\nDesirable output\nClear-ups Criminal activities\n\n\nNon-discretionary variable\nCRIMES (workload)\n\n\nAdditional variables\nStaff/crime subcategories retained for interpretation"
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#descriptive-statistics",
+    "href": "slides/police-bcc/index.html#descriptive-statistics",
+    "title": "Muhammad Zikriya",
+    "section": "Descriptive statistics",
+    "text": "Descriptive statistics\n\n\n\n\n\n\nMeasure\nMinimum\nMean\nMedian\nMaximum\n\n\n\n\nStaff\n53\n120.8\n104\n297\n\n\nVehicles\n3\n28.9\n26\n71\n\n\nCrimes\n110\n579.8\n516\n1,313\n\n\nClear-ups\n16\n193.5\n158.5\n525\n\n\nClear-up rate\n0.120\n0.297\n0.333\n0.439\n\n\n\nInterpretation: pronounced scale heterogeneity supports considering variable returns to scale. The clear-up rate is descriptive, not the DEA efficiency measure."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#production-logic",
+    "href": "slides/police-bcc/index.html#production-logic",
+    "title": "Muhammad Zikriya",
+    "section": "Production logic",
+    "text": "Production logic\n\n\n\n\n\nResources\nStaff + Vehicles\nDiscretionary inputs held at observed levels.\n\nOperational output\nCriminal clear-ups\nOutput expanded relative to the best-practice frontier.\n\nCRIMES: exogenous workload constraint on the reference technology.\nA peer combination must confront at least the evaluated unit’s workload; this is a modelling assumption about comparability, not proof that workload is harmless or uniformly difficult."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#output-oriented-bcc-dea-model",
+    "href": "slides/police-bcc/index.html#output-oriented-bcc-dea-model",
+    "title": "Muhammad Zikriya",
+    "section": "Output-oriented BCC DEA model",
+    "text": "Output-oriented BCC DEA model\n\n\n\nFor evaluated unit \\(o\\), solve:\n\\[\n\\begin{aligned}\n\\max_{\\phi_o,\\lambda}\\quad & \\phi_o \\\\\n\\text{s.t.}\\quad\n&\\sum_{j=1}^{n}\\lambda_j x_{ij}\\le x_{io},\\quad i=1,2,\\\\\n&\\sum_{j=1}^{n}\\lambda_j y_j\\ge \\phi_o y_o,\\\\\n&\\sum_{j=1}^{n}\\lambda_j z_j\\ge z_o,\\\\\n&\\sum_{j=1}^{n}\\lambda_j=1,\\qquad \\lambda_j\\ge0.\n\\end{aligned}\n\\]\n\\(z_j\\) = CRIMES; \\(y_j\\) = clear-ups; \\(\\lambda_j\\) = reference weights."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#how-to-read-the-optimization",
+    "href": "slides/police-bcc/index.html#how-to-read-the-optimization",
+    "title": "Muhammad Zikriya",
+    "section": "How to read the optimization",
+    "text": "How to read the optimization\n\n\n\n\n\\(\\sum_j\\lambda_j x_{ij}\\le x_{io}\\): no more staff or vehicles than the evaluated unit.\n\\(\\sum_j\\lambda_j y_j\\ge\\phi_o y_o\\): reference output supports an expansion factor \\(\\phi_o\\).\n\\(\\sum_j\\lambda_j z_j\\ge z_o\\): reference combination faces at least as much crime workload.\n\\(\\sum_j\\lambda_j=1\\): convexity, defining variable returns to scale.\n\n\\[\\theta_o=1/\\phi_o,\\qquad 0&lt;\\theta_o\\le1.\\]\n\\(\\theta_o=1\\) indicates radial efficiency; strong efficiency additionally requires zero relevant slacks."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#targets-slacks-and-peers",
+    "href": "slides/police-bcc/index.html#targets-slacks-and-peers",
+    "title": "Muhammad Zikriya",
+    "section": "Targets, slacks and peers",
+    "text": "Targets, slacks and peers\n\n\n\nRadial target\n\\[y_o^R=\\phi_o y_o\\]\nFrontier target including output slack\n\\[y_o^T=\\sum_j\\lambda_j^*y_j\\]\nPotential additional clear-ups\n\\[\\Delta y_o=y_o^T-y_o\\]\n\nPositive \\(\\lambda_j^*\\) identifies reference peers.\nTargets are frontier-based counterfactuals, not imposed quotas.\nResidual input/output slacks distinguish strong from merely radial efficiency."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#empirical-workflow",
+    "href": "slides/police-bcc/index.html#empirical-workflow",
+    "title": "Muhammad Zikriya",
+    "section": "Empirical workflow",
+    "text": "Empirical workflow\n\n\n\n01 Import and validate the police-unit data\n02 Retain DMUs with positive complete values for the four DEA variables\n03 Compute descriptive ratios for interpretation only\n04 Solve one output-oriented BCC LP per unit with lpSolve\n05 Recover efficiency, targets, slacks and peer intensities\n06 Compare scores, improvement potential and reference frequency\nThe presentation reproduces the numerical findings reported in the PDF; the raw Excel dataset and original R script were not included in this upload."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#overall-efficiency-the-main-result",
+    "href": "slides/police-bcc/index.html#overall-efficiency-the-main-result",
+    "title": "Muhammad Zikriya",
+    "section": "Overall efficiency: the main result",
+    "text": "Overall efficiency: the main result\n\n\n\n\n\n26 units evaluated\n\n9 strongly efficient\n17 inefficient\nMean efficiency: 0.671\nMedian efficiency: 0.790\nMinimum efficiency: 0.071\n\n\n\n\n34.6% are strongly efficient under the specified model."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#distribution-of-dea-efficiency",
+    "href": "slides/police-bcc/index.html#distribution-of-dea-efficiency",
+    "title": "Muhammad Zikriya",
+    "section": "Distribution of DEA efficiency",
+    "text": "Distribution of DEA efficiency\n\n\n\n\nThe distribution is heterogeneous, with a visible concentration at the efficient frontier and a tail of substantially underperforming units."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#full-efficiency-ranking",
+    "href": "slides/police-bcc/index.html#full-efficiency-ranking",
+    "title": "Muhammad Zikriya",
+    "section": "Full efficiency ranking",
+    "text": "Full efficiency ranking\n\n\n\n\nNine units achieve score 1.000; scores are relative to this sample and technology."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#which-units-define-the-frontier",
+    "href": "slides/police-bcc/index.html#which-units-define-the-frontier",
+    "title": "Muhammad Zikriya",
+    "section": "Which units define the frontier?",
+    "text": "Which units define the frontier?\n\n\n\nStrongly efficient units:\nDMU_1 · DMU_6 · DMU_9 · DMU_10 · DMU_12 · DMU_13 · DMU_14 · DMU_17 · DMU_25\n\n\n\nIllustrative frontier unit\nStaff\nVehicles\nCrimes\nClear-ups\n\n\n\n\nDMU_6\n155\n71\n1,313\n525\n\n\nDMU_10\n105\n21\n913\n336\n\n\nDMU_25\n53\n22\n137\n25\n\n\n\nKey point: frontier units differ in size and workload, consistent with a variable-returns model."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#largest-improvement-opportunities",
+    "href": "slides/police-bcc/index.html#largest-improvement-opportunities",
+    "title": "Muhammad Zikriya",
+    "section": "Largest improvement opportunities",
+    "text": "Largest improvement opportunities\n\n\n\n\nDMU_20: observed 24 clear-ups; DEA target approximately 339.8, or 315.8 additional. This is a model-based benchmark comparison, not a forecast or administrative quota."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#translating-scores-into-operational-diagnostics",
+    "href": "slides/police-bcc/index.html#translating-scores-into-operational-diagnostics",
+    "title": "Muhammad Zikriya",
+    "section": "Translating scores into operational diagnostics",
+    "text": "Translating scores into operational diagnostics\n\n\n\n\n\n\nUnit\nEfficiency\nObserved\nTarget\nAdditional\n\n\n\n\nDMU_20\n0.071\n24\n339.8\n315.8\n\n\nDMU_19\n0.238\n98\n412.0\n314.0\n\n\nDMU_24\n0.143\n43\n300.7\n257.7\n\n\nDMU_16\n0.303\n107\n353.0\n246.0\n\n\nDMU_21\n0.152\n41\n270.0\n229.0\n\n\n\nThe estimated improvement gap is conditional on the observed sample, convexity, resource limits and workload restriction."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#peer-benchmarking-where-to-investigate",
+    "href": "slides/police-bcc/index.html#peer-benchmarking-where-to-investigate",
+    "title": "Muhammad Zikriya",
+    "section": "Peer benchmarking: where to investigate",
+    "text": "Peer benchmarking: where to investigate\n\n\n\n\nDMU_10 is the most frequently used peer (14 references), followed by DMU_9 (9) and DMU_6 (7)."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#operational-interpretation",
+    "href": "slides/police-bcc/index.html#operational-interpretation",
+    "title": "Muhammad Zikriya",
+    "section": "Operational interpretation",
+    "text": "Operational interpretation\n\n\n\n\nHigh crime workload does not automatically imply high DEA efficiency.\nA high clear-up rate alone is not a substitute for joint input–output benchmarking.\nRecurring peers provide candidates for studying investigative routines, deployment and management practices.\nThe model identifies relative performance gaps, not the causal reasons behind them.\n\nPractical next step: investigate what differentiates DMU_10, DMU_9, DMU_6, DMU_12 and DMU_17 from their reference units."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#limitations-and-safeguards",
+    "href": "slides/police-bcc/index.html#limitations-and-safeguards",
+    "title": "Muhammad Zikriya",
+    "section": "Limitations and safeguards",
+    "text": "Limitations and safeguards\n\n\n\n\nSmall sample: 26 DMUs; results can be sensitive to specification and outliers.\nSingle output: clear-ups do not capture investigation quality, crime prevention or fairness.\nWorkload assumption: the \\(\\ge\\) crime restriction imposes one interpretation of comparability; alternative treatments warrant sensitivity checks.\nNo causal claim: frontier targets do not establish that management alone can deliver the projected gains.\nData provenance: original source agency and observation period require verification.\n\nFuture work: alternative workload specifications, robustness to outliers, and additional output-quality measures."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#conclusions",
+    "href": "slides/police-bcc/index.html#conclusions",
+    "title": "Muhammad Zikriya",
+    "section": "Conclusions",
+    "text": "Conclusions\n\n\n\n1. Output-oriented BCC DEA with exogenous crime workload provides a transparent operational benchmarking framework.\n2. Of 26 units, 9 are strongly efficient and 17 have estimated improvement potential.\n3. Peer analysis identifies recurring best-practice references, especially DMU_10.\n4. Results should guide diagnostic investigation, not mechanical quotas or broad claims about public safety."
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#thank-you",
+    "href": "slides/police-bcc/index.html#thank-you",
+    "title": "Muhammad Zikriya",
+    "section": "Thank you",
+    "text": "Thank you\n\n\n\nQuestions and discussion\nMuhammad Zikriya · UFPE · GEDAI"
+  },
+  {
+    "objectID": "slides/police-bcc/index.html#references",
+    "href": "slides/police-bcc/index.html#references",
+    "title": "Muhammad Zikriya",
+    "section": "References",
+    "text": "References\n\n\n\n\nBanker, R. D., Charnes, A., & Cooper, W. W. (1984). Some models for estimating technical and scale inefficiencies in data envelopment analysis. Management Science, 30(9), 1078–1092.\nCharnes, A., Cooper, W. W., & Rhodes, E. (1978). Measuring the efficiency of decision making units. European Journal of Operational Research, 2(6), 429–444.\nCooper, W. W., Seiford, L. M., & Tone, K. (2007). Data Envelopment Analysis. Springer."
+  },
+  {
+    "objectID": "conferences.html",
+    "href": "conferences.html",
+    "title": "Conferences",
+    "section": "",
+    "text": "Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nMuhammad Zikriya · Universidade Federal de Pernambuco (UFPE) · GEDAI\nThis conference presentation examines the operational efficiency of 26 police units using output-oriented BCC DEA, with staff and vehicles as inputs, criminal clear-ups as the desirable output, and crimes as an exogenous workload measure.\nView the WANDA presentation"
+  },
+  {
+    "objectID": "conferences.html#presentation-at-wanda",
+    "href": "conferences.html#presentation-at-wanda",
+    "title": "Conferences",
+    "section": "",
+    "text": "Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nMuhammad Zikriya · Universidade Federal de Pernambuco (UFPE) · GEDAI\nThis conference presentation examines the operational efficiency of 26 police units using output-oriented BCC DEA, with staff and vehicles as inputs, criminal clear-ups as the desirable output, and crimes as an exogenous workload measure.\nView the WANDA presentation"
   }
 ]

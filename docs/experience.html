@@ -76,6 +76,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="wanda-card.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -107,17 +108,32 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./experience.html" aria-current="page"> 
 <span class="menu-text">Experience</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./research.html"> 
-<span class="menu-text">Research</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
+        <li>
+    <a class="dropdown-item" href="./research.html">
+ <span class="dropdown-text">Research Projects</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./conferences.html">
+ <span class="dropdown-text">Conferences</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./slides/police-bcc/index.html" rel="noopener noreferrer" target="_blank">
+ <span class="dropdown-text">Presentation at WANDA</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./skills.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./cv.html"> 
-<span class="menu-text">Curriculum Vitae</span></a>
+<span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
@@ -356,7 +372,7 @@ Mardan, Khyber Pakhtunkhwa, Pakistan</p>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/mzikriya1995\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

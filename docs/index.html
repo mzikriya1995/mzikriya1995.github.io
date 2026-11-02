@@ -75,6 +75,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="wanda-card.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -106,17 +107,32 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./experience.html"> 
 <span class="menu-text">Experience</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./research.html"> 
-<span class="menu-text">Research</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
+        <li>
+    <a class="dropdown-item" href="./research.html">
+ <span class="dropdown-text">Research Projects</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./conferences.html">
+ <span class="dropdown-text">Conferences</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./slides/police-bcc/index.html" rel="noopener noreferrer" target="_blank">
+ <span class="dropdown-text">Presentation at WANDA</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./skills.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./cv.html"> 
-<span class="menu-text">Curriculum Vitae</span></a>
+<span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
@@ -154,10 +170,23 @@ ul.task-list li input[type="checkbox"] {
 </header><main class="content" id="quarto-document-content">
 
 <p><em>PhD Scholar at the Department of Statistics</em></p>
-<p>Federal University of Pernambuco (UFPE), Recife, Brasil</p>
+<p>Federal University of Pernambuco (UFPE), Recife, Brazil</p>
 <section id="research-area" class="level2">
 <h2 data-anchor-id="research-area">Research Area</h2>
 <p>Data Envelopment Analysis | Nonparametric Statistics | Machine Learning | Data Science</p>
+<div class="wanda-feature">
+<p><span class="wanda-eyebrow">CONFERENCE PRESENTATION</span></p>
+<section id="presentation-at-wanda" class="level2">
+<h2 data-anchor-id="presentation-at-wanda">Presentation at WANDA</h2>
+<p><strong>Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload</strong></p>
+<p><strong>Presenter:</strong> Muhammad Zikriya<br>
+<strong>Affiliation:</strong> Federal University of Pernambuco (UFPE) · GEDAI</p>
+<p><a href="slides/police-bcc/index.html" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><strong>View Presentation at WANDA</strong></a></p>
+<div class="wanda-logos">
+<p><img src="slides/police-bcc/UFPE_logo.png" alt="UFPE logo"> <img src="slides/police-bcc/GEDAI_logo.png" alt="GEDAI logo"></p>
+</div>
+</section>
+</div>
 
 
 </section>
@@ -253,7 +282,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/mzikriya1995\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

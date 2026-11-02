@@ -1,0 +1,55 @@
+/* Homepage presentation card; leaves the existing styles.css untouched. */
+.wanda-feature {
+  margin: 2.2rem auto 2.1rem;
+  max-width: 870px;
+  padding: 1.9rem 2.1rem;
+  border: 1px solid #dce8de;
+  border-left: 6px solid #437552;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f7fbf7 0%, #ffffff 72%);
+  box-shadow: 0 8px 28px rgba(28,66,44,.09);
+}
+.wanda-feature .wanda-eyebrow {
+  font-size: .76rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 750;
+  color: #426c4d;
+}
+.wanda-feature h2 {
+  margin: .65rem 0 .9rem;
+  color: #426c4d;
+  font-weight: 750;
+  border: none;
+}
+.wanda-feature p {line-height: 1.62;}
+.wanda-feature p strong {color: #68232a;}
+.wanda-feature .btn-primary {
+  background-color: #7f1525;
+  border-color: #7f1525;
+  color: #ffffff;
+  padding: .65rem 1rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+.wanda-feature .btn-primary:hover,
+.wanda-feature .btn-primary:focus {
+  background-color: #63101d;
+  border-color: #63101d;
+  color: #ffffff;
+}
+.wanda-logos {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2ebe3;
+}
+.wanda-logos img {max-width: 140px; height: 58px; object-fit: contain;}
+@media (max-width: 620px) {
+  .wanda-feature {padding: 1.35rem 1.15rem; margin: 1.5rem auto;}
+  .wanda-logos img {max-width: 115px; height: 50px;}
+}

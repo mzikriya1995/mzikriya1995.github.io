@@ -1,0 +1,16 @@
+---
+title: "Conferences"
+description: "Conference presentations by Muhammad Zikriya"
+toc: false
+---
+
+## Presentation at WANDA
+
+**Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload**
+
+Muhammad Zikriya · Universidade Federal de Pernambuco (UFPE) · GEDAI
+
+This conference presentation examines the operational efficiency of 26 police units using output-oriented BCC DEA, with staff and vehicles as inputs, criminal clear-ups as the desirable output, and crimes as an exogenous workload measure.
+
+[**View the WANDA presentation**](slides/police-bcc/index.html){.btn .btn-primary target="_blank" rel="noopener noreferrer"}
+

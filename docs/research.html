@@ -76,6 +76,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="wanda-card.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -107,17 +108,32 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./experience.html"> 
 <span class="menu-text">Experience</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./research.html" aria-current="page"> 
-<span class="menu-text">Research</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-research" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Research</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-research">    
+        <li>
+    <a class="dropdown-item" href="./research.html">
+ <span class="dropdown-text">Research Projects</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./conferences.html">
+ <span class="dropdown-text">Conferences</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./slides/police-bcc/index.html" rel="noopener noreferrer" target="_blank">
+ <span class="dropdown-text">Presentation at WANDA</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./skills.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./cv.html"> 
-<span class="menu-text">Curriculum Vitae</span></a>
+<span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
@@ -142,16 +158,12 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#research-profile" id="toc-research-profile" class="nav-link active" data-scroll-target="#research-profile">Research Profile</a></li>
   <li><a href="#research-projects" id="toc-research-projects" class="nav-link" data-scroll-target="#research-projects">Research Projects</a>
   <ul class="collapse">
-  <li><a href="#modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques" id="toc-modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques" class="nav-link" data-scroll-target="#modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques">Modeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques</a>
-  <ul class="collapse">
-  <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">Abstract</a></li>
-  <li><a href="#methods-and-tools" id="toc-methods-and-tools" class="nav-link" data-scroll-target="#methods-and-tools">Methods and Tools</a></li>
+  <li><a href="#modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques" id="toc-modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques" class="nav-link" data-scroll-target="#modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques">Modeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques</a></li>
+  <li><a href="#modified-exponential-type-variance-estimator-for-finite-population-variance" id="toc-modified-exponential-type-variance-estimator-for-finite-population-variance" class="nav-link" data-scroll-target="#modified-exponential-type-variance-estimator-for-finite-population-variance">Modified Exponential Type Variance Estimator for Finite Population Variance</a></li>
   </ul></li>
-  <li><a href="#modified-exponential-type-variance-estimator-for-finite-population-variance" id="toc-modified-exponential-type-variance-estimator-for-finite-population-variance" class="nav-link" data-scroll-target="#modified-exponential-type-variance-estimator-for-finite-population-variance">Modified Exponential Type Variance Estimator for Finite Population Variance</a>
+  <li><a href="#conferences" id="toc-conferences" class="nav-link" data-scroll-target="#conferences">Conferences</a>
   <ul class="collapse">
-  <li><a href="#abstract-1" id="toc-abstract-1" class="nav-link" data-scroll-target="#abstract-1">Abstract</a></li>
-  <li><a href="#research-area" id="toc-research-area" class="nav-link" data-scroll-target="#research-area">Research Area</a></li>
-  </ul></li>
+  <li><a href="#presentation-at-wanda" id="toc-presentation-at-wanda" class="nav-link" data-scroll-target="#presentation-at-wanda">Presentation at WANDA</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -215,14 +227,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques" class="level2 research-card">
 <h2 class="anchored" data-anchor-id="modeling-and-forecasting-the-inflation-rate-of-pakistan-using-time-series-machine-learning-and-deep-learning-techniques">Modeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques</h2>
 <p><strong>Master of Philosophy (MPhil) Research Project</strong><br>
-<strong>Abdul Wali Khan University Mardan</strong></p>
-<section id="abstract" class="level3">
-<h3 class="anchored" data-anchor-id="abstract">Abstract</h3>
-<p>Inflation forecasting is an important area of economic research because accurate prediction of inflation helps policymakers and decision-makers develop effective economic strategies. This research investigated the modeling and forecasting of Pakistan’s inflation rate using traditional time series models, machine learning techniques, and deep learning approaches.</p>
-<p>The study compared different forecasting methodologies to identify efficient models for predicting inflation trends. The implementation and analysis were performed using <strong>R and Python programming languages</strong>.</p>
-</section>
-<section id="methods-and-tools" class="level3">
-<h3 class="anchored" data-anchor-id="methods-and-tools">Methods and Tools</h3>
+<strong>Abdul Wali Khan University Mardan</strong> ### Abstract</p>
+<p>Inflation forecasting is an important area of economic research because accurate prediction of inflation helps policymakers and decision-makers develop effective economic strategies. This research investigated the modeling and forecasting of Pakistan’s inflation rate using traditional time series models, machine learning techniques, and deep learning approaches. The study compared different forecasting methodologies to identify efficient models for predicting inflation trends. The implementation and analysis were performed using <strong>R and Python programming languages</strong>. ### Methods and Tools</p>
 <ul>
 <li>Time Series Analysis</li>
 <li>Machine Learning Models</li>
@@ -232,18 +238,12 @@ ul.task-list li input[type="checkbox"] {
 <li>Python Programming</li>
 </ul>
 </section>
-</section>
 <section id="modified-exponential-type-variance-estimator-for-finite-population-variance" class="level2 research-card">
 <h2 class="anchored" data-anchor-id="modified-exponential-type-variance-estimator-for-finite-population-variance">Modified Exponential Type Variance Estimator for Finite Population Variance</h2>
 <p><strong>Bachelor Research Project</strong><br>
-<strong>Government Postgraduate College Mardan</strong></p>
-<section id="abstract-1" class="level3">
-<h3 class="anchored" data-anchor-id="abstract-1">Abstract</h3>
+<strong>Government Postgraduate College Mardan</strong> ### Abstract</p>
 <p>This research focused on the development of a modified exponential type variance estimator for estimating finite population variance. The study aimed to improve estimation efficiency by proposing an alternative estimator and evaluating its statistical properties.</p>
-<p>The research contributes to the field of survey sampling and finite population estimation by exploring improved variance estimation techniques.</p>
-</section>
-<section id="research-area" class="level3">
-<h3 class="anchored" data-anchor-id="research-area">Research Area</h3>
+<p>The research contributes to the field of survey sampling and finite population estimation by exploring improved variance estimation techniques. ### Research Area</p>
 <ul>
 <li>Sampling Theory</li>
 <li>Survey Statistics</li>
@@ -251,6 +251,16 @@ ul.task-list li input[type="checkbox"] {
 <li>Finite Population Sampling</li>
 </ul>
 </section>
+</section>
+<section id="conferences" class="level1">
+<h1>Conferences</h1>
+<section id="presentation-at-wanda" class="level3 research-card">
+<h3 class="anchored" data-anchor-id="presentation-at-wanda">Presentation at WANDA</h3>
+<p><strong>Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload</strong></p>
+<p><strong>Presenter:</strong> Muhammad Zikriya<br>
+<strong>Affiliation:</strong> Federal University of Pernambuco (UFPE) · GEDAI</p>
+<p>This presentation evaluates the operational efficiency of 26 police units using an output-oriented BCC Data Envelopment Analysis model. Police staff and vehicles are discretionary inputs, criminal clear-ups are the desirable output, and observed crimes are treated as exogenous workload. The study identifies nine strongly efficient units and benchmarks improvement opportunities using efficient peer units.</p>
+<p><a href="slides/police-bcc/index.html" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><strong>Open conference slides</strong></a></p>
 </section>
 
 
@@ -330,7 +340,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/mzikriya1995\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
