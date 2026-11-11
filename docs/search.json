@@ -1,5 +1,425 @@
 [
   {
+    "objectID": "slides/rnn-lstm/index.html#recurrent-neural-networks-lstms",
+    "href": "slides/rnn-lstm/index.html#recurrent-neural-networks-lstms",
+    "title": "Muhammad Zikriya",
+    "section": "Recurrent Neural Networks & LSTMs",
+    "text": "Recurrent Neural Networks & LSTMs\n\nDEEP LEARNING FOR SEQUENTIAL DATA\n\n\nFrom recurrent states to gated memory\n\n\nMuhammad Zikriya\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOpening (instructor): Introduce sequential data, recurrent networks, and why gated memory is useful. Explain that the lecture combines mathematical intuition, worked calculations, and experiments in R and Python."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#why-does-order-matter",
+    "href": "slides/rnn-lstm/index.html#why-does-order-matter",
+    "title": "Muhammad Zikriya",
+    "section": "Why does order matter?",
+    "text": "Why does order matter?\n\n\n\n\n“The dog chased the child” vs “The child chased the dog”.\nIn forecasting, yesterday may help predict tomorrow.\nIn monitoring, an unusual pattern may matter more than one unusual value.\n\n\nA sequence is more than a set of observations.\n\n\n\n\n\nValues are observed in a particular order\n\n\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Introduction.\nAsk: If we permute the order of a sentence or hourly temperature readings, does the interpretation remain? Not usually. Point out that ordering, dependency, and variable sequence lengths motivate recurrent computation."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#prediction-challenge-what-comes-next",
+    "href": "slides/rnn-lstm/index.html#prediction-challenge-what-comes-next",
+    "title": "Muhammad Zikriya",
+    "section": "Prediction challenge: what comes next?",
+    "text": "Prediction challenge: what comes next?\n\n\nQuick poll (40 seconds): 2, 4, 6, 8, ?\n\n\nEasy when the rule is local and clear: 10.\n\n\nBut real sequences can contain delayed effects, noise, nonlinearity, and evolving regimes.\n\n\nA model needs a representation of what has happened so far.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Introduction.\nReveal the obvious next term after students respond. Explain that realistic sequences are not tidy arithmetic progressions; prior context can be uncertain or many steps old. Transition to hidden state as a learned summary of history."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#learning-roadmap",
+    "href": "slides/rnn-lstm/index.html#learning-roadmap",
+    "title": "Muhammad Zikriya",
+    "section": "Learning roadmap",
+    "text": "Learning roadmap\n\n\nRepresent sequential data and tasks.\nDerive the RNN hidden-state update.\nUnderstand BPTT and gradient instability.\nDerive the LSTM gates and cell-state update.\nImplement one-step forecasting in R and Python.\nEvaluate against a sensible baseline.\n\n\nOur teaching sequence: intuition → architecture → mathematics → calculation → code → interpretation.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Introduction.\nState what success looks like: students can recognize input shapes, compute a scalar RNN step, explain vanishing gradients, reason through gate values, and critique a forecasting comparison. Keep this motivational rather than technical."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#what-is-sequential-data",
+    "href": "slides/rnn-lstm/index.html#what-is-sequential-data",
+    "title": "Muhammad Zikriya",
+    "section": "What is sequential data?",
+    "text": "What is sequential data?\n\nA sequence is an ordered collection:\n\\[\\mathbf{x}_{1:T}=(\\mathbf{x}_1,\\mathbf{x}_2,\\ldots,\\mathbf{x}_T).\\]\n\n\\(t\\) indexes position or time.\n\\(\\mathbf{x}_t\\in\\mathbb{R}^{F}\\) can contain multiple features.\nCurrent observations may depend on earlier ones.\n\n\n\n\nExample observations along a timeline\n\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Sequential data.\nExplain the difference between a time-series dataset and an unordered table. Real datasets can have regularly spaced timestamps, irregular intervals, and missing data; recurrent layers do not automatically solve irregular sampling. Describe x_t as a vector when there are several sensors."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#three-application-families",
+    "href": "slides/rnn-lstm/index.html#three-application-families",
+    "title": "Muhammad Zikriya",
+    "section": "Three application families",
+    "text": "Three application families\n\n\n\nForecasting\nPredict future demand, load, or temperature.\nLanguage\nClassify sentiment or tag words in sentences.\nMonitoring\nScore multivariate sensor windows for abnormal behavior.\n\n\n\n\nExample of changing sensor readings\n\n\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Sequential data.\nMake clear that anomaly detection can be prediction-based, reconstruction-based, or discriminative. Today the detailed implementation is forecasting; text and anomaly detection are conceptual transfer examples."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#why-not-just-a-feedforward-network",
+    "href": "slides/rnn-lstm/index.html#why-not-just-a-feedforward-network",
+    "title": "Muhammad Zikriya",
+    "section": "Why not just a feedforward network?",
+    "text": "Why not just a feedforward network?\n\n\nA feedforward network can learn from a fixed-size lag window—and may work very well.\n\n\nBut its input length is chosen in advance.\nA recurrent model updates a state at each timestep.\nThe same transition function is reused as a sequence grows.\n\n\nRNNs provide an explicit sequential inductive bias, not a guarantee of better accuracy.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Sequential data.\nAvoid the misleading claim that feedforward networks cannot handle sequences. Explain that one can flatten 24 historical readings into a 24-dimensional vector, but recurrence processes ordered inputs with shared state-update parameters."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#sequence-to-output-patterns",
+    "href": "slides/rnn-lstm/index.html#sequence-to-output-patterns",
+    "title": "Muhammad Zikriya",
+    "section": "Sequence-to-output patterns",
+    "text": "Sequence-to-output patterns\n\n\n\n\nDifferent input/output patterns\n\n\n\n\nMany → one: sentiment classification or next-value forecasting.\nMany → many: word tagging or per-timestep anomaly scores.\nOne → many: output sequence generation with an appropriate decoder.\n\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Sequential data.\nPoint at the corresponding outputs. Explain that many-to-one often uses a final state, and many-to-many often uses every state. One-to-many tasks typically require a decoder and cannot be fully specified by drawing only a single recurrent cell."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#tensor-shapes-the-practical-foundation",
+    "href": "slides/rnn-lstm/index.html#tensor-shapes-the-practical-foundation",
+    "title": "Muhammad Zikriya",
+    "section": "Tensor shapes: the practical foundation",
+    "text": "Tensor shapes: the practical foundation\n\nFor batch-first recurrent layers:\n\\[\\boxed{X\\in\\mathbb{R}^{N\\times T\\times F}}\\]\n\n\n\nSymbol\nMeaning\nExample\n\n\n\n\n\\(N\\)\nbatch size\n32\n\n\n\\(T\\)\ntimesteps (lookback)\n24\n\n\n\\(F\\)\nfeatures per step\n1\n\n\n\n\nWhat shape represents 32 windows, each with 24 days and 3 sensors? (32, 24, 3)\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Sequential data.\nAsk students for the three numbers before revealing. Python PyTorch uses batch_first=True; Keras typically expects (batch, timesteps, features). Explain that training examples are not independent across chronological windows even when organized into batches."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#the-key-idea-carry-a-hidden-state",
+    "href": "slides/rnn-lstm/index.html#the-key-idea-carry-a-hidden-state",
+    "title": "Muhammad Zikriya",
+    "section": "The key idea: carry a hidden state",
+    "text": "The key idea: carry a hidden state\n\n\n\n\nA recurrent cell and its feedback\n\n\nAt each step:\n\\[\\boxed{\\mathbf{h}_t=f(\\mathbf{x}_t,\\mathbf{h}_{t-1})}\\]\n\n\\(\\mathbf{h}_t\\) is a learned representation of the sequence prefix—not a perfect copy of the past.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Sequential data.\nExplain hidden state as a compressed, task-relevant summary. The state updates using the current input and previous state; information can be lost. Transition to the precise tanh update next."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#what-is-a-vanilla-rnn",
+    "href": "slides/rnn-lstm/index.html#what-is-a-vanilla-rnn",
+    "title": "Muhammad Zikriya",
+    "section": "What is a vanilla RNN?",
+    "text": "What is a vanilla RNN?\n\n\nA recurrent transition maps current input and previous hidden state to a new hidden state.\nA readout layer maps hidden state to a prediction.\nWeights are shared across sequence positions.\n\n\n\n\nSingle recurrent block\n\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Vanilla RNNs.\nEmphasize that unrolling is a computational diagram, not physically stacking separate independently trained networks. Different timesteps use the exact same transition parameters. Hidden state is not automatically long-term memory."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#inside-a-recurrent-cell",
+    "href": "slides/rnn-lstm/index.html#inside-a-recurrent-cell",
+    "title": "Muhammad Zikriya",
+    "section": "Inside a recurrent cell",
+    "text": "Inside a recurrent cell\n\n\n\n\\[\\mathbf{a}_t=W_{xh}\\mathbf{x}_t+W_{hh}\\mathbf{h}_{t-1}+\\mathbf{b}_h\\]\n\\[\\mathbf{h}_t=\\tanh(\\mathbf{a}_t)\\]\n\n\\(W_{xh}\\) transforms input to hidden.\n\\(W_{hh}\\) transfers previous hidden information.\n\\(\\tanh\\) bounds the state values to \\((-1,1)\\).\n\n\n\n\n\nRecurrent feedback cell\n\n\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Vanilla RNNs.\nAnnotate each term. Explicitly note that tanh is an activation choice for the classical vanilla RNN; other nonlinearities are possible. Weight shapes are hidden_size × input_size and hidden_size × hidden_size."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#unrolling-through-time",
+    "href": "slides/rnn-lstm/index.html#unrolling-through-time",
+    "title": "Muhammad Zikriya",
+    "section": "Unrolling through time",
+    "text": "Unrolling through time\n\n\n\n\nFour timesteps of the same RNN with shared parameters\n\n\n\nOne diagram for each timestep; one shared set of trainable parameters.\n\n\nDependencies extend backward along the chain of hidden states.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Vanilla RNNs.\nShow x1 to h1, then x2 to h2, and so on. Tie to matrix multiplication and the chain rule. Explain why each backward path becomes longer with temporal distance."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#hidden-state-equation-and-dimensions",
+    "href": "slides/rnn-lstm/index.html#hidden-state-equation-and-dimensions",
+    "title": "Muhammad Zikriya",
+    "section": "Hidden-state equation and dimensions",
+    "text": "Hidden-state equation and dimensions\n\n\\[\\boxed{\\mathbf{h}_t=\\tanh(W_{xh}\\mathbf{x}_t+W_{hh}\\mathbf{h}_{t-1}+\\mathbf{b}_h)}\\]\nLet \\(F\\) = input features and \\(H\\) = hidden units.\n\\[W_{xh}\\in\\mathbb{R}^{H\\times F},\\quad W_{hh}\\in\\mathbb{R}^{H\\times H},\\quad \\mathbf{b}_h\\in\\mathbb{R}^{H}.\\]\n\nFor \\(F=3\\), \\(H=8\\): input-to-hidden has 24 weights; hidden-to-hidden has 64 weights, excluding biases.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Vanilla RNNs.\nCheck shape compatibility: multiplying H×F by F×1 yields H×1, and H×H by H×1 also yields H×1. The 24 and 64 numbers are clear even before asking about total parameters."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#worked-example-two-rnn-steps",
+    "href": "slides/rnn-lstm/index.html#worked-example-two-rnn-steps",
+    "title": "Muhammad Zikriya",
+    "section": "Worked example: two RNN steps",
+    "text": "Worked example: two RNN steps\n\nScalar values: \\(h_0=0\\), \\(W_{xh}=0.5\\), \\(W_{hh}=0.4\\), \\(b=0\\); \\(x_1=1\\), \\(x_2=0\\).\n\n\\[h_1=\\tanh(0.5\\cdot1+0.4\\cdot0)=\\tanh(0.5)\\approx0.4621.\\]\n\n\n\\[h_2=\\tanh(0.5\\cdot0+0.4\\cdot0.4621)\\approx0.1828.\\]\n\n\nEven with \\(x_2=0\\), the second state can carry information from \\(x_1\\).\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Vanilla RNNs.\nGive students 20 seconds to calculate h1. Then reveal h2. Numerical values are rounded, so the final result is approximate. Focus on the role of the previous hidden state rather than the tanh function itself."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#how-an-rnn-produces-an-output",
+    "href": "slides/rnn-lstm/index.html#how-an-rnn-produces-an-output",
+    "title": "Muhammad Zikriya",
+    "section": "How an RNN produces an output",
+    "text": "How an RNN produces an output\n\nA hidden state is usually not the final prediction.\n\\[\\hat{\\mathbf{y}}_t=g(W_{hy}\\mathbf{h}_t+\\mathbf{b}_y)\\]\n\nRegression: often \\(g(z)=z\\).\nBinary classification: often \\(g(z)=\\sigma(z)\\).\nMulticlass classification: often softmax.\n\n\nMany-to-one forecasting: pass the last hidden state to a regression head.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Vanilla RNNs.\nDiscuss that output activation depends on the task and loss function, not on RNN versus LSTM. For classification with cross-entropy, some libraries take logits directly without explicit sigmoid or softmax in forward()."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#why-weight-sharing-matters",
+    "href": "slides/rnn-lstm/index.html#why-weight-sharing-matters",
+    "title": "Muhammad Zikriya",
+    "section": "Why weight sharing matters",
+    "text": "Why weight sharing matters\n\n\n\n\nThe same \\(W_{xh}\\), \\(W_{hh}\\), and \\(b_h\\) act at every step.\nA learned pattern can be applied at different positions.\nParameter count does not grow with the number of unrolled timesteps.\n\n\n\n\n\nShared recurrent transitions\n\n\n\n\nComputation grows with sequence length; the core parameter count does not.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Vanilla RNNs.\nClarify the distinction between the number of repeated computational operations and number of learned weights. This is important for understanding runtime complexity and why long sequences can still be expensive."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#application-short-text-sentiment",
+    "href": "slides/rnn-lstm/index.html#application-short-text-sentiment",
+    "title": "Muhammad Zikriya",
+    "section": "Application: short text sentiment",
+    "text": "Application: short text sentiment\n\n\nInput: “The movie was surprisingly good.”\n\n\nConvert tokens to numeric embeddings.\nUpdate the hidden state once per token.\nMap the final hidden state to a sentiment logit.\nOptimize classification loss on labeled examples.\n\n\nWould exchanging “good” and “not” potentially change the label? Yes.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Vanilla RNNs.\nThis is a conceptual demonstration rather than a trained classifier. Explain embeddings are dense vectors representing words or subwords. RNNs see token order; the model must still learn semantics from data and labels."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#activity-calculate-the-next-state",
+    "href": "slides/rnn-lstm/index.html#activity-calculate-the-next-state",
+    "title": "Muhammad Zikriya",
+    "section": "Activity: calculate the next state",
+    "text": "Activity: calculate the next state\n\n\nFor \\(h_{t-1}=0.2\\), \\(x_t=-1\\), \\(W_{xh}=0.6\\), \\(W_{hh}=0.5\\), \\(b=0.1\\):\n\\[h_t=\\tanh(0.6x_t+0.5h_{t-1}+0.1)\\]\nCompute \\(h_t\\) and interpret its sign. (90 seconds)\n\n\nInside \\(\\tanh\\): \\(-0.6+0.1+0.1=-0.4\\); therefore \\(h_t\\approx-0.3799\\).\n\n\n\nInstructor timing: approximately 3 minute(s). Section: Vanilla RNNs.\nAllocate about 90 seconds for students to work and 90 seconds to discuss. The negative state value is a hidden representation, not necessarily a negative forecast. Ask one person to explain where the 0.1 term from the previous state came from."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#rnn-summary-and-its-limitation",
+    "href": "slides/rnn-lstm/index.html#rnn-summary-and-its-limitation",
+    "title": "Muhammad Zikriya",
+    "section": "RNN summary and its limitation",
+    "text": "RNN summary and its limitation\n\n\n\nWhat works\n\nOrder-aware state updates.\nShared weights over time.\nFlexible sequence lengths.\n\n\nWhat is difficult\n\nLong-range dependencies.\nSequential computation.\nUnstable gradient propagation.\n\n\n\nQuestion for the next section: why can early observations have so little influence on learning?\n\n\n\nInstructor timing: approximately 3 minute(s). Section: Vanilla RNNs.\nUse this slide to consolidate and transition. State that an RNN may learn short-range patterns well, but learning some distant dependencies can be hard because optimization signals must pass through many transitions."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#how-does-the-network-learn",
+    "href": "slides/rnn-lstm/index.html#how-does-the-network-learn",
+    "title": "Muhammad Zikriya",
+    "section": "How does the network learn?",
+    "text": "How does the network learn?\n\nFor a sequence regression problem, a common objective is:\n\\[\\mathcal{L}(\\theta)=\\frac1N\\sum_{i=1}^N\\big(\\hat y_i-y_i\\big)^2.\\]\nParameter updates depend on:\n\\[\\theta\\leftarrow\\theta-\\eta\\nabla_\\theta\\mathcal{L}.\\]\n\nThe gradient must account for how an earlier hidden state influences later predictions.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: BPTT & gradients.\nDefine theta as all trainable parameters, eta as a learning rate, and MSE as a simple demonstration loss. Do not confuse an observation index i with sequence time index t. Loss may be summed over outputs at every timestep, depending on task."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#backpropagation-through-time-bptt",
+    "href": "slides/rnn-lstm/index.html#backpropagation-through-time-bptt",
+    "title": "Muhammad Zikriya",
+    "section": "Backpropagation Through Time (BPTT)",
+    "text": "Backpropagation Through Time (BPTT)\n\n\n\n\nForward information and backward gradients\n\n\n\nUnroll the network for the observed window.\nCompute predictions and loss.\nApply the chain rule through all unrolled operations.\nAccumulate gradients for shared weights.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: BPTT & gradients.\nExplain that ordinary backpropagation is applied to the unfolded computational graph. Shared weight matrices receive contributions from multiple timesteps. Many training frameworks perform BPTT automatically with autodifferentiation."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#why-long-range-gradients-are-difficult",
+    "href": "slides/rnn-lstm/index.html#why-long-range-gradients-are-difficult",
+    "title": "Muhammad Zikriya",
+    "section": "Why long-range gradients are difficult",
+    "text": "Why long-range gradients are difficult\n\nFor \\(k&lt;t\\), the chain rule gives:\n\\[\\frac{\\partial\\mathbf h_t}{\\partial\\mathbf h_k}=\\prod_{j=k+1}^{t}\\frac{\\partial\\mathbf h_j}{\\partial\\mathbf h_{j-1}}.\\]\n\nRepeated Jacobian matrix products can shrink or amplify gradients depending on their singular values, the weights, and activation derivatives.\n\n\nLong dependency paths can be hard to optimize even when information would be useful.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: BPTT & gradients.\nUse the product notation as a conceptual shorthand: matrix multiplication order is important. Explain that it is the local derivatives, not merely the weights, that determine gradient propagation. Avoid claiming every RNN necessarily has vanishing gradients."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#vanishing-gradients-a-toy-illustration",
+    "href": "slides/rnn-lstm/index.html#vanishing-gradients-a-toy-illustration",
+    "title": "Muhammad Zikriya",
+    "section": "Vanishing gradients: a toy illustration",
+    "text": "Vanishing gradients: a toy illustration\n\n\n\n\nToy repeated factors illustrating gradient shrinking and growth\n\n\n\nFor a scalar repeated factor \\(0.65\\): \\(0.65^{20}\\approx0.00018\\).\n\nSmall updates to parameters handling distant history → slow or ineffective learning.\n\n\nInstructor timing: approximately 2 minute(s). Section: BPTT & gradients.\nIdentify this chart as a stylized scalar analogy, not gradients measured in the network. The colored rising line is an exploding case and the declining line a vanishing case; the y axis is log scale. State that actual RNN gradients involve matrices and nonlinearities."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#exploding-gradients-instability",
+    "href": "slides/rnn-lstm/index.html#exploding-gradients-instability",
+    "title": "Muhammad Zikriya",
+    "section": "Exploding gradients: instability",
+    "text": "Exploding gradients: instability\n\nA scalar repeated factor above 1 grows rapidly:\n\\[1.35^{20}\\approx404.\\]\n\nUpdates may become erratic or numerically unstable.\nGradient norm clipping limits the size of computed updates.\nClipping is useful but does not create long-term memory.\n\n\nVanishing and exploding gradients are distinct phenomena requiring different mitigation strategies.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: BPTT & gradients.\nExplain that the displayed 404 is an illustrative scaling product, not a measured gradient. Show clipping as stabilizing optimization, not necessarily making generalization better. Point out that normalization and careful initialization can also help."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#training-strategies-and-tradeoffs",
+    "href": "slides/rnn-lstm/index.html#training-strategies-and-tradeoffs",
+    "title": "Muhammad Zikriya",
+    "section": "Training strategies and tradeoffs",
+    "text": "Training strategies and tradeoffs\n\n\n\n\n\n\n\n\n\nStrategy\nMain purpose\nLimitation\n\n\n\n\nGradient clipping\nBound excessive gradient norm\nDoes not fix vanishing\n\n\nTruncated BPTT\nReduce backward graph length\nLimits learning across longer spans\n\n\nOrthogonal initialization\nImprove recurrent dynamics\nNo universal solution\n\n\nGated cells (LSTM/GRU)\nLearn selective memory updates\nMore parameters and compute\n\n\n\n\n\nInstructor timing: approximately 2 minute(s). Section: BPTT & gradients.\nDefine truncated BPTT correctly: the state can be carried forward while the gradient graph is detached at a chosen horizon. This distinguishes a finite training horizon from simply discarding all previous information."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#thinkpairshare-gradient-directions",
+    "href": "slides/rnn-lstm/index.html#thinkpairshare-gradient-directions",
+    "title": "Muhammad Zikriya",
+    "section": "Think–pair–share: gradient directions",
+    "text": "Think–pair–share: gradient directions\n\n\nFor a simplified scalar chain of 15 derivatives:\n\nWhat happens if the average multiplier is 0.7?\nWhat happens if it is 1.3?\nWhy is this only an analogy for a real RNN?\n\n\n\n\\(0.7^{15}\\approx0.00475\\); \\(1.3^{15}\\approx51.2\\).\nThe actual system multiplies Jacobians, not one scalar factor.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: BPTT & gradients.\nSpend about one minute collecting answers. Emphasize that students should not overgeneralize from the scalar example. If time allows, connect answers to gradients of recurrent weights near the beginning of a long sequence."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#why-better-memory-is-needed",
+    "href": "slides/rnn-lstm/index.html#why-better-memory-is-needed",
+    "title": "Muhammad Zikriya",
+    "section": "Why better memory is needed",
+    "text": "Why better memory is needed\n\n\n\nA conventional RNN repeatedly overwrites a hidden representation.\nA gated recurrent design can instead learn to:\n\nretain old information,\nwrite selected new information,\nexpose relevant information.\n\n\n\n\n\nGate concept\n\n\n\n\n\nInstructor timing: approximately 2 minute(s). Section: BPTT & gradients.\nTransition to LSTM intuitively: a model should choose which information to keep and which to replace. Do not claim the LSTM perfectly preserves long-term dependencies; it improves gradient paths under suitable gate settings."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#from-rnn-to-lstm",
+    "href": "slides/rnn-lstm/index.html#from-rnn-to-lstm",
+    "title": "Muhammad Zikriya",
+    "section": "From RNN to LSTM",
+    "text": "From RNN to LSTM\n\nLong Short-Term Memory was introduced to improve learning across long dependencies.\n\nOriginal work: Hochreiter & Schmidhuber (1997).\nModern widely used equations include the forget gate, introduced later.\nAn LSTM contains a cell state in addition to a hidden state.\n\n\nMemory is controlled by learned gates, not simply carried forward unchanged.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nGive historical context carefully: original LSTM 1997 and the learnable forget gate described by Gers et al. circa 2000. Today we teach the standard forget/input/output gated LSTM. Avoid saying LSTMs solve vanishing gradients under all conditions."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#the-modern-lstm-cell",
+    "href": "slides/rnn-lstm/index.html#the-modern-lstm-cell",
+    "title": "Muhammad Zikriya",
+    "section": "The modern LSTM cell",
+    "text": "The modern LSTM cell\n\n\n\n\nSchematic of cell state and the four common transforms\n\n\n\nSimplified pedagogical schematic (not a complete tensor-level wiring diagram). The next slides define each gate mathematically.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nPresent the cell state as the long pathway and identify forget, input, candidate, and output transformations. The candidate is not a sigmoid gate; it is usually tanh. Note the diagram is conceptual, while the equations are authoritative."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#two-states-c_t-versus-h_t",
+    "href": "slides/rnn-lstm/index.html#two-states-c_t-versus-h_t",
+    "title": "Muhammad Zikriya",
+    "section": "Two states: \\(c_t\\) versus \\(h_t\\)",
+    "text": "Two states: \\(c_t\\) versus \\(h_t\\)\n\n\n\n\nCell state \\(\\mathbf c_t\\)\nCarries an evolving memory representation, updated additively by forgetting and writing.\n\n\n\nHidden state \\(\\mathbf h_t\\)\nControls what the cell exposes to the next layer or the prediction head.\n\n\n\\[\\mathbf c_t=\\mathbf f_t\\odot\\mathbf c_{t-1}+\\mathbf i_t\\odot\\tilde{\\mathbf c}_t\\]\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nStudents often confuse the two states. Emphasize that the cell state is internal memory and the hidden state is externally exposed output, although both are passed through recurrent computation. Both are vectors with hidden_size components."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#what-is-a-gate",
+    "href": "slides/rnn-lstm/index.html#what-is-a-gate",
+    "title": "Muhammad Zikriya",
+    "section": "What is a gate?",
+    "text": "What is a gate?\n\n\n\n\nHow a gate scales a signal\n\n\n\\[\\sigma(z)=\\frac{1}{1+e^{-z}}\\in(0,1)\\]\n\nNear 0: suppress an information component.\nNear 1: pass most of that component.\nBetween: retain a fraction.\n\n\nGates are vectors; each memory component can be controlled differently.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nPoint out elementwise sigmoid, not a binary hard switch. A gate can take intermediate values. Demonstrate 0.8 times 0.4 gives 0.32. The gate values emerge from a learned affine transform of current input and previous hidden state."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#forget-gate-what-to-retain",
+    "href": "slides/rnn-lstm/index.html#forget-gate-what-to-retain",
+    "title": "Muhammad Zikriya",
+    "section": "Forget gate: what to retain?",
+    "text": "Forget gate: what to retain?\n\n\\[\\boxed{\\mathbf f_t=\\sigma(W_f[\\mathbf h_{t-1},\\mathbf x_t]+\\mathbf b_f)}\\]\nThe retained previous memory is:\n\\[\\mathbf f_t\\odot\\mathbf c_{t-1}\\]\n\nIf \\(c_{t-1}=0.8\\) and \\(f_t=0.25\\), retained contribution is 0.20.\n\n\nThe forget gate controls the old component of memory.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nExplain concatenation notation, which is a convenient presentation equivalent to separate linear transformations of h and x. Emphasize the scalar example is one component of a vector memory."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#input-gate-what-to-write",
+    "href": "slides/rnn-lstm/index.html#input-gate-what-to-write",
+    "title": "Muhammad Zikriya",
+    "section": "Input gate: what to write?",
+    "text": "Input gate: what to write?\n\n\\[\\boxed{\\mathbf i_t=\\sigma(W_i[\\mathbf h_{t-1},\\mathbf x_t]+\\mathbf b_i)}\\]\n\nHigh \\(i_t\\): permit a stronger new-information contribution.\nLow \\(i_t\\): reduce the candidate’s influence.\nThe gate is learned from both current input and previous hidden state.\n\n\nIf \\(i_t=0\\), can the candidate change the cell state at this step? No, not through the input term.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nDistinguish input gate from input x_t; the gate is a learned controller that decides how much candidate content can enter memory. Cell state may still change via forgetting."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#candidate-memory-what-to-propose",
+    "href": "slides/rnn-lstm/index.html#candidate-memory-what-to-propose",
+    "title": "Muhammad Zikriya",
+    "section": "Candidate memory: what to propose?",
+    "text": "Candidate memory: what to propose?\n\n\\[\\boxed{\\tilde{\\mathbf c}_t=\\tanh(W_c[\\mathbf h_{t-1},\\mathbf x_t]+\\mathbf b_c)}\\]\n\nCandidate values lie between −1 and 1.\nUnlike the sigmoid gate, the candidate can be positive or negative.\nThe actual contribution is \\(\\mathbf i_t\\odot\\tilde{\\mathbf c}_t\\).\n\n\nGate × candidate = controlled new information.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nStudents should learn that the candidate is not an extra independent memory or a sigmoid gate. It proposes values that the input gate scales. Mention that activation conventions can vary among implementation variants."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#cell-state-update-retain-write",
+    "href": "slides/rnn-lstm/index.html#cell-state-update-retain-write",
+    "title": "Muhammad Zikriya",
+    "section": "Cell-state update: retain + write",
+    "text": "Cell-state update: retain + write\n\n\\[\\boxed{\\mathbf c_t=\\mathbf f_t\\odot\\mathbf c_{t-1}+\\mathbf i_t\\odot\\tilde{\\mathbf c}_t}\\]\n\nRetain: \\(f_t\\odot c_{t-1}\\)\nWrite: \\(i_t\\odot\\tilde c_t\\)\n\n\nThe additive path is a central reason LSTM can propagate some gradients more effectively than a conventional RNN.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nUse a physical notebook analogy if needed, but return to the actual equation. The cell state is not bounded to [0,1]; it can exceed 1 or become negative because the update is additive."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#output-gate-what-to-reveal",
+    "href": "slides/rnn-lstm/index.html#output-gate-what-to-reveal",
+    "title": "Muhammad Zikriya",
+    "section": "Output gate: what to reveal?",
+    "text": "Output gate: what to reveal?\n\n\\[\\boxed{\\mathbf o_t=\\sigma(W_o[\\mathbf h_{t-1},\\mathbf x_t]+\\mathbf b_o)}\\]\nThe output gate controls the visible hidden state, rather than directly overwriting cell memory.\n\n\\[\\mathbf h_t=\\mathbf o_t\\odot\\tanh(\\mathbf c_t)\\]\n\n\nIf \\(o_t\\approx0\\), is the cell state necessarily erased? No.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nA low output gate can conceal information from the exposed hidden state while maintaining it in cell state. Explain that the tanh maps cell-state values into a bounded range before output gating."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#hidden-state-calculation",
+    "href": "slides/rnn-lstm/index.html#hidden-state-calculation",
+    "title": "Muhammad Zikriya",
+    "section": "Hidden-state calculation",
+    "text": "Hidden-state calculation\n\nExample: \\(c_t=0.62\\) and \\(o_t=0.7\\).\n\\[h_t=0.7\\,\\tanh(0.62)\\approx0.3858.\\]\n\nThe same cell state can produce different hidden states depending on the output gate.\n\n\nMany-to-one forecasting: a dense layer maps the final \\(h_T\\) to \\(\\hat y\\).\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nDemonstrate that tanh(0.62) is about 0.551, giving h about 0.386. The output gate gates the exposure of current cell state to the next layer or output head."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#all-lstm-equations-on-one-slide",
+    "href": "slides/rnn-lstm/index.html#all-lstm-equations-on-one-slide",
+    "title": "Muhammad Zikriya",
+    "section": "All LSTM equations on one slide",
+    "text": "All LSTM equations on one slide\n\n\n\\[\\begin{aligned}\n\\mathbf f_t&=\\sigma(W_f[\\mathbf h_{t-1},\\mathbf x_t]+\\mathbf b_f)\\\\\n\\mathbf i_t&=\\sigma(W_i[\\mathbf h_{t-1},\\mathbf x_t]+\\mathbf b_i)\\\\\n\\tilde{\\mathbf c}_t&=\\tanh(W_c[\\mathbf h_{t-1},\\mathbf x_t]+\\mathbf b_c)\\\\\n\\mathbf c_t&=\\mathbf f_t\\odot\\mathbf c_{t-1}+\\mathbf i_t\\odot\\tilde{\\mathbf c}_t\\\\\n\\mathbf o_t&=\\sigma(W_o[\\mathbf h_{t-1},\\mathbf x_t]+\\mathbf b_o)\\\\\n\\mathbf h_t&=\\mathbf o_t\\odot\\tanh(\\mathbf c_t)\n\\end{aligned}\\]\n\n\nForget → propose/write → update cell → expose hidden.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nIdentify each symbol one more time. Explain W matrices include a concatenation of hidden and input transformations, and ⊙ means elementwise multiplication. This is the modern no-peephole pedagogical variant."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#worked-example-one-complete-lstm-step",
+    "href": "slides/rnn-lstm/index.html#worked-example-one-complete-lstm-step",
+    "title": "Muhammad Zikriya",
+    "section": "Worked example: one complete LSTM step",
+    "text": "Worked example: one complete LSTM step\n\nGiven \\(c_{t-1}=0.4\\), \\(f_t=0.8\\), \\(i_t=0.5\\), \\(\\tilde c_t=0.6\\), \\(o_t=0.7\\):\n\n\\[c_t=0.8(0.4)+0.5(0.6)=0.32+0.30=\\boxed{0.62}.\\]\n\n\n\\[h_t=0.7\\tanh(0.62)\\approx\\boxed{0.3858}.\\]\n\n\nThe gate values are given here; in a trained model they are learned functions of the input and previous hidden state.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nAsk students to separate the two memory contributions before doing the final addition. Be explicit that values of f,i,o have been provided for this arithmetic exercise rather than derived from gate matrices."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#why-lstm-can-help-gradients",
+    "href": "slides/rnn-lstm/index.html#why-lstm-can-help-gradients",
+    "title": "Muhammad Zikriya",
+    "section": "Why LSTM can help gradients",
+    "text": "Why LSTM can help gradients\n\nHolding the gate values fixed locally, the cell-state update includes:\n\\[\\frac{\\partial\\mathbf c_t}{\\partial\\mathbf c_{t-1}}\\approx\\mathrm{diag}(\\mathbf f_t).\\]\n\nIf a forget component is near 1, it can preserve a gradient pathway.\nThe state update has an additive branch, reducing reliance on repeated saturated nonlinear transformations.\nFull derivatives include dependence of the gates on the previous state.\n\n\nImproved gradient pathways—not a mathematical guarantee against vanishing gradients.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nThe approximation deliberately treats gate values as locally fixed; in the full network gates depend on h and therefore indirectly on past cell state. Avoid an overconfident claim that gradients never vanish. Discuss saturation and gate choices."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#activity-control-the-gates",
+    "href": "slides/rnn-lstm/index.html#activity-control-the-gates",
+    "title": "Muhammad Zikriya",
+    "section": "Activity: control the gates",
+    "text": "Activity: control the gates\n\n\nAssume \\(c_{t-1}=0.7\\) and candidate \\(\\tilde c_t=-0.4\\).\nCase A: \\(f_t=1, i_t=0\\) → new \\(c_t\\)?\nCase B: \\(f_t=0, i_t=1\\) → new \\(c_t\\)?\nCase C: \\(f_t=0.5, i_t=0.5\\) → new \\(c_t\\)?\n\n\nSolutions: A = 0.7, B = −0.4, C = 0.15.\n\n\nIf \\(o_t=0\\), then \\(h_t=0\\) regardless of these cell values.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: LSTM.\nAllocate one minute for arithmetic and one minute for interpretation. The exact gate values 0 and 1 are idealized endpoints; sigmoid outputs approach them but ordinarily do not equal them with finite logits. Reinforce that output gating does not delete cell state."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#practical-case-study-forecast-one-step",
+    "href": "slides/rnn-lstm/index.html#practical-case-study-forecast-one-step",
+    "title": "Muhammad Zikriya",
+    "section": "Practical case study: forecast one step",
+    "text": "Practical case study: forecast one step\n\nGoal: predict \\(y_t\\) from the previous 24 values.\n\\[\\underbrace{(y_{t-24},\\ldots,y_{t-1})}_{\\text{model input}}\\longrightarrow\\hat y_t\\]\n\nWe use a synthetic, reproducible 500-observation series with trend, periodic structure, and noise.\n\n\n\n\nTrain / validation / test split\n\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nExplain the synthetic data is not a real-world empirical benchmark. The experiment uses one-step forecasting, 24 lookback timesteps, and one numeric target. More complex tasks can be added after students understand this pipeline."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#chronological-split-and-leakage",
+    "href": "slides/rnn-lstm/index.html#chronological-split-and-leakage",
+    "title": "Muhammad Zikriya",
+    "section": "Chronological split and leakage",
+    "text": "Chronological split and leakage\n\n\n\n\nTrain, validation, and test intervals\n\n\n\nFirst 300 observations: training.\nNext 100: validation / early stopping.\nLast 100: untouched test targets.\nEstimate the normalization mean and SD on training observations only.\n\n\nAt each prediction time, inputs come only from earlier observations.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nClarify that validation and test windows can include historical observations from the previous partition, but never future target values. The model is evaluated on targets in each chronological partition. Random splitting of overlapping windows would leak information and inflate test performance."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#creating-sliding-windows",
+    "href": "slides/rnn-lstm/index.html#creating-sliding-windows",
+    "title": "Muhammad Zikriya",
+    "section": "Creating sliding windows",
+    "text": "Creating sliding windows\n\n\n\n\nInput window and target\n\n\n\\[X_i=[z_i,\\ldots,z_{i+23}]\\in\\mathbb{R}^{24\\times1},\\quad y_i=z_{i+24}.\\]\n\nThe complete batch tensor has shape (number of windows, 24, 1).\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nExplain z denotes scaled observations. A new sample is produced by sliding the window forward one time step. Overlapping input windows are acceptable because they are part of a time-series learning problem; do not randomly split them into train and test."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#always-include-a-baseline",
+    "href": "slides/rnn-lstm/index.html#always-include-a-baseline",
+    "title": "Muhammad Zikriya",
+    "section": "Always include a baseline",
+    "text": "Always include a baseline\n\nFor one-step forecasting, the persistence baseline is:\n\\[\\hat y_t^{\\mathrm{naive}}=y_{t-1}.\\]\nThe test-set root mean squared error is:\n\\[\\mathrm{RMSE}=\\sqrt{\\frac1{n_{test}}\\sum_{t\\in\\mathrm{test}}(\\hat y_t-y_t)^2}.\\]\n\nA complex model should be compared against a relevant simple forecast.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nExplain why persistence is strong for smooth, highly autocorrelated sequences. RMSE uses original measurement units after inverse scaling. One-step test evaluation here uses the last observed target value in each input window, not recursive forecasts."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#r-implementation-vanilla-rnn",
+    "href": "slides/rnn-lstm/index.html#r-implementation-vanilla-rnn",
+    "title": "Muhammad Zikriya",
+    "section": "R implementation: vanilla RNN",
+    "text": "R implementation: vanilla RNN\n\nlibrary(keras3)\nmodel &lt;- keras_model_sequential() |&gt;\n  layer_simple_rnn(units = 16,\n                   input_shape = c(24, 1),\n                   activation = \"tanh\") |&gt;\n  layer_dense(units = 1)\nmodel |&gt; compile(\n  optimizer = optimizer_adam(0.01),\n  loss = \"mse\"\n)\n\nFull runnable script: R/train_models.R · Keras3/TensorFlow backend.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nWalk through units=16, input shape excluding batch, last hidden state becoming dense output, regression head, and MSE. Explain that backend must be installed first and that the complete script handles preprocessing, train/validation/test, and evaluation."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#r-implementation-replace-rnn-with-lstm",
+    "href": "slides/rnn-lstm/index.html#r-implementation-replace-rnn-with-lstm",
+    "title": "Muhammad Zikriya",
+    "section": "R implementation: replace RNN with LSTM",
+    "text": "R implementation: replace RNN with LSTM\n\nmodel &lt;- keras_model_sequential() |&gt;\n  layer_lstm(units = 16,\n             input_shape = c(24, 1)) |&gt;\n  layer_dense(units = 1)\nmodel |&gt; compile(\n  optimizer = optimizer_adam(0.01),\n  loss = \"mse\"\n)\n\nThe data pipeline and evaluation protocol stay the same; only the recurrent layer changes.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nStudents see how similar the high-level APIs are. Clarify that the number of trainable parameters changes because LSTM internally includes four affine transformations for gates and candidate."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#r-fit-validate-monitor",
+    "href": "slides/rnn-lstm/index.html#r-fit-validate-monitor",
+    "title": "Muhammad Zikriya",
+    "section": "R: fit, validate, monitor",
+    "text": "R: fit, validate, monitor\n\nhistory &lt;- model |&gt; fit(\n  x = X[train, , , drop = FALSE],\n  y = Y[train, , drop = FALSE],\n  validation_data = list(\n    X[valid, , , drop = FALSE],\n    Y[valid, , drop = FALSE]),\n  epochs = 35, batch_size = 32,\n  callbacks = list(callback_early_stopping(\n    monitor = \"val_loss\", patience = 7,\n    restore_best_weights = TRUE)))\n\nOnly the training partition drives gradient updates; validation guides early stopping.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nExplain epochs and batches simply; patience counts epochs without validation improvement. The validation targets are not used directly in model gradient descent. In R, use the complete script for tensor creation."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#r-predict-and-assess-test-rmse",
+    "href": "slides/rnn-lstm/index.html#r-predict-and-assess-test-rmse",
+    "title": "Muhammad Zikriya",
+    "section": "R: predict and assess test RMSE",
+    "text": "R: predict and assess test RMSE\n\npred &lt;- as.numeric(predict(\n  model, X[test, , , drop = FALSE],\n  verbose = 0)) * sigma + mu\nrmse &lt;- function(p, a) sqrt(mean((p-a)^2))\ncat(\"test RMSE:\", rmse(pred, actual))\n\nInverse-transform predictions before reporting RMSE in original units.\n\n\nR outputs are generated when the R script runs; the deck does not invent R metric values.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nRead the code from the outside in: test windows, model predictions in standardized units, multiply sigma and add mu, then calculate test RMSE. Explain that R results might differ from Python due to implementation and optimization details."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#pytorch-model-definitions",
+    "href": "slides/rnn-lstm/index.html#pytorch-model-definitions",
+    "title": "Muhammad Zikriya",
+    "section": "PyTorch: model definitions",
+    "text": "PyTorch: model definitions\n\nclass SequenceRegressor(nn.Module):\n    def __init__(self, kind):\n        super().__init__()\n        self.core = (nn.RNN(1, 16, batch_first=True)\n                     if kind == \"rnn\" else\n                     nn.LSTM(1, 16, batch_first=True))\n        self.head = nn.Linear(16, 1)\n\n    def forward(self, x):\n        states, _ = self.core(x)\n        return self.head(states[:, -1, :])\n\nFull source: python/train_models.py.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nHighlight batch_first=True and states[:, -1, :] selecting the final recurrent output from all timesteps. The model head produces a scalar prediction for each sample. Explain recurrent output and returned final hidden state are related but not identical interfaces in PyTorch."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#pytorch-a-training-step",
+    "href": "slides/rnn-lstm/index.html#pytorch-a-training-step",
+    "title": "Muhammad Zikriya",
+    "section": "PyTorch: a training step",
+    "text": "PyTorch: a training step\n\nfor xb, yb in train_loader:\n    optimizer.zero_grad()\n    pred = model(xb)\n    loss = loss_fn(pred, yb)\n    loss.backward()                   # BPTT\n    nn.utils.clip_grad_norm_(\n        model.parameters(), 1.0)      # stability\n    optimizer.step()\n\nloss.backward() differentiates through the unrolled recurrent computations.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nExplain the five recurring actions in a gradient-based training loop. Note that clipping comes after gradient computation and before parameter update. Full script uses early stopping based on validation loss."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#observed-pytorch-test-predictions",
+    "href": "slides/rnn-lstm/index.html#observed-pytorch-test-predictions",
+    "title": "Muhammad Zikriya",
+    "section": "Observed PyTorch test predictions",
+    "text": "Observed PyTorch test predictions\n\n\n\n\nObserved series versus models on the held-out test portion\n\n\n\nThe plotted predictions were produced by running the provided script on the synthetic dataset (seed 42); one-step-ahead evaluation.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nMake clear this is an actual execution, not schematic data. Encourage students to inspect periods where RNN/LSTM smooth rapid oscillations and to explain why a naive last-value baseline might be competitive. We do not claim these results generalize to real datasets."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#compare-results-and-diagnose",
+    "href": "slides/rnn-lstm/index.html#compare-results-and-diagnose",
+    "title": "Muhammad Zikriya",
+    "section": "Compare results and diagnose",
+    "text": "Compare results and diagnose\n\n\n\n\nModel\nTest RMSE (original units)\n\n\n\n\nNaive (last observation)\n0.2425\n\n\nPyTorch RNN\n0.2244\n\n\nPyTorch LSTM\n0.2635\n\n\n\n\n\n\nTraining and validation losses\n\n\n\nIn this single reproducible run, RNN had the lowest test RMSE. LSTM is not automatically better.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Implementation.\nThe figures and values are derived from executed PyTorch code for the provided synthetic sample. Discuss random initialization, sample length, hidden width, hyperparameters, the chosen baseline, and repeated-seed uncertainty. Not a statistically powered model-comparison study."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#application-sentiment-classification",
+    "href": "slides/rnn-lstm/index.html#application-sentiment-classification",
+    "title": "Muhammad Zikriya",
+    "section": "Application: sentiment classification",
+    "text": "Application: sentiment classification\n\nInput: a token/embedding sequence \\(E\\in\\mathbb R^{T\\times d}\\).\n\nEmbeddings → recurrent encoder → final hidden state → dense classifier.\n\n\nBinary sentiment: sigmoid probability or logits with BCE loss.\nImportant details: tokenization, padding, masks, vocabulary.\nEvaluate with accuracy and F1 (especially under imbalance).\n\n\nA recurrent encoder is one design choice; modern attention-based encoders are also common.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Applications.\nThis is an application transfer, not a second live coding task. Clarify that embeddings are numeric vectors, not raw words. Different sequence lengths are padded and masked. Model comparison must use a proper independent test set."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#application-multivariate-anomaly-detection",
+    "href": "slides/rnn-lstm/index.html#application-multivariate-anomaly-detection",
+    "title": "Muhammad Zikriya",
+    "section": "Application: multivariate anomaly detection",
+    "text": "Application: multivariate anomaly detection\n\n\n\n\nTwo sensor streams containing an injected anomalous interval\n\n\nA multivariate sequence window has shape \\(T\\times F\\) with \\(F&gt;1\\).\n\nPredict next values or reconstruct normal windows.\nScore residual size; flag observations above a calibrated threshold.\nInspect false alarms, drift, and changing context.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Applications.\nDescribe the plot as synthetic with an intentionally injected unusual interval. A predictive LSTM can learn normal trajectories, while high residuals become anomaly candidates. Threshold selection must avoid contamination and use appropriate validation data."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#rnn-vs-lstm-vs-gru-vs-transformer",
+    "href": "slides/rnn-lstm/index.html#rnn-vs-lstm-vs-gru-vs-transformer",
+    "title": "Muhammad Zikriya",
+    "section": "RNN vs LSTM vs GRU vs Transformer",
+    "text": "RNN vs LSTM vs GRU vs Transformer\n\n\n\n\n\n\n\n\n\nModel\nMain characteristic\nTypical tradeoff\n\n\n\n\nVanilla RNN\nSimple recurrent state\nStruggles with some long dependencies\n\n\nLSTM\nCell state + multiple gates\nHeavier recurrent computation\n\n\nGRU\nGated, fewer gate families\nOften simpler than LSTM\n\n\nTransformer\nAttention across positions\nDifferent context/memory costs\n\n\n\n\nThere is no universal winner. Prefer evidence from a leak-free task-specific experiment.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Applications.\nExplain LSTM and GRU are recurrent, while Transformers use attention rather than the same recurrence. Comparisons depend on sequence length, parallelism, data, task, latency and hardware. Avoid claiming one strictly dominates all other architectures."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#how-should-we-choose",
+    "href": "slides/rnn-lstm/index.html#how-should-we-choose",
+    "title": "Muhammad Zikriya",
+    "section": "How should we choose?",
+    "text": "How should we choose?\n\n\nA defensible model-selection checklist\n\nWhat is the forecasting or classification target?\nWhat is the time-ordered validation protocol?\nWhich simple baseline must be beaten?\nHow long are dependencies; how many features?\nAre compute, latency, and interpretability important?\n\n\n\nChoose a model by task-specific evidence, not architecture popularity.\n\n\n\nInstructor timing: approximately 2 minute(s). Section: Applications.\nConnect with graduate-level scientific practice. Repeated seeds and confidence intervals for empirical comparisons are preferable to a one-run anecdote. Ask students which baseline they would use for each of the three application families."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#five-essential-takeaways",
+    "href": "slides/rnn-lstm/index.html#five-essential-takeaways",
+    "title": "Muhammad Zikriya",
+    "section": "Five essential takeaways",
+    "text": "Five essential takeaways\n\n\nSequential data carry meaning in order and history.\nVanilla RNNs repeatedly update a shared hidden state.\nBPTT can yield vanishing or exploding gradients.\nLSTM gates selectively retain, write, and expose memory.\nReliable experiments require chronological splits and baselines.\n\n\nExit question: Why is an additive cell-state path useful?\n\n\n\nInstructor timing: approximately 1 minute(s). Section: Conclusions.\nGive students 30 seconds to answer the exit question. Expected answer: the additive update can preserve a more direct gradient path when forget gates are near one, helping certain long-range dependencies. It does not eliminate all instability."
+  },
+  {
+    "objectID": "slides/rnn-lstm/index.html#further-reading-and-next-steps",
+    "href": "slides/rnn-lstm/index.html#further-reading-and-next-steps",
+    "title": "Muhammad Zikriya",
+    "section": "Further reading and next steps",
+    "text": "Further reading and next steps\n\n\n\nElman, J. (1990). Finding structure in time. Cognitive Science.\n\nBengio, Y., Simard, P., & Frasconi, P. (1994). Learning long-term dependencies with gradient descent is difficult. IEEE TNN.\n\nHochreiter, S., & Schmidhuber, J. (1997). Long Short-Term Memory. Neural Computation.\n\nGers, F. A., Schmidhuber, J., & Cummins, F. (2000). Learning to Forget: Continual Prediction with LSTM. Neural Computation.\n\nVaswani, A., et al. (2017). Attention Is All You Need. NeurIPS.\n\n\nPractice: Run both scripts; repeat across multiple seeds; compare with the naive baseline.\nResources: references.bib · R/ · python/ · instructor_guide.md.\n\n\nInstructor timing: approximately 1 minute(s). Section: Conclusions.\nClose on research evaluation: students should be able to interpret, not simply reproduce, models. The papers are foundational; refer students to the official Keras3/PyTorch documentation included in README for syntax."
+  },
+  {
     "objectID": "skills.html",
     "href": "skills.html",
     "title": "Skills",
@@ -49,39 +469,46 @@
     "text": "📉 Nonparametric Statistics\n\n\n📊 Data Envelopment Analysis\n\n\n⏳ Time Series Modeling\n\n\n🧪 Quantitative Research"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Muhammad Zikriya",
+    "objectID": "lectures.html",
+    "href": "lectures.html",
+    "title": "Teaching & Lectures",
     "section": "",
-    "text": "PhD Scholar at the Department of Statistics\nFederal University of Pernambuco (UFPE), Recife, Brazil"
+    "text": "This page collects graduate teaching materials, interactive Quarto presentations, and reproducible demonstrations.\n\n\n\n\n\n\nNoteDeep Learning for Sequential Data: Recurrent Neural Networks (RNNs) and LSTMs\n\n\n\nThis lecture introduces sequential learning, recurrent state updates, backpropagation through time, the vanishing-gradient problem, LSTM gates and memory, and model evaluation. The material includes mathematical examples, diagrams, R and Python code, and instructor notes.\nOpen RNN and LSTM slides\n\n\n\n\n\n\n\n\nTip\n\n\n\nPresentation controls: Use the left/right arrow keys to change slides. Press S for speaker notes and F for fullscreen."
   },
   {
-    "objectID": "index.html#research-area",
-    "href": "index.html#research-area",
-    "title": "Muhammad Zikriya",
-    "section": "Research Area",
-    "text": "Research Area\nData Envelopment Analysis | Nonparametric Statistics | Machine Learning | Data Science\n\nCONFERENCE PRESENTATION\n\nPresentation at WANDA\nPolice Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nPresenter: Muhammad Zikriya\nAffiliation: Federal University of Pernambuco (UFPE) · GEDAI\nView Presentation at WANDA"
-  },
-  {
-    "objectID": "education.html",
-    "href": "education.html",
-    "title": "Education",
+    "objectID": "lectures.html#graduate-lectures",
+    "href": "lectures.html#graduate-lectures",
+    "title": "Teaching & Lectures",
     "section": "",
-    "text": "Federal University of Pernambuco (UFPE)\nRecife, Brazil\nStatus: In Progress\nCurrently pursuing a Doctor of Philosophy in Statistics at UFPE.\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nPost Graduate Research Seminar\nMathematical Statistics\nData Envelopment Analysis\nAdvance Probability Analysis\nSpecial Topics in Applied Statistics\nMultivariate Analysis\n\n\n\n\nAbdul Wali Khan University\nMardan, Pakistan\nCompleted: February 2023\nThesis:\nModeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nTime Series Analysis and Forecasting\nAdvanced Regression Analysis\nStatistical Quality Control\nAdvanced Categorical Data Analysis\nSurvival Data Analysis\nGeneralized Linear Models\nRobust Statistics\n\n\n\n\nGovernment Postgraduate College\nMardan, Pakistan\nAffiliated with Abdul Wali Khan University Mardan.\nCompleted: November 2018\nThesis:\nModified Exponential Type Variance Estimator for Finite Population Variance"
+    "text": "This page collects graduate teaching materials, interactive Quarto presentations, and reproducible demonstrations.\n\n\n\n\n\n\nNoteDeep Learning for Sequential Data: Recurrent Neural Networks (RNNs) and LSTMs\n\n\n\nThis lecture introduces sequential learning, recurrent state updates, backpropagation through time, the vanishing-gradient problem, LSTM gates and memory, and model evaluation. The material includes mathematical examples, diagrams, R and Python code, and instructor notes.\nOpen RNN and LSTM slides\n\n\n\n\n\n\n\n\nTip\n\n\n\nPresentation controls: Use the left/right arrow keys to change slides. Press S for speaker notes and F for fullscreen."
   },
   {
-    "objectID": "education.html#academic-background",
-    "href": "education.html#academic-background",
-    "title": "Education",
+    "objectID": "lectures.html#conference-presentations",
+    "href": "lectures.html#conference-presentations",
+    "title": "Teaching & Lectures",
+    "section": "Conference presentations",
+    "text": "Conference presentations\nWANDA conference presentation — Police Operational Efficiency\nThese are two independent Quarto RevealJS presentations. Each opens in a separate browser tab."
+  },
+  {
+    "objectID": "experience.html",
+    "href": "experience.html",
+    "title": "Experience",
     "section": "",
-    "text": "Federal University of Pernambuco (UFPE)\nRecife, Brazil\nStatus: In Progress\nCurrently pursuing a Doctor of Philosophy in Statistics at UFPE.\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nPost Graduate Research Seminar\nMathematical Statistics\nData Envelopment Analysis\nAdvance Probability Analysis\nSpecial Topics in Applied Statistics\nMultivariate Analysis\n\n\n\n\nAbdul Wali Khan University\nMardan, Pakistan\nCompleted: February 2023\nThesis:\nModeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nTime Series Analysis and Forecasting\nAdvanced Regression Analysis\nStatistical Quality Control\nAdvanced Categorical Data Analysis\nSurvival Data Analysis\nGeneralized Linear Models\nRobust Statistics\n\n\n\n\nGovernment Postgraduate College\nMardan, Pakistan\nAffiliated with Abdul Wali Khan University Mardan.\nCompleted: November 2018\nThesis:\nModified Exponential Type Variance Estimator for Finite Population Variance"
+    "text": "Teaching Assistant\nFederal University of Pernambuco (UFPE)\nRecife, Brazil\n\nPeriod: August 2026 – December 2026\n\nAssisting in teaching activities for undergraduate courses under the supervision of:\n\n\nProf. Dr. Thyago Celso Cavalcante Nepomuceno\nCourse:\n\n\n\nClass\nStart\nEnd\n\n\n\n\nIntroduction to Game Theory (2026.2)\n10/08/2026\n12/12/2026\n\n\n\n\n\nProf. Dr. Jodavid de Araujo Ferreira\nCourse:\n\n\n\nClass\nStart\nEnd\n\n\n\n\nNeural Networks (2026.2)\n10/08/2026\n12/12/2026\n\n\n\n\n\n\nVisiting Lecture — Govt. Postgraduate College Nowshera\nHigher Education Department, Khyber Pakhtunkhwa\nNowshera, Khyber Pakhtunkhwa, Pakistan\n\nPeriod: September 2022 – December 2024\n\nTeaching Experience\nDelivered lectures in:\n\nData Mining\nTime Series Analysis & Forecasting\nProbability and Probability Distribution\nMultivariate Analysis\nExpository Data Analysis & Visualization\nIntroduction to Statistics\n\nEmployed effective teaching methodologies to engage students and support their understanding of statistical concepts.\nResearch Supervision\nSupervised bachelor students on the following research projects:\n\nThe Impact of Political Instability on Pakistan’s Economic Growth\nEffects of Socio-Economic Status on Academic Performance of BS Students: A Case Study of GPGC Nowshera\nEating Habits and Obesity: A Case Study of Govt Postgraduate College Nowshera Students (NSR)\nImpact of TikTok on Students’ Academic Performance: A Case Study of Govt Postgraduate College Nowshera\n\n\n\nVisiting Lecture — Gov Degree College Toru\nHigher Education Department, Khyber Pakhtunkhwa\nMardan, Khyber Pakhtunkhwa, Pakistan\n\nPeriod: September 2021 – December 2021\n\nDelivered lectures in:\n\nIntroduction to Statistics"
   },
   {
-    "objectID": "education.html#professional-certificates-short-courses",
-    "href": "education.html#professional-certificates-short-courses",
-    "title": "Education",
-    "section": "Professional Certificates & Short Courses",
-    "text": "Professional Certificates & Short Courses\n\n\n\n\n\n\n\n\nCertificate\nOrganization\nDuration\n\n\n\n\nNeural Networks and Deep Learning\nDeepLearning.AI\nOct 2023 – Nov 2023\n\n\nData Visualization with Python\nIBM\nSep 2023 – Oct 2023\n\n\nGoogle Data Analytics\nGoogle\nDec 2022 – Jun 2023\n\n\nData Analytics and Business Intelligence\nDigiSkills.com\nFeb 2022 – Jun 2022\n\n\nArtificial Intelligence (Machine Learning & Deep Learning)\nNAVTTC, Government of Pakistan\nJun 2021 – Dec 2021"
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "📄\n\n\n\nDownload my complete CV:\n\n ⬇️ Download CV PDF"
+  },
+  {
+    "objectID": "cv.html#curriculum-vitae",
+    "href": "cv.html#curriculum-vitae",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Download my complete CV:\n\n ⬇️ Download CV PDF"
   },
   {
     "objectID": "about.html",
@@ -105,25 +532,60 @@
     "text": "Academic Profile\nI have experience in university-level teaching and in supervising bachelor students on research projects. My teaching experience includes Data Mining, Time Series Analysis and Forecasting, Probability and Probability Distribution, Multivariate Analysis, Exploratory Data Analysis and Visualization, and Introduction to Statistics."
   },
   {
-    "objectID": "cv.html",
-    "href": "cv.html",
-    "title": "Curriculum Vitae",
+    "objectID": "conferences.html",
+    "href": "conferences.html",
+    "title": "Conferences",
     "section": "",
-    "text": "📄\n\n\n\nDownload my complete CV:\n\n ⬇️ Download CV PDF"
+    "text": "Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nMuhammad Zikriya · Universidade Federal de Pernambuco (UFPE) · GEDAI\nThis conference presentation examines the operational efficiency of 26 police units using output-oriented BCC DEA, with staff and vehicles as inputs, criminal clear-ups as the desirable output, and crimes as an exogenous workload measure.\nView the WANDA presentation"
   },
   {
-    "objectID": "cv.html#curriculum-vitae",
-    "href": "cv.html#curriculum-vitae",
-    "title": "Curriculum Vitae",
+    "objectID": "conferences.html#presentation-at-wanda",
+    "href": "conferences.html#presentation-at-wanda",
+    "title": "Conferences",
     "section": "",
-    "text": "Download my complete CV:\n\n ⬇️ Download CV PDF"
+    "text": "Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nMuhammad Zikriya · Universidade Federal de Pernambuco (UFPE) · GEDAI\nThis conference presentation examines the operational efficiency of 26 police units using output-oriented BCC DEA, with staff and vehicles as inputs, criminal clear-ups as the desirable output, and crimes as an exogenous workload measure.\nView the WANDA presentation"
   },
   {
-    "objectID": "experience.html",
-    "href": "experience.html",
-    "title": "Experience",
+    "objectID": "education.html",
+    "href": "education.html",
+    "title": "Education",
     "section": "",
-    "text": "Teaching Assistant\nFederal University of Pernambuco (UFPE)\nRecife, Brazil\n\nPeriod: August 2026 – December 2026\n\nAssisting in teaching activities for undergraduate courses under the supervision of:\n\n\nProf. Dr. Thyago Celso Cavalcante Nepomuceno\nCourse:\n\n\n\nClass\nStart\nEnd\n\n\n\n\nIntroduction to Game Theory (2026.2)\n10/08/2026\n12/12/2026\n\n\n\n\n\nProf. Dr. Jodavid de Araujo Ferreira\nCourse:\n\n\n\nClass\nStart\nEnd\n\n\n\n\nNeural Networks (2026.2)\n10/08/2026\n12/12/2026\n\n\n\n\n\n\nVisiting Lecture — Govt. Postgraduate College Nowshera\nHigher Education Department, Khyber Pakhtunkhwa\nNowshera, Khyber Pakhtunkhwa, Pakistan\n\nPeriod: September 2022 – December 2024\n\nTeaching Experience\nDelivered lectures in:\n\nData Mining\nTime Series Analysis & Forecasting\nProbability and Probability Distribution\nMultivariate Analysis\nExpository Data Analysis & Visualization\nIntroduction to Statistics\n\nEmployed effective teaching methodologies to engage students and support their understanding of statistical concepts.\nResearch Supervision\nSupervised bachelor students on the following research projects:\n\nThe Impact of Political Instability on Pakistan’s Economic Growth\nEffects of Socio-Economic Status on Academic Performance of BS Students: A Case Study of GPGC Nowshera\nEating Habits and Obesity: A Case Study of Govt Postgraduate College Nowshera Students (NSR)\nImpact of TikTok on Students’ Academic Performance: A Case Study of Govt Postgraduate College Nowshera\n\n\n\nVisiting Lecture — Gov Degree College Toru\nHigher Education Department, Khyber Pakhtunkhwa\nMardan, Khyber Pakhtunkhwa, Pakistan\n\nPeriod: September 2021 – December 2021\n\nDelivered lectures in:\n\nIntroduction to Statistics"
+    "text": "Federal University of Pernambuco (UFPE)\nRecife, Brazil\nStatus: In Progress\nCurrently pursuing a Doctor of Philosophy in Statistics at UFPE.\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nPost Graduate Research Seminar\nMathematical Statistics\nData Envelopment Analysis\nAdvance Probability Analysis\nSpecial Topics in Applied Statistics\nMultivariate Analysis\n\n\n\n\nAbdul Wali Khan University\nMardan, Pakistan\nCompleted: February 2023\nThesis:\nModeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nTime Series Analysis and Forecasting\nAdvanced Regression Analysis\nStatistical Quality Control\nAdvanced Categorical Data Analysis\nSurvival Data Analysis\nGeneralized Linear Models\nRobust Statistics\n\n\n\n\nGovernment Postgraduate College\nMardan, Pakistan\nAffiliated with Abdul Wali Khan University Mardan.\nCompleted: November 2018\nThesis:\nModified Exponential Type Variance Estimator for Finite Population Variance"
+  },
+  {
+    "objectID": "education.html#academic-background",
+    "href": "education.html#academic-background",
+    "title": "Education",
+    "section": "",
+    "text": "Federal University of Pernambuco (UFPE)\nRecife, Brazil\nStatus: In Progress\nCurrently pursuing a Doctor of Philosophy in Statistics at UFPE.\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nPost Graduate Research Seminar\nMathematical Statistics\nData Envelopment Analysis\nAdvance Probability Analysis\nSpecial Topics in Applied Statistics\nMultivariate Analysis\n\n\n\n\nAbdul Wali Khan University\nMardan, Pakistan\nCompleted: February 2023\nThesis:\nModeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques\nProgramming: R and Python\nCoursework:\n\nMachine Learning\nTime Series Analysis and Forecasting\nAdvanced Regression Analysis\nStatistical Quality Control\nAdvanced Categorical Data Analysis\nSurvival Data Analysis\nGeneralized Linear Models\nRobust Statistics\n\n\n\n\nGovernment Postgraduate College\nMardan, Pakistan\nAffiliated with Abdul Wali Khan University Mardan.\nCompleted: November 2018\nThesis:\nModified Exponential Type Variance Estimator for Finite Population Variance"
+  },
+  {
+    "objectID": "education.html#professional-certificates-short-courses",
+    "href": "education.html#professional-certificates-short-courses",
+    "title": "Education",
+    "section": "Professional Certificates & Short Courses",
+    "text": "Professional Certificates & Short Courses\n\n\n\n\n\n\n\n\nCertificate\nOrganization\nDuration\n\n\n\n\nNeural Networks and Deep Learning\nDeepLearning.AI\nOct 2023 – Nov 2023\n\n\nData Visualization with Python\nIBM\nSep 2023 – Oct 2023\n\n\nGoogle Data Analytics\nGoogle\nDec 2022 – Jun 2023\n\n\nData Analytics and Business Intelligence\nDigiSkills.com\nFeb 2022 – Jun 2022\n\n\nArtificial Intelligence (Machine Learning & Deep Learning)\nNAVTTC, Government of Pakistan\nJun 2021 – Dec 2021"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Muhammad Zikriya",
+    "section": "",
+    "text": "PhD Scholar at the Department of Statistics\nFederal University of Pernambuco (UFPE), Recife, Brazil"
+  },
+  {
+    "objectID": "index.html#research-area",
+    "href": "index.html#research-area",
+    "title": "Muhammad Zikriya",
+    "section": "Research Area",
+    "text": "Research Area\nData Envelopment Analysis | Nonparametric Statistics | Machine Learning | Data Science\n\nCONFERENCE PRESENTATION\n\nPresentation at WANDA\nPolice Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nPresenter: Muhammad Zikriya\nAffiliation: Federal University of Pernambuco (UFPE) · GEDAI\nView Presentation at WANDA"
+  },
+  {
+    "objectID": "index.html#presentation-at-wanda",
+    "href": "index.html#presentation-at-wanda",
+    "title": "Muhammad Zikriya",
+    "section": "Presentation at WANDA",
+    "text": "Presentation at WANDA\nPolice Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nPresenter: Muhammad Zikriya\nAffiliation: Federal University of Pernambuco (UFPE) · GEDAI\nView Presentation at WANDA"
   },
   {
     "objectID": "research.html",
@@ -145,20 +607,6 @@
     "title": "Research",
     "section": "Modified Exponential Type Variance Estimator for Finite Population Variance",
     "text": "Modified Exponential Type Variance Estimator for Finite Population Variance\nBachelor Research Project\nGovernment Postgraduate College Mardan ### Abstract\nThis research focused on the development of a modified exponential type variance estimator for estimating finite population variance. The study aimed to improve estimation efficiency by proposing an alternative estimator and evaluating its statistical properties.\nThe research contributes to the field of survey sampling and finite population estimation by exploring improved variance estimation techniques. ### Research Area\n\nSampling Theory\nSurvey Statistics\nVariance Estimation\nFinite Population Sampling"
-  },
-  {
-    "objectID": "index.html#presentation-at-wanda",
-    "href": "index.html#presentation-at-wanda",
-    "title": "Muhammad Zikriya",
-    "section": "Presentation at WANDA",
-    "text": "Presentation at WANDA\nPolice Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nPresenter: Muhammad Zikriya\nAffiliation: Federal University of Pernambuco (UFPE) · GEDAI\nView Presentation at WANDA"
-  },
-  {
-    "objectID": "slides/police-bcc/index.html",
-    "href": "slides/police-bcc/index.html",
-    "title": "Muhammad Zikriya",
-    "section": "",
-    "text": "Muhammad Zikriya\n\n\nPostgraduate Program in Statistics · Universidade Federal de Pernambuco (UFPE)GEDAI Research Group"
   },
   {
     "objectID": "slides/police-bcc/index.html#police-operational-efficiency-using-output-oriented-bcc-dea-with-exogenous-crime-workload",
@@ -320,19 +768,5 @@
     "title": "Muhammad Zikriya",
     "section": "References",
     "text": "References\n\n\n\n\nBanker, R. D., Charnes, A., & Cooper, W. W. (1984). Some models for estimating technical and scale inefficiencies in data envelopment analysis. Management Science, 30(9), 1078–1092.\nCharnes, A., Cooper, W. W., & Rhodes, E. (1978). Measuring the efficiency of decision making units. European Journal of Operational Research, 2(6), 429–444.\nCooper, W. W., Seiford, L. M., & Tone, K. (2007). Data Envelopment Analysis. Springer."
-  },
-  {
-    "objectID": "conferences.html",
-    "href": "conferences.html",
-    "title": "Conferences",
-    "section": "",
-    "text": "Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nMuhammad Zikriya · Universidade Federal de Pernambuco (UFPE) · GEDAI\nThis conference presentation examines the operational efficiency of 26 police units using output-oriented BCC DEA, with staff and vehicles as inputs, criminal clear-ups as the desirable output, and crimes as an exogenous workload measure.\nView the WANDA presentation"
-  },
-  {
-    "objectID": "conferences.html#presentation-at-wanda",
-    "href": "conferences.html#presentation-at-wanda",
-    "title": "Conferences",
-    "section": "",
-    "text": "Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload\nMuhammad Zikriya · Universidade Federal de Pernambuco (UFPE) · GEDAI\nThis conference presentation examines the operational efficiency of 26 police units using output-oriented BCC DEA, with staff and vehicles as inputs, criminal clear-ups as the desirable output, and crimes as an exogenous workload measure.\nView the WANDA presentation"
   }
 ]

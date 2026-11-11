@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
+    - "slides/police-bcc/index.qmd"
+    - "slides/rnn-lstm/index.qmd"
 
 website:
   title: "Muhammad Zikriya"
@@ -29,6 +33,14 @@ website:
         text: CV
       - href: about.qmd
         text: About
+      - text: Teaching
+        menu:
+          - text: Lecture Library
+            href: lectures.qmd
+          - text: "RNNs and LSTMs: Deep Learning for Sequential Data"
+            href: slides/rnn-lstm/index.qmd
+            target: _blank
+            rel: noopener noreferrer
 
 format:
   html:

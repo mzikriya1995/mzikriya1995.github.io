@@ -1,0 +1,155 @@
+/*-- scss:defaults --*/
+$body-bg: #F8F7F4;
+$body-color: #232832;
+$link-color: #9C2435;
+$presentation-heading-color: #792330;
+$presentation-heading-font: "Aptos Display", "Segoe UI", Arial, sans-serif;
+$font-family-sans-serif: "Aptos", "Segoe UI", Arial, sans-serif;
+$presentation-font-size-root: 30px;
+$presentation-h1-font-size: 1.9em;
+$presentation-h2-font-size: 1.47em;
+$code-block-bg: #F1F3F5;
+$code-color: #8F2638;
+$presentation-block-margin: 14px;
+
+/*-- scss:rules --*/
+/* LIGHT UFPE-INSPIRED PRESENTATION — CRIMSON + WARM IVORY */
+.reveal {
+  background: #F8F7F4;
+  color: #232832;
+}
+.reveal .slides section { text-align: left; }
+.reveal .slides section:not(.title-slide) {
+  box-sizing: border-box;
+  padding: 24px 34px 28px;
+}
+/* Keep titles in the same prominent horizontal band, away from corners. */
+.reveal .slides section:not(.title-slide) > h2 {
+  font-size: 1.46em;
+  line-height: 1.14;
+  font-weight: 800;
+  letter-spacing: -.024em;
+  color: #762431;
+  text-align: center;
+  border: none;
+  padding: 0 12px 18px;
+  margin: 0 auto 8px;
+  max-width: 1130px;
+  position: relative;
+}
+.reveal .slides section:not(.title-slide) > h2:after {
+  content: "";
+  display:block;
+  width: 156px;
+  max-width: 28%;
+  height: 4px;
+  border-radius: 4px;
+  background: #B42E43;
+  margin: 13px auto 0;
+}
+/* The centered wide canvas holds lists, code, equations and figures. */
+.reveal .slides section .slide-content {
+  width: 100%;
+  max-width: 1110px;
+  min-height: 485px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.reveal .slides section .slide-content > * { flex-shrink: 0; }
+.reveal .slides section .slide-content.has-code { min-height: 460px; }
+.reveal .slides section .slide-content > p,
+.reveal .slides section .slide-content > ul,
+.reveal .slides section .slide-content > ol,
+.reveal .slides section .slide-content > .cell,
+.reveal .slides section .slide-content > .sourceCode,
+.reveal .slides section .slide-content > .columns,
+.reveal .slides section .slide-content > .table,
+.reveal .slides section .slide-content > .card,
+.reveal .slides section .slide-content > .question,
+.reveal .slides section .slide-content > .takeaway,
+.reveal .slides section .slide-content > .math {
+  max-width:100%;
+}
+.reveal p, .reveal li {line-height:1.36;}
+.reveal strong {color:#88283A; font-weight:750;}
+.reveal li {margin: .19em 0;}
+.reveal ul, .reveal ol {margin: .22em 0 .4em 1em;}
+.reveal .card, .reveal .takeaway, .reveal .question {
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: .5em .75em;
+  margin: .38em 0;
+}
+.reveal .card {background:#FFFFFF; border:1px solid #E7E1DB; box-shadow:0 6px 18px rgba(29,22,27,.035);}
+.reveal .takeaway {background:#F6ECEC; border-left:6px solid #B42E43;}
+.reveal .question {background:#FFF5E9; border:1px solid #F0D0B9; border-left:6px solid #C16E2E;}
+.reveal .small, .reveal .small p, .reveal .small li {font-size:.84em;}
+.reveal .tiny, .reveal .tiny p, .reveal .tiny li {font-size:.72em;}
+.reveal .columns {gap: .7em; align-items:center;}
+.reveal figure {margin: .25em auto; text-align:center; width:100%;}
+.reveal img {max-width:100%; max-height:395px; object-fit:contain; border-radius:10px;}
+.reveal figure img {max-height:390px;}
+.reveal figcaption {color:#687078; font-size:.52em;}
+.reveal .slide-content > p:has(> img) {text-align:center;}
+.reveal .slide-content > figure {align-self:center;}
+.reveal pre {background:#F1F3F5; border:1px solid #D5DBE0; border-radius:13px; padding: .15em .3em; box-shadow:none; margin:.3em 0;}
+.reveal pre code {font-size:.67em; line-height:1.19; max-height:360px;}
+.reveal code {color:#8D2235;}
+.reveal table {margin:.3em auto; width:97%; border-collapse:collapse; font-size:.72em; background:white;}
+.reveal table th {background:#F5E9E9; color:#7B2532; font-weight:700;}
+.reveal table td, .reveal table th {padding:.31em .43em; border-bottom:1px solid #E8E4E2;}
+.reveal .math.display {margin:.38em 0; font-size:.92em; color:#252931;}
+.reveal .footer {font-size:.48em!important; color:#77787D!important;}
+.reveal .progress {color:#A72D40; height:5px;}
+.reveal .slide-number {font-size:.57em; background:rgba(255,255,255,.95); color:#7A2838; border:1px solid #E3D6D6; border-radius:7px; padding:4px 8px;}
+.reveal .notes {display:none;}
+/* COVER: one intentional composition, with official PNG logos ONLY here. */
+.reveal .slides section.title-slide {
+  box-sizing:border-box;
+  text-align:center!important;
+  padding: 35px 60px 18px;
+  background: linear-gradient(140deg,#FFFDFC 0%,#FAF7F3 62%,#F6EAEA 100%);
+}
+.reveal .slides section.title-slide:before {
+  content:""; position:absolute; left:0; top:0; right:0; height:13px;
+  background:linear-gradient(90deg,#7E2432 0%,#B62F43 58%,#D7A0A1 100%);
+}
+.reveal .slides section.title-slide h2 {
+  font-size:1.85em; line-height:1.1; color:#6F2230;
+  text-align:center!important; font-weight:850; border:0; padding:0;
+  margin:18px auto 16px; max-width:1100px; letter-spacing:-.03em;
+}
+.reveal .slides section.title-slide h2::after {display:none;}
+.reveal .slides section.title-slide .title-kicker {font-size:.65em; font-weight:800; letter-spacing:.16em; color:#A13849;}
+.reveal .slides section.title-slide .title-subtitle {font-size:1.04em; color:#4B4650; margin:10px auto 7px;}
+.reveal .slides section.title-slide .title-presenter {font-size:.81em; color:#50555A; margin:4px auto 12px;}
+.reveal .slides section.title-slide .title-art {width:70%;max-width:700px;margin:7px auto 0;text-align:center;}
+.reveal .slides section.title-slide .title-art img {
+  display:block!important; width:610px!important; height:140px!important;
+  max-width:100%!important; max-height:140px!important;
+  object-fit:contain!important; margin:0 auto!important;
+}
+.reveal .slides section.title-slide .title-logo-row {
+  display:flex!important; align-items:center!important; justify-content:center!important;
+  gap:20px; max-width:600px; margin:14px auto 0; padding:0;
+}
+.reveal .slides section.title-slide .title-logo-card {
+  display:flex!important; align-items:center!important; justify-content:center!important;
+  width:238px; max-width:44%; height:94px; padding:6px 11px;
+  background:#fff; border:1px solid #E2DAD9; border-radius:12px;
+  box-shadow:0 5px 20px rgba(57,38,42,.08); box-sizing:border-box; overflow:hidden;
+}
+.reveal .slides section.title-slide .title-logo-card img {
+  display:block!important; width:190px!important; height:72px!important;
+  max-width:190px!important; max-height:72px!important; object-fit:contain!important;
+  margin:0!important; padding:0!important; border-radius:0; box-shadow:none!important;
+}
+@media(max-width:720px) {
+  .reveal .slides section:not(.title-slide) {padding:16px 18px;}
+  .reveal .slides section .slide-content {min-height:0;}
+  .reveal .slides section.title-slide .title-logo-row {gap:10px;}
+  .reveal .slides section.title-slide .title-logo-card {height:82px;}
+}

@@ -24,6 +24,7 @@ title: "Research"
 }
 </style>
 ```
+
 # Research Profile
 
 ::: research-profile
@@ -37,18 +38,16 @@ My research interests include:
 
 My research focuses on developing statistical models and computational approaches for data-driven decision-making, prediction, and performance analysis.
 :::
+
 # Research Projects
 
 ::: research-card
 ## Modeling and Forecasting the Inflation Rate of Pakistan Using Time Series, Machine Learning, and Deep Learning Techniques
 
 **Master of Philosophy (MPhil) Research Project**\
-**Abdul Wali Khan University Mardan**
-### Abstract
+**Abdul Wali Khan University Mardan** \### Abstract
 
-Inflation forecasting is an important area of economic research because accurate prediction of inflation helps policymakers and decision-makers develop effective economic strategies. This research investigated the modeling and forecasting of Pakistan's inflation rate using traditional time series models, machine learning techniques, and deep learning approaches.
-The study compared different forecasting methodologies to identify efficient models for predicting inflation trends. The implementation and analysis were performed using **R and Python programming languages**.
-### Methods and Tools
+Inflation forecasting is an important area of economic research because accurate prediction of inflation helps policymakers and decision-makers develop effective economic strategies. This research investigated the modeling and forecasting of Pakistan's inflation rate using traditional time series models, machine learning techniques, and deep learning approaches. The study compared different forecasting methodologies to identify efficient models for predicting inflation trends. The implementation and analysis were performed using **R and Python programming languages**. \### Methods and Tools
 
 - Time Series Analysis
 - Machine Learning Models
@@ -62,13 +61,11 @@ The study compared different forecasting methodologies to identify efficient mod
 ## Modified Exponential Type Variance Estimator for Finite Population Variance
 
 **Bachelor Research Project**\
-**Government Postgraduate College Mardan**
-### Abstract
+**Government Postgraduate College Mardan** \### Abstract
 
 This research focused on the development of a modified exponential type variance estimator for estimating finite population variance. The study aimed to improve estimation efficiency by proposing an alternative estimator and evaluating its statistical properties.
 
-The research contributes to the field of survey sampling and finite population estimation by exploring improved variance estimation techniques.
-### Research Area
+The research contributes to the field of survey sampling and finite population estimation by exploring improved variance estimation techniques. \### Research Area
 
 - Sampling Theory
 - Survey Statistics
@@ -78,12 +75,12 @@ The research contributes to the field of survey sampling and finite population e
 
 # Conferences {#conferences}
 
-::: {.research-card}
+::: research-card
 ### Presentation at WANDA
 
 **Police Operational Efficiency Using Output-Oriented BCC DEA with Exogenous Crime Workload**
 
-**Presenter:** Muhammad Zikriya  
+**Presenter:** Muhammad Zikriya\
 **Affiliation:** Federal University of Pernambuco (UFPE) · GEDAI
 
 This presentation evaluates the operational efficiency of 26 police units using an output-oriented BCC Data Envelopment Analysis model. Police staff and vehicles are discretionary inputs, criminal clear-ups are the desirable output, and observed crimes are treated as exogenous workload. The study identifies nine strongly efficient units and benchmarks improvement opportunities using efficient peer units.

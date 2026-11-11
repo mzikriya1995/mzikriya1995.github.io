@@ -1,0 +1,27 @@
+---
+title: "Teaching & Lectures"
+subtitle: "Graduate teaching in statistics, machine learning, and data science"
+toc: false
+---
+
+## Graduate lectures
+
+This page collects graduate teaching materials, interactive Quarto presentations, and reproducible demonstrations.
+
+::: {.callout-note icon=false}
+### Deep Learning for Sequential Data: Recurrent Neural Networks (RNNs) and LSTMs
+
+This lecture introduces sequential learning, recurrent state updates, backpropagation through time, the vanishing-gradient problem, LSTM gates and memory, and model evaluation. The material includes mathematical examples, diagrams, R and Python code, and instructor notes.
+
+[**Open RNN and LSTM slides**](slides/rnn-lstm/index.qmd){target="_blank" rel="noopener noreferrer"}
+:::
+
+::: {.callout-tip icon=false}
+**Presentation controls:** Use the left/right arrow keys to change slides. Press `S` for speaker notes and `F` for fullscreen.
+:::
+
+## Conference presentations
+
+[**WANDA conference presentation — Police Operational Efficiency**](slides/police-bcc/index.qmd){target="_blank" rel="noopener noreferrer"}
+
+These are two independent Quarto RevealJS presentations. Each opens in a separate browser tab.

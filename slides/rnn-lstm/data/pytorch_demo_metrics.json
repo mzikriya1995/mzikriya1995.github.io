@@ -1,0 +1,11 @@
+{
+  "naive": {
+    "test_rmse": 0.24248
+  },
+  "rnn": {
+    "test_rmse": 0.22443
+  },
+  "lstm": {
+    "test_rmse": 0.263467
+  }
+}
