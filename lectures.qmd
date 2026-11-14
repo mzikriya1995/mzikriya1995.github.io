@@ -1,27 +1,20 @@
 ---
 title: "Teaching & Lectures"
-subtitle: "Graduate teaching in statistics, machine learning, and data science"
-toc: false
+format:
+  html:
+    toc: false
 ---
 
-## Graduate lectures
+## Deep Learning for Sequential Data
 
-This page collects graduate teaching materials, interactive Quarto presentations, and reproducible demonstrations.
+### Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTM) Networks
 
-::: {.callout-note icon=false}
-### Deep Learning for Sequential Data: Recurrent Neural Networks (RNNs) and LSTMs
+A graduate-level lecture introducing sequential data, recurrent computation, Backpropagation Through Time, LSTM gates, numerical examples, and practical applications in forecasting, natural language processing, and anomaly detection.
 
-This lecture introduces sequential learning, recurrent state updates, backpropagation through time, the vanishing-gradient problem, LSTM gates and memory, and model evaluation. The material includes mathematical examples, diagrams, R and Python code, and instructor notes.
+[Open the RNN & LSTM presentation](slides/rnn-lstm/index.html){target="_blank" rel="noopener noreferrer"}
 
-[**Open RNN and LSTM slides**](slides/rnn-lstm/index.qmd){target="_blank" rel="noopener noreferrer"}
-:::
+## Conference Presentations
 
-::: {.callout-tip icon=false}
-**Presentation controls:** Use the left/right arrow keys to change slides. Press `S` for speaker notes and `F` for fullscreen.
-:::
+### WANDA — Existing Conference Presentation
 
-## Conference presentations
-
-[**WANDA conference presentation — Police Operational Efficiency**](slides/police-bcc/index.qmd){target="_blank" rel="noopener noreferrer"}
-
-These are two independent Quarto RevealJS presentations. Each opens in a separate browser tab.
+[Open WANDA presentation](slides/police-bcc/index.html){target="_blank" rel="noopener noreferrer"}

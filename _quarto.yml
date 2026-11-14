@@ -1,10 +1,11 @@
 project:
   type: website
   output-dir: docs
+  # Render only website pages and the existing WANDA presentation.
+  # The RNN/LSTM deck is built separately to prevent HTML format overriding RevealJS.
   render:
     - "*.qmd"
     - "slides/police-bcc/index.qmd"
-    - "slides/rnn-lstm/index.qmd"
 
 website:
   title: "Muhammad Zikriya"
@@ -38,7 +39,7 @@ website:
           - text: Lecture Library
             href: lectures.qmd
           - text: "RNNs and LSTMs: Deep Learning for Sequential Data"
-            href: slides/rnn-lstm/index.qmd
+            href: slides/rnn-lstm/index.html
             target: _blank
             rel: noopener noreferrer
 

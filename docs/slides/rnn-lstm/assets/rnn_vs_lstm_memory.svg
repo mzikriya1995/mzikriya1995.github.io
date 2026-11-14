@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460">
+<style>.t{font-family:Arial,sans-serif;fill:#24303a}.h{font-size:30px;font-weight:700;fill:#7a2432}.s{font-size:22px}.m{font-size:18px;fill:#5d6570}.card{fill:#fff;stroke:#d7b8bd;stroke-width:2;rx:18}.arrow{stroke:#8f2b3b;stroke-width:4;marker-end:url(#m)}.bar{stroke:#2e6db4;stroke-width:6;marker-end:url(#m2)}</style>
+<defs><marker id="m" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#8f2b3b"/></marker><marker id="m2" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e6db4"/></marker></defs>
+<text x="600" y="40" text-anchor="middle" class="h">Why LSTM is easier to understand as a memory controller</text>
+<rect x="60" y="90" width="500" height="300" class="card"/>
+<text x="310" y="130" text-anchor="middle" class="s t">Vanilla RNN</text>
+<text x="310" y="160" text-anchor="middle" class="m">one hidden state is repeatedly rewritten</text>
+<rect x="140" y="210" width="100" height="60" fill="#fff7f7" stroke="#b6384a" stroke-width="3" rx="14"/><rect x="300" y="210" width="100" height="60" fill="#fff7f7" stroke="#b6384a" stroke-width="3" rx="14"/><rect x="460" y="210" width="100" height="60" fill="#fff7f7" stroke="#b6384a" stroke-width="3" rx="14"/>
+<line x1="240" y1="240" x2="300" y2="240" class="arrow"/><line x1="400" y1="240" x2="460" y2="240" class="arrow"/>
+<text x="190" y="246" text-anchor="middle" class="m">h1</text><text x="350" y="246" text-anchor="middle" class="m">h2</text><text x="510" y="246" text-anchor="middle" class="m">h3</text>
+<text x="310" y="320" text-anchor="middle" class="m">Information is mixed together at each step.</text>
+<rect x="640" y="90" width="500" height="300" class="card"/>
+<text x="890" y="130" text-anchor="middle" class="s t">LSTM</text>
+<text x="890" y="160" text-anchor="middle" class="m">main memory path + gates</text>
+<line x1="720" y1="240" x2="1060" y2="240" class="bar"/>
+<rect x="760" y="190" width="90" height="55" fill="#fff2d9" stroke="#d08a2f" stroke-width="2" rx="12"/><text x="805" y="223" text-anchor="middle" class="m">forget</text>
+<rect x="880" y="280" width="90" height="55" fill="#fff2d9" stroke="#d08a2f" stroke-width="2" rx="12"/><text x="925" y="313" text-anchor="middle" class="m">input</text><line x1="925" y1="280" x2="925" y2="250" class="arrow"/>
+<rect x="1000" y="190" width="90" height="55" fill="#fff2d9" stroke="#d08a2f" stroke-width="2" rx="12"/><text x="1045" y="223" text-anchor="middle" class="m">output</text>
+<text x="890" y="320" text-anchor="middle" class="m">The memory path can be protected and updated more carefully.</text>
+</svg>
