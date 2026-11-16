@@ -315,7 +315,6 @@ Muhammad Zikriya
 <ol type="1">
 <li><strong>Represent</strong> sequential data and tasks.</li>
 <li><strong>Derive</strong> the RNN hidden-state update.</li>
-<li><strong>Understand</strong> BPTT and gradient instability.</li>
 <li><strong>Derive</strong> the LSTM gates and cell-state update.</li>
 <li><strong>Implement</strong> one-step forecasting in R and Python.</li>
 <li><strong>Evaluate</strong> against a sensible baseline.</li>
@@ -354,7 +353,7 @@ Muhammad Zikriya
 </ol>
 </div><div class="column" style="width:47%;">
 <div class="question">
-<p><strong>Pair discussion (2 min):</strong> Relate a familiar regression problem to a sequence prediction problem.</p>
+<p><strong>Pair discussion :</strong> Relate a familiar regression problem to a sequence prediction problem.</p>
 </div>
 </div></div>
 <div class="takeaway">
@@ -426,9 +425,6 @@ Muhammad Zikriya
 </tr>
 </tbody>
 </table>
-<div class="small">
-<p>Optional 10-minute break after the gradient block; notes contain teaching timings.</p>
-</div>
 </div>
 <aside class="notes">
 <p><strong>Instructor timing:</strong> approximately 3 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
@@ -484,14 +480,14 @@ Muhammad Zikriya
 <h2>Three application families</h2>
 <div class="slide-content">
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:40%;">
 <p><strong>Forecasting</strong><br>
 Predict future demand, load, or temperature.</p>
 <p><strong>Language</strong><br>
 Classify sentiment or tag words in sentences.</p>
 <p><strong>Monitoring</strong><br>
 Score multivariate sensor windows for abnormal behavior.</p>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="assets/anomaly.png" style="width:100.0%"></p>
@@ -606,9 +602,6 @@ Score multivariate sensor windows for abnormal behavior.</p>
 </div><div class="column" style="width:50%;">
 <p><strong>Labeling an already observed sentence</strong> A token label may legitimately use <strong>left and right context</strong> from that sentence.</p>
 </div></div>
-<div class="takeaway">
-<p>Choose architecture and evaluation from the <strong>information available at deployment</strong>.</p>
-</div>
 </div>
 <aside class="notes">
 <p><strong>Instructor timing:</strong> approximately 4 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
@@ -724,9 +717,6 @@ Score multivariate sensor windows for abnormal behavior.</p>
 </tr>
 </tbody>
 </table>
-<div class="question">
-<p>What shape represents 32 windows, each with 24 days and 3 sensors? <strong>(32, 24, 3)</strong></p>
-</div>
 </div>
 <aside class="notes">
 <p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> Sequential data.</p>
@@ -788,9 +778,6 @@ Score multivariate sensor windows for abnormal behavior.</p>
 </tbody>
 </table>
 </div></div>
-<div class="question">
-<p>Why is a padding value of zero not automatically harmless?</p>
-</div>
 </div>
 <aside class="notes">
 <p><strong>Instructor timing:</strong> approximately 5 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
@@ -847,9 +834,6 @@ Score multivariate sensor windows for abnormal behavior.</p>
 </div>
 <p>At each step:</p>
 <p><span class="math display">\[\boxed{\mathbf{h}_t=f(\mathbf{x}_t,\mathbf{h}_{t-1})}\]</span></p>
-<div class="takeaway">
-<p><span class="math inline">\(\mathbf{h}_t\)</span> is a <strong>learned representation</strong> of the sequence prefix—not a perfect copy of the past.</p>
-</div>
 </div>
 <aside class="notes">
 <p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> Sequential data.</p>
@@ -934,9 +918,6 @@ Score multivariate sensor windows for abnormal behavior.</p>
 </figure>
 </div>
 </div></div>
-<div class="card">
-<p>The equation and the picture describe the same idea: <strong>mix old information with new information</strong>.</p>
-</div>
 </div>
 <aside class="notes">
 <p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> Vanilla RNNs.</p>
@@ -1415,444 +1396,6 @@ Score multivariate sensor windows for abnormal behavior.</p>
           display:block!important;
       }</style></aside>
 </section>
-<section id="backpropagation-through-time-bptt" class="slide level2">
-<h2>Backpropagation Through Time (BPTT)</h2>
-<div class="slide-content">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/bptt_forward_backward.svg" style="width:98.0%"></p>
-<figcaption>Forward pass and backward gradients in BPTT</figcaption>
-</figure>
-</div>
-<div class="takeaway">
-<p>Easy way to remember BPTT:</p>
-<ol type="1">
-<li><strong>Go forward</strong> through the sequence.</li>
-<li><strong>Compute the loss</strong>.</li>
-<li><strong>Go backward</strong> through the unrolled steps.</li>
-<li><strong>Add up gradient contributions</strong> for the shared weights.</li>
-</ol>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> BPTT &amp; gradients.</p>
-<p>Explain that ordinary backpropagation is applied to the unfolded computational graph. Shared weight matrices receive contributions from multiple timesteps. Many training frameworks perform BPTT automatically with autodifferentiation.</p>
-<p><strong>Expanded four-hour teaching guidance:</strong> Draw the unrolled graph and indicate how loss at a late step sends derivative contributions to earlier shared weights. Parameter sharing means the gradient is the sum of contributions over time. Use a three-step chain and perform one derivative mentally. BPTT is ordinary reverse-mode automatic differentiation on the unfolded recurrent graph.</p>
-<p><strong>Checkpoint:</strong> Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="bptt-computational-graph-over-three-steps" class="slide level2">
-<h2>BPTT computational graph over three steps</h2>
-<div class="slide-content">
-<div class="columns">
-<div class="column" style="width:54%;">
-<p><span class="math display">\[\frac{\partial\mathcal L}{\partial W_{hh}}=\sum_{t=1}^{T}\left.\frac{\partial\mathcal L}{\partial W_{hh}}\right|_{\mathrm{use\ at\ }t}.\]</span></p>
-<ul>
-<li>The same recurrent weights are used at many timesteps.</li>
-<li>So the final gradient is the <strong>sum of contributions</strong> from all those uses.</li>
-<li>A late loss can still affect an early recurrent weight, but the path may be long and weak.</li>
-</ul>
-</div><div class="column" style="width:46%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/bptt_forward_backward.svg" style="width:100.0%"></p>
-<figcaption>BPTT idea over time</figcaption>
-</figure>
-</div>
-</div></div>
-<div class="takeaway">
-<p>One network, many uses, <strong>one total gradient</strong>.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 5 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 5 minutes. Draw three recurrent cells and their losses. Show that a loss at t=3 affects parameters used at t=3 directly and at t=2,t=1 through the hidden-state chain. Shared parameters mean the total gradient is a sum of contributions across all unrolled uses. Do not conflate these with three independent parameter matrices. Explain that automatic differentiation constructs the graph and accumulates gradients, but students should still understand the chain rule path. Ask whether a loss only at the last timestep can influence early recurrent weights. Yes, subject to gradient strength.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="deriving-one-recurrent-gradient-path" class="slide level2">
-<h2>Deriving one recurrent gradient path</h2>
-<div class="slide-content">
-<p>For a scalar <span class="math inline">\(h_t=\tanh(wh_{t-1}+ux_t)\)</span>:</p>
-<p><span class="math display">\[\frac{\partial h_t}{\partial h_{t-1}}=w(1-h_t^2).\]</span></p>
-<p>For a loss <span class="math inline">\(\mathcal L(h_3)\)</span>, the contribution to <span class="math inline">\(h_1\)</span> is:</p>
-<p><span class="math display">\[\frac{\partial\mathcal L}{\partial h_1}=\frac{\partial\mathcal L}{\partial h_3}\;\underbrace{w(1-h_3^2)}_{3\to2}\;\underbrace{w(1-h_2^2)}_{2\to1}.\]</span></p>
-<div class="small">
-<p>The vector case uses <strong>Jacobian matrices</strong> and matrix multiplication order matters.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 6 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 6 minutes. Derive the local scalar derivative using the chain rule. For h_t=tanh(z_t) and z_t=w h_(t−1)+u x_t, dh_t/dh_(t−1)=tanh’(z_t)w=(1−h_t²)w. Multiply local derivatives to trace influence from h3 back to h1. With w=0.5 and h2,h3 around zero, the product is approximately 0.25 before multiplying the downstream loss derivative. In the vector case, replace scalars by Jacobians J_t = diag(1−h_t²)W_hh. Emphasize this is a pathway analysis; actual loss gradients can include additional terms and time-indexed losses.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="why-long-range-gradients-are-difficult" class="slide level2">
-<h2>Why long-range gradients are difficult</h2>
-<div class="slide-content">
-<p>For <span class="math inline">\(k&lt;t\)</span>, the chain rule gives:</p>
-<p><span class="math display">\[\frac{\partial\mathbf h_t}{\partial\mathbf h_k}=\prod_{j=k+1}^{t}\frac{\partial\mathbf h_j}{\partial\mathbf h_{j-1}}.\]</span></p>
-<div class="small">
-<p>Repeated <strong>Jacobian matrix products</strong> can shrink or amplify gradients depending on their singular values, the weights, and activation derivatives.</p>
-</div>
-<div class="takeaway">
-<p>Long dependency paths can be hard to optimize even when information would be useful.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> BPTT &amp; gradients.</p>
-<p>Use the product notation as a conceptual shorthand: matrix multiplication order is important. Explain that it is the local derivatives, not merely the weights, that determine gradient propagation. Avoid claiming every RNN necessarily has vanishing gradients.</p>
-<p><strong>Expanded four-hour teaching guidance:</strong> The Jacobian product is a matrix product, not an unstructured scalar multiplication. The norm of the full product can shrink or grow depending on the evolving state, activation slopes, and weight spectra. Distinguish the mathematical tendency from a guarantee; nonlinear saturation and optimization interactions complicate behavior. Ask why long temporal gaps increase the number of factors in the product.</p>
-<p><strong>Checkpoint:</strong> Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="vanishing-gradients-a-toy-illustration" class="slide level2">
-<h2>Vanishing gradients: a toy illustration</h2>
-<div class="slide-content">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/gradients.png" style="width:92.0%"></p>
-<figcaption>Toy repeated factors illustrating gradient shrinking and growth</figcaption>
-</figure>
-</div>
-<div class="card">
-<p>For a scalar repeated factor <span class="math inline">\(0.65\)</span>: <span class="math inline">\(0.65^{20}\approx0.00018\)</span>.</p>
-</div>
-<p>Small updates to parameters handling distant history → <strong>slow or ineffective learning</strong>.</p>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> BPTT &amp; gradients.</p>
-<p>Identify this chart as a stylized scalar analogy, not gradients measured in the network. The colored rising line is an exploding case and the declining line a vanishing case; the y axis is log scale. State that actual RNN gradients involve matrices and nonlinearities.</p>
-<p><strong>Expanded four-hour teaching guidance:</strong> Read the toy curve in logarithmic scale: repeated multiplication by 0.75 shrinks small derivatives rapidly. Explain that these are illustrative scalar factors and not measured gradients from a specific trained RNN. In tanh RNNs, derivatives can be small when activations saturate. Connect this observation to why information from an early input may receive little learning signal.</p>
-<p><strong>Checkpoint:</strong> Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="gradient-products-decay-versus-explosion" class="slide level2">
-<h2>Gradient products: decay versus explosion</h2>
-<div class="slide-content">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/gradient_product_log.png" style="width:83.0%"></p>
-<figcaption>Illustrative gradient factor products on log scale</figcaption>
-</figure>
-</div>
-<p><span class="math display">\[0.75^{20}\approx0.00317,\qquad 1.15^{20}\approx16.37.\]</span></p>
-<div class="question">
-<p>What happens after <strong>40</strong> steps? Explain why repeated multiplications matter.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 5 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 5 minutes. Invite a quick estimate before revealing that 0.75^40 is about 10^-5 while 1.15^40 is approximately 268. The chart is illustrative: real RNN Jacobians are matrices, can vary across time, and interact with nonlinearity. Use logarithmic vertical scale to show both trajectories clearly. Ask participants to distinguish an example of gradient decay from a claim that a particular trained RNN exhibits these exact magnitudes. The lesson is about sensitivity of long products to local factors.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="why-small-activation-derivatives-matter" class="slide level2">
-<h2>Why small activation derivatives matter</h2>
-<div class="slide-content">
-<p><span class="math display">\[J_t=\frac{\partial h_t}{\partial h_{t-1}}=\operatorname{diag}(1-h_t^2)W_{hh}.\]</span></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>State near zero</strong> - <span class="math inline">\(h_t\approx0\)</span> - <span class="math inline">\(\tanh'\)</span> is near 1 - less attenuation from activation</p>
-</div><div class="column" style="width:50%;">
-<p><strong>State near ±1</strong> - <span class="math inline">\(|h_t|\approx1\)</span> - <span class="math inline">\(\tanh'\)</span> is near 0 - potentially strong attenuation</p>
-</div></div>
-<div class="takeaway">
-<p>Both activation derivatives and recurrent weights shape the Jacobian.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 4 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 4 minutes. Explain where the diagonal derivative matrix comes from: tanh acts elementwise on each preactivation coordinate, and its derivative is 1−h². Multiply by W_hh to account for sensitivity to the previous hidden vector. A near-zero hidden activation leaves a derivative near one from tanh alone, but W_hh could still cause shrinking or amplification. A saturated hidden coordinate introduces a small diagonal factor. Students should not conclude that choosing a large recurrent matrix always solves vanishing gradients because it can create exploding behavior elsewhere.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="exploding-gradients-instability" class="slide level2">
-<h2>Exploding gradients: instability</h2>
-<div class="slide-content">
-<p>A scalar repeated factor above 1 grows rapidly:</p>
-<p><span class="math display">\[1.35^{20}\approx404.\]</span></p>
-<ul>
-<li>Updates may become erratic or numerically unstable.</li>
-<li><strong>Gradient norm clipping</strong> limits the size of computed updates.</li>
-<li>Clipping is useful but does <strong>not</strong> create long-term memory.</li>
-</ul>
-<div class="takeaway">
-<p>Vanishing and exploding gradients are distinct phenomena requiring different mitigation strategies.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> BPTT &amp; gradients.</p>
-<p>Explain that the displayed 404 is an illustrative scaling product, not a measured gradient. Show clipping as stabilizing optimization, not necessarily making generalization better. Point out that normalization and careful initialization can also help.</p>
-<p><strong>Expanded four-hour teaching guidance:</strong> An exploding gradient can yield huge parameter updates, destabilize the loss, or produce numerical overflow. The product of Jacobians may amplify perturbations even when hidden states remain bounded under tanh. Distinguish exploding gradients from large parameter values and from a badly scaled input. Introduce clipping as a safeguard, not an optimality guarantee.</p>
-<p><strong>Checkpoint:</strong> Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="training-strategies-and-tradeoffs" class="slide level2">
-<h2>Training strategies and tradeoffs</h2>
-<div class="slide-content">
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Strategy</th>
-<th>Main purpose</th>
-<th>Limitation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Gradient clipping</td>
-<td>Bound excessive gradient norm</td>
-<td>Does not fix vanishing</td>
-</tr>
-<tr class="even">
-<td>Truncated BPTT</td>
-<td>Reduce backward graph length</td>
-<td>Limits learning across longer spans</td>
-</tr>
-<tr class="odd">
-<td>Orthogonal initialization</td>
-<td>Improve recurrent dynamics</td>
-<td>No universal solution</td>
-</tr>
-<tr class="even">
-<td>Gated cells (LSTM/GRU)</td>
-<td>Learn selective memory updates</td>
-<td>More parameters and compute</td>
-</tr>
-</tbody>
-</table>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> BPTT &amp; gradients.</p>
-<p>Define truncated BPTT correctly: the state can be carried forward while the gradient graph is detached at a chosen horizon. This distinguishes a finite training horizon from simply discarding all previous information.</p>
-<p><strong>Expanded four-hour teaching guidance:</strong> Discuss gradient clipping after backpropagation and before optimizer step. Truncated BPTT limits the gradient path length but does not magically increase long-range supervision. Input normalization and careful initialization may help; nevertheless, no single trick makes every recurrent model learn arbitrary-length dependencies. Compare strategies by what issue each actually addresses.</p>
-<p><strong>Checkpoint:</strong> Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="gradient-clipping-mathematical-rule" class="slide level2">
-<h2>Gradient clipping: mathematical rule</h2>
-<div class="slide-content">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/clipping_geometry.png" style="width:83.0%"></p>
-<figcaption>Geometry of global-norm gradient clipping</figcaption>
-</figure>
-</div>
-<p><span class="math display">\[g_{\mathrm{clipped}}=g\min\left(1,\frac{\tau}{\lVert g\rVert_2}\right).\]</span></p>
-<div class="takeaway">
-<p>Clipping limits gradient <strong>norm</strong>, not the underlying model’s memory problem.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 5 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 5 minutes. Define g as the stacked gradient of all trainable parameters and τ as the chosen clipping threshold. If ||g|| is below τ no change occurs; otherwise all components are multiplied by the same positive scalar to preserve direction. Compute an example with g=(3,4), norm 5, τ=1: the clipped vector is (0.6,0.8). The chart illustrates this geometry. Emphasize clipping is applied after loss.backward in PyTorch and before optimizer.step, as in the example. Very small thresholds may hinder learning; it is a stabilization tool, not a guarantee of good generalization.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="truncated-bptt-and-state-detachment" class="slide level2">
-<h2>Truncated BPTT and state detachment</h2>
-<div class="slide-content">
-<p><strong>Full BPTT:</strong> backpropagate through all <span class="math inline">\(T\)</span> unrolled steps.</p>
-<p><strong>Truncated BPTT:</strong> process chunks of length <span class="math inline">\(K\)</span> and stop gradients across a chosen chunk boundary.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="" aria-label="1"></a><span class="co"># Conceptual truncated BPTT for a recurrent state</span></span>
-<span id="cb1-2"><a href="" aria-label="2"></a>state <span class="op">=</span> state.detach()  <span class="co"># preserve value, cut graph</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="question">
-<p>What historical influence is still present in the <strong>forward state</strong>, and what gradient path is deliberately cut?</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 5 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 5 minutes. Clarify that truncated BPTT does not necessarily reset the forward state; it often carries a detached state value from one chunk to the next. Thus information can still flow forward across chunks, while gradients do not backpropagate through the entire history. Show a time axis split into chunks of K steps. This reduces memory use and may stabilize training, but limits direct learning signals over very long delays. An important coding caveat is that PyTorch’s tuple of LSTM hidden and cell states must both be detached when carrying recurrent state between chunks. Explain why this is separate from gradient clipping.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="thinkpairshare-gradient-directions" class="slide level2">
-<h2>Think–pair–share: gradient directions</h2>
-<div class="slide-content">
-<div class="question">
-<p>For a simplified scalar chain of <strong>15 derivatives</strong>:</p>
-<ol type="1">
-<li>What happens if the average multiplier is <strong>0.7</strong>?</li>
-<li>What happens if it is <strong>1.3</strong>?</li>
-<li>Why is this only an analogy for a real RNN?</li>
-</ol>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(0.7^{15}\approx0.00475\)</span>; <span class="math inline">\(1.3^{15}\approx51.2\)</span>.</p>
-<p>The actual system multiplies <strong>Jacobians</strong>, not one scalar factor.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> BPTT &amp; gradients.</p>
-<p>Spend about one minute collecting answers. Emphasize that students should not overgeneralize from the scalar example. If time allows, connect answers to gradients of recurrent weights near the beginning of a long sequence.</p>
-<p><strong>Expanded four-hour teaching guidance:</strong> Ask learners whether a product of factors of magnitude below one tends to vanish; then ask whether alternating factors can change the conclusion. Let them explain why the direction and singular values matter for matrices. Avoid confusing stable forward hidden activations with stable backward gradients.</p>
-<p><strong>Checkpoint:</strong> Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="why-better-memory-is-needed" class="slide level2">
-<h2>Why better memory is needed</h2>
-<div class="slide-content">
-<div class="columns">
-<div class="column" style="width:48%;">
-<p>A simple RNN keeps rewriting one hidden state.</p>
-<p>That can be enough for short patterns, but for longer patterns we often want a model that can more carefully:</p>
-<ul>
-<li><strong>keep</strong> useful old information,</li>
-<li><strong>add</strong> important new information,</li>
-<li><strong>hide or show</strong> information when needed.</li>
-</ul>
-</div><div class="column" style="width:52%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/rnn_vs_lstm_memory.svg" style="width:100.0%"></p>
-<figcaption>RNN memory versus LSTM controlled memory</figcaption>
-</figure>
-</div>
-</div></div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> BPTT &amp; gradients.</p>
-<p>Transition to LSTM intuitively: a model should choose which information to keep and which to replace. Do not claim the LSTM perfectly preserves long-term dependencies; it improves gradient paths under suitable gate settings.</p>
-<p><strong>Expanded four-hour teaching guidance:</strong> Motivate gates as an architectural intervention that enables the model to control retention and writing. The goal is not perfect memory and certainly not human-like understanding. Point out that an LSTM trades increased parameter count and computation for a more flexible memory pathway.</p>
-<p><strong>Checkpoint:</strong> Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="from-rnn-to-lstm" class="slide level2">
 <h2>From RNN to LSTM</h2>
 <div class="slide-content">
@@ -2181,61 +1724,7 @@ Score multivariate sensor windows for abnormal behavior.</p>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
-<section id="controlled-lstm-gate-counterfactuals" class="slide level2">
-<h2>Controlled LSTM gate counterfactuals</h2>
-<div class="slide-content">
-<p>Given <span class="math inline">\(c_{t-1}=0.7\)</span> and <span class="math inline">\(\tilde c_t=-0.2\)</span>:</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Scenario</th>
-<th style="text-align: right;"><span class="math inline">\(f_t\)</span></th>
-<th style="text-align: right;"><span class="math inline">\(i_t\)</span></th>
-<th style="text-align: right;">Updated <span class="math inline">\(c_t\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Preserve</td>
-<td style="text-align: right;">1.0</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;"><span class="math inline">\(0.70\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Overwrite</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">1.0</td>
-<td style="text-align: right;"><span class="math inline">\(-0.20\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Blend</td>
-<td style="text-align: right;">0.8</td>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;"><span class="math inline">\(0.46\)</span></td>
-</tr>
-</tbody>
-</table>
-<p><span class="math display">\[c_t=f_tc_{t-1}+i_t\tilde c_t.\]</span></p>
-<div class="fragment takeaway">
-<p>The output gate then determines how much of <span class="math inline">\(\tanh(c_t)\)</span> is exposed.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 5 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 5 minutes. Calculate the three states with the class. For preserve, c=1×0.7+0×(−0.2)=0.7. For overwrite, c=−0.2. For blend, c=0.8×0.7+0.5×(−0.2)=0.46. Explain the candidate memory may be negative and gates are nonnegative, so writing a negative candidate can reduce the cell value. Stress that state values are model representations, not literal physical quantities unless a specific interpretability study supports that claim. Use this exercise to test that students can distinguish retaining, writing and exposing.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<p>:::</p>
 </section>
 <section id="cell-state-update-retain-write" class="slide level2">
 <h2>Cell-state update: retain + write</h2>
@@ -2481,34 +1970,7 @@ Score multivariate sensor windows for abnormal behavior.</p>
 </section>
 <section id="direct-cell-state-gradient-versus-full-derivative" class="slide level2">
 <h2>Direct cell-state gradient versus full derivative</h2>
-<div class="slide-content">
-<p>From <span class="math inline">\(c_t=f_t\odot c_{t-1}+i_t\odot\tilde c_t\)</span>:</p>
-<p><span class="math display">\[\left.\frac{\partial c_t}{\partial c_{t-1}}\right|_{\mathrm{gates\ fixed}}=\operatorname{diag}(f_t).\]</span></p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/memory_retention.png" style="width:80.0%"></p>
-<figcaption>Memory retention under different forget gates</figcaption>
-</figure>
-</div>
-<div class="small">
-<p>The <strong>complete</strong> derivative also contains indirect dependencies through the gates; the plot isolates the direct retention route.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 6 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 6 minutes. Derive the direct derivative by treating gate outputs as constants: dc_t/dc_previous = f_t coordinatewise. Over k repeated timesteps with constant f and no writes, retention is f^k. Show that f=0.99 preserves roughly 74% after 30 steps whereas f=0.5 becomes extremely small. Then explain the key qualification: in a real LSTM gates themselves depend on h_previous, which depends on previous c, so total gradients also include indirect paths. The additive cell state gives a potentially favorable route but is not an unrestricted highway to arbitrary temporal learning.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<p>:::</p>
 </section>
 <section id="what-lstms-do-not-automatically-solve" class="slide level2">
 <h2>What LSTMs do not automatically solve</h2>
@@ -2539,68 +2001,7 @@ Score multivariate sensor windows for abnormal behavior.</p>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
-<section id="activity-control-the-gates" class="slide level2">
-<h2>Activity: control the gates</h2>
-<div class="slide-content">
-<div class="question">
-<p>Assume <span class="math inline">\(c_{t-1}=0.7\)</span> and candidate <span class="math inline">\(\tilde c_t=-0.4\)</span>.</p>
-<p><strong>Case A:</strong> <span class="math inline">\(f_t=1, i_t=0\)</span> → new <span class="math inline">\(c_t\)</span>?<br>
-<strong>Case B:</strong> <span class="math inline">\(f_t=0, i_t=1\)</span> → new <span class="math inline">\(c_t\)</span>?<br>
-<strong>Case C:</strong> <span class="math inline">\(f_t=0.5, i_t=0.5\)</span> → new <span class="math inline">\(c_t\)</span>?</p>
-</div>
-<div class="fragment">
-<p><strong>Solutions:</strong> A = 0.7, B = −0.4, C = 0.15.</p>
-</div>
-<div class="small">
-<p>If <span class="math inline">\(o_t=0\)</span>, then <span class="math inline">\(h_t=0\)</span> regardless of these cell values.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> LSTM.</p>
-<p>Allocate one minute for arithmetic and one minute for interpretation. The exact gate values 0 and 1 are idealized endpoints; sigmoid outputs approach them but ordinarily do not equal them with finite logits. Reinforce that output gating does not delete cell state.</p>
-<p><strong>Expanded four-hour teaching guidance:</strong> Convert the conceptual gate question into arithmetic with three cases. Retain: f≈1,i≈0; overwrite: f≈0,i≈1; hide: o≈0 with nonzero c.&nbsp;Ask students to state the cell and hidden outcomes separately. This distinction is the key learning check for the section.</p>
-<p><strong>Checkpoint:</strong> Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="workshop-calculate-an-lstm-step" class="slide level2">
-<h2>Workshop: calculate an LSTM step</h2>
-<div class="slide-content">
-<div class="question">
-<p><strong>Work in pairs (3 minutes).</strong> Given <span class="math inline">\(c_{t-1}=-0.3\)</span>, <span class="math inline">\(f=0.6\)</span>, <span class="math inline">\(i=0.4\)</span>, <span class="math inline">\(\tilde c=0.5\)</span>, and <span class="math inline">\(o=0.8\)</span>, compute <span class="math inline">\(c_t\)</span> and <span class="math inline">\(h_t\)</span>.</p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[c_t=0.6(-0.3)+0.4(0.5)=-0.18+0.20=\boxed{0.02}.\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[h_t=0.8\tanh(0.02)\approx\boxed{0.016}.\]</span></p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 6 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 6 minutes. Give three minutes for the calculation, then invite a pair to solve it at the board. Students must first multiply forget and prior cell, then input gate and candidate memory, then add both contributions. The hidden state is obtained from tanh of updated c and output-gate multiplication. Watch for the common mistake of applying tanh before the cell update or using c_previous in the final hidden expression. Ask whether a small hidden output implies that the cell content from earlier times was necessarily small. In this example yes c_t is small, but more generally a small output gate can hide a large cell value.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<p>:::</p>
 </section>
 <section id="practical-case-study-forecast-one-step" class="slide level2">
 <h2>Practical case study: forecast one step</h2>
@@ -2669,59 +2070,7 @@ Score multivariate sensor windows for abnormal behavior.</p>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
-<section id="leakage-checklist-for-sequence-experiments" class="slide level2">
-<h2>Leakage checklist for sequence experiments</h2>
-<div class="slide-content">
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Question</th>
-<th style="text-align: left;">Safe practice</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">When was a value available?</td>
-<td style="text-align: left;">Define the forecast origin</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">When was preprocessing fitted?</td>
-<td style="text-align: left;">Training period only</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Were windows randomly split?</td>
-<td style="text-align: left;">Prefer target-time ordering</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Were hyperparameters tuned on test?</td>
-<td style="text-align: left;">Keep test untouched</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Were lagged targets aligned correctly?</td>
-<td style="text-align: left;">Check indices explicitly</td>
-</tr>
-</tbody>
-</table>
-<div class="takeaway">
-<p>Forecast accuracy is meaningless if the evaluation uses unavailable future information.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 5 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 5 minutes. Work through a hypothetical normalization error: scaling all 500 observations with the full-sample mean uses future test distribution information to transform the training data. The effect may be subtle but it is still leakage. A more direct error is allowing the prediction window to include its own target. Another is randomly dividing near-duplicate overlapping windows across train and test. Define the forecast origin for every target and verify the latest permitted input timestamp is strictly earlier. Discuss exceptions: known future calendar features may be available ahead of time; availability, not timestamp alone, is the correct principle.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<p>:::</p>
 </section>
 <section id="rolling-origin-validation" class="slide level2">
 <h2>Rolling-origin validation</h2>
@@ -2849,16 +2198,16 @@ Score multivariate sensor windows for abnormal behavior.</p>
 <section id="r-implementation-vanilla-rnn" class="slide level2">
 <h2>R implementation: vanilla RNN</h2>
 <div class="slide-content has-code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a><span class="fu">library</span>(keras3)</span>
-<span id="cb2-2"><a href="" aria-label="2"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="" aria-label="3"></a>  <span class="fu">layer_simple_rnn</span>(<span class="at">units =</span> <span class="dv">16</span>,</span>
-<span id="cb2-4"><a href="" aria-label="4"></a>                   <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">1</span>),</span>
-<span id="cb2-5"><a href="" aria-label="5"></a>                   <span class="at">activation =</span> <span class="st">"tanh"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href="" aria-label="6"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">1</span>)</span>
-<span id="cb2-7"><a href="" aria-label="7"></a>model <span class="sc">|&gt;</span> <span class="fu">compile</span>(</span>
-<span id="cb2-8"><a href="" aria-label="8"></a>  <span class="at">optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="fl">0.01</span>),</span>
-<span id="cb2-9"><a href="" aria-label="9"></a>  <span class="at">loss =</span> <span class="st">"mse"</span></span>
-<span id="cb2-10"><a href="" aria-label="10"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="fu">library</span>(keras3)</span>
+<span id="cb1-2"><a href="" aria-label="2"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="" aria-label="3"></a>  <span class="fu">layer_simple_rnn</span>(<span class="at">units =</span> <span class="dv">16</span>,</span>
+<span id="cb1-4"><a href="" aria-label="4"></a>                   <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">1</span>),</span>
+<span id="cb1-5"><a href="" aria-label="5"></a>                   <span class="at">activation =</span> <span class="st">"tanh"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="" aria-label="6"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">1</span>)</span>
+<span id="cb1-7"><a href="" aria-label="7"></a>model <span class="sc">|&gt;</span> <span class="fu">compile</span>(</span>
+<span id="cb1-8"><a href="" aria-label="8"></a>  <span class="at">optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="fl">0.01</span>),</span>
+<span id="cb1-9"><a href="" aria-label="9"></a>  <span class="at">loss =</span> <span class="st">"mse"</span></span>
+<span id="cb1-10"><a href="" aria-label="10"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="small">
 <p>Full runnable script: <code>R/train_models.R</code> · Keras3/TensorFlow backend.</p>
 </div>
@@ -2883,14 +2232,14 @@ Score multivariate sensor windows for abnormal behavior.</p>
 <section id="r-implementation-replace-rnn-with-lstm" class="slide level2">
 <h2>R implementation: replace RNN with LSTM</h2>
 <div class="slide-content has-code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="" aria-label="2"></a>  <span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">16</span>,</span>
-<span id="cb3-3"><a href="" aria-label="3"></a>             <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="" aria-label="4"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">1</span>)</span>
-<span id="cb3-5"><a href="" aria-label="5"></a>model <span class="sc">|&gt;</span> <span class="fu">compile</span>(</span>
-<span id="cb3-6"><a href="" aria-label="6"></a>  <span class="at">optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="fl">0.01</span>),</span>
-<span id="cb3-7"><a href="" aria-label="7"></a>  <span class="at">loss =</span> <span class="st">"mse"</span></span>
-<span id="cb3-8"><a href="" aria-label="8"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="" aria-label="2"></a>  <span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">16</span>,</span>
+<span id="cb2-3"><a href="" aria-label="3"></a>             <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="" aria-label="4"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">1</span>)</span>
+<span id="cb2-5"><a href="" aria-label="5"></a>model <span class="sc">|&gt;</span> <span class="fu">compile</span>(</span>
+<span id="cb2-6"><a href="" aria-label="6"></a>  <span class="at">optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="fl">0.01</span>),</span>
+<span id="cb2-7"><a href="" aria-label="7"></a>  <span class="at">loss =</span> <span class="st">"mse"</span></span>
+<span id="cb2-8"><a href="" aria-label="8"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="takeaway">
 <p>The <strong>data pipeline and evaluation protocol stay the same</strong>; only the recurrent layer changes.</p>
 </div>
@@ -2915,11 +2264,11 @@ Score multivariate sensor windows for abnormal behavior.</p>
 <section id="keras3-in-r-tensor-and-output-shapes" class="slide level2">
 <h2>Keras3 in R: tensor and output shapes</h2>
 <div class="slide-content">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="" aria-label="1"></a><span class="co"># X: [number_of_windows, lookback, features]</span></span>
-<span id="cb4-2"><a href="" aria-label="2"></a><span class="fu">dim</span>(X)                 <span class="co"># e.g., 476 x 24 x 1</span></span>
-<span id="cb4-3"><a href="" aria-label="3"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="" aria-label="4"></a>  <span class="fu">layer_lstm</span>(<span class="at">units=</span><span class="dv">16</span>L, <span class="at">input_shape=</span><span class="fu">c</span>(<span class="dv">24</span>L,<span class="dv">1</span>L)) <span class="sc">|&gt;</span></span>
-<span id="cb4-5"><a href="" aria-label="5"></a>  <span class="fu">layer_dense</span>(<span class="at">units=</span><span class="dv">1</span>L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a><span class="co"># X: [number_of_windows, lookback, features]</span></span>
+<span id="cb3-2"><a href="" aria-label="2"></a><span class="fu">dim</span>(X)                 <span class="co"># e.g., 476 x 24 x 1</span></span>
+<span id="cb3-3"><a href="" aria-label="3"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="" aria-label="4"></a>  <span class="fu">layer_lstm</span>(<span class="at">units=</span><span class="dv">16</span>L, <span class="at">input_shape=</span><span class="fu">c</span>(<span class="dv">24</span>L,<span class="dv">1</span>L)) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="" aria-label="5"></a>  <span class="fu">layer_dense</span>(<span class="at">units=</span><span class="dv">1</span>L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -2965,16 +2314,16 @@ Score multivariate sensor windows for abnormal behavior.</p>
 <section id="r-fit-validate-monitor" class="slide level2">
 <h2>R: fit, validate, monitor</h2>
 <div class="slide-content has-code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a>history <span class="ot">&lt;-</span> model <span class="sc">|&gt;</span> <span class="fu">fit</span>(</span>
-<span id="cb5-2"><a href="" aria-label="2"></a>  <span class="at">x =</span> X[train, , , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
-<span id="cb5-3"><a href="" aria-label="3"></a>  <span class="at">y =</span> Y[train, , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
-<span id="cb5-4"><a href="" aria-label="4"></a>  <span class="at">validation_data =</span> <span class="fu">list</span>(</span>
-<span id="cb5-5"><a href="" aria-label="5"></a>    X[valid, , , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
-<span id="cb5-6"><a href="" aria-label="6"></a>    Y[valid, , <span class="at">drop =</span> <span class="cn">FALSE</span>]),</span>
-<span id="cb5-7"><a href="" aria-label="7"></a>  <span class="at">epochs =</span> <span class="dv">35</span>, <span class="at">batch_size =</span> <span class="dv">32</span>,</span>
-<span id="cb5-8"><a href="" aria-label="8"></a>  <span class="at">callbacks =</span> <span class="fu">list</span>(<span class="fu">callback_early_stopping</span>(</span>
-<span id="cb5-9"><a href="" aria-label="9"></a>    <span class="at">monitor =</span> <span class="st">"val_loss"</span>, <span class="at">patience =</span> <span class="dv">7</span>,</span>
-<span id="cb5-10"><a href="" aria-label="10"></a>    <span class="at">restore_best_weights =</span> <span class="cn">TRUE</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="" aria-label="1"></a>history <span class="ot">&lt;-</span> model <span class="sc">|&gt;</span> <span class="fu">fit</span>(</span>
+<span id="cb4-2"><a href="" aria-label="2"></a>  <span class="at">x =</span> X[train, , , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb4-3"><a href="" aria-label="3"></a>  <span class="at">y =</span> Y[train, , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb4-4"><a href="" aria-label="4"></a>  <span class="at">validation_data =</span> <span class="fu">list</span>(</span>
+<span id="cb4-5"><a href="" aria-label="5"></a>    X[valid, , , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb4-6"><a href="" aria-label="6"></a>    Y[valid, , <span class="at">drop =</span> <span class="cn">FALSE</span>]),</span>
+<span id="cb4-7"><a href="" aria-label="7"></a>  <span class="at">epochs =</span> <span class="dv">35</span>, <span class="at">batch_size =</span> <span class="dv">32</span>,</span>
+<span id="cb4-8"><a href="" aria-label="8"></a>  <span class="at">callbacks =</span> <span class="fu">list</span>(<span class="fu">callback_early_stopping</span>(</span>
+<span id="cb4-9"><a href="" aria-label="9"></a>    <span class="at">monitor =</span> <span class="st">"val_loss"</span>, <span class="at">patience =</span> <span class="dv">7</span>,</span>
+<span id="cb4-10"><a href="" aria-label="10"></a>    <span class="at">restore_best_weights =</span> <span class="cn">TRUE</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="small">
 <p>Only the training partition drives gradient updates; validation guides early stopping.</p>
 </div>
@@ -2999,11 +2348,11 @@ Score multivariate sensor windows for abnormal behavior.</p>
 <section id="r-predict-and-assess-test-rmse" class="slide level2">
 <h2>R: predict and assess test RMSE</h2>
 <div class="slide-content has-code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-label="1"></a>pred <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">predict</span>(</span>
-<span id="cb6-2"><a href="" aria-label="2"></a>  model, X[test, , , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
-<span id="cb6-3"><a href="" aria-label="3"></a>  <span class="at">verbose =</span> <span class="dv">0</span>)) <span class="sc">*</span> sigma <span class="sc">+</span> mu</span>
-<span id="cb6-4"><a href="" aria-label="4"></a>rmse <span class="ot">&lt;-</span> <span class="cf">function</span>(p, a) <span class="fu">sqrt</span>(<span class="fu">mean</span>((p<span class="sc">-</span>a)<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb6-5"><a href="" aria-label="5"></a><span class="fu">cat</span>(<span class="st">"test RMSE:"</span>, <span class="fu">rmse</span>(pred, actual))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a>pred <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">predict</span>(</span>
+<span id="cb5-2"><a href="" aria-label="2"></a>  model, X[test, , , <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
+<span id="cb5-3"><a href="" aria-label="3"></a>  <span class="at">verbose =</span> <span class="dv">0</span>)) <span class="sc">*</span> sigma <span class="sc">+</span> mu</span>
+<span id="cb5-4"><a href="" aria-label="4"></a>rmse <span class="ot">&lt;-</span> <span class="cf">function</span>(p, a) <span class="fu">sqrt</span>(<span class="fu">mean</span>((p<span class="sc">-</span>a)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb5-5"><a href="" aria-label="5"></a><span class="fu">cat</span>(<span class="st">"test RMSE:"</span>, <span class="fu">rmse</span>(pred, actual))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="takeaway">
 <p><strong>Inverse-transform</strong> predictions before reporting RMSE in original units.</p>
 </div>
@@ -3065,17 +2414,17 @@ Score multivariate sensor windows for abnormal behavior.</p>
 <section id="pytorch-model-definitions" class="slide level2">
 <h2>PyTorch: model definitions</h2>
 <div class="slide-content has-code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="" aria-label="1"></a><span class="kw">class</span> SequenceRegressor(nn.Module):</span>
-<span id="cb7-2"><a href="" aria-label="2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, kind):</span>
-<span id="cb7-3"><a href="" aria-label="3"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
-<span id="cb7-4"><a href="" aria-label="4"></a>        <span class="va">self</span>.core <span class="op">=</span> (nn.RNN(<span class="dv">1</span>, <span class="dv">16</span>, batch_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-5"><a href="" aria-label="5"></a>                     <span class="cf">if</span> kind <span class="op">==</span> <span class="st">"rnn"</span> <span class="cf">else</span></span>
-<span id="cb7-6"><a href="" aria-label="6"></a>                     nn.LSTM(<span class="dv">1</span>, <span class="dv">16</span>, batch_first<span class="op">=</span><span class="va">True</span>))</span>
-<span id="cb7-7"><a href="" aria-label="7"></a>        <span class="va">self</span>.head <span class="op">=</span> nn.Linear(<span class="dv">16</span>, <span class="dv">1</span>)</span>
-<span id="cb7-8"><a href="" aria-label="8"></a></span>
-<span id="cb7-9"><a href="" aria-label="9"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
-<span id="cb7-10"><a href="" aria-label="10"></a>        states, _ <span class="op">=</span> <span class="va">self</span>.core(x)</span>
-<span id="cb7-11"><a href="" aria-label="11"></a>        <span class="cf">return</span> <span class="va">self</span>.head(states[:, <span class="op">-</span><span class="dv">1</span>, :])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="" aria-label="1"></a><span class="kw">class</span> SequenceRegressor(nn.Module):</span>
+<span id="cb6-2"><a href="" aria-label="2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, kind):</span>
+<span id="cb6-3"><a href="" aria-label="3"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb6-4"><a href="" aria-label="4"></a>        <span class="va">self</span>.core <span class="op">=</span> (nn.RNN(<span class="dv">1</span>, <span class="dv">16</span>, batch_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-5"><a href="" aria-label="5"></a>                     <span class="cf">if</span> kind <span class="op">==</span> <span class="st">"rnn"</span> <span class="cf">else</span></span>
+<span id="cb6-6"><a href="" aria-label="6"></a>                     nn.LSTM(<span class="dv">1</span>, <span class="dv">16</span>, batch_first<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb6-7"><a href="" aria-label="7"></a>        <span class="va">self</span>.head <span class="op">=</span> nn.Linear(<span class="dv">16</span>, <span class="dv">1</span>)</span>
+<span id="cb6-8"><a href="" aria-label="8"></a></span>
+<span id="cb6-9"><a href="" aria-label="9"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb6-10"><a href="" aria-label="10"></a>        states, _ <span class="op">=</span> <span class="va">self</span>.core(x)</span>
+<span id="cb6-11"><a href="" aria-label="11"></a>        <span class="cf">return</span> <span class="va">self</span>.head(states[:, <span class="op">-</span><span class="dv">1</span>, :])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="small">
 <p>Full source: <code>python/train_models.py</code>.</p>
 </div>
@@ -3100,14 +2449,14 @@ Score multivariate sensor windows for abnormal behavior.</p>
 <section id="pytorch-a-training-step" class="slide level2">
 <h2>PyTorch: a training step</h2>
 <div class="slide-content has-code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="" aria-label="1"></a><span class="cf">for</span> xb, yb <span class="kw">in</span> train_loader:</span>
-<span id="cb8-2"><a href="" aria-label="2"></a>    optimizer.zero_grad()</span>
-<span id="cb8-3"><a href="" aria-label="3"></a>    pred <span class="op">=</span> model(xb)</span>
-<span id="cb8-4"><a href="" aria-label="4"></a>    loss <span class="op">=</span> loss_fn(pred, yb)</span>
-<span id="cb8-5"><a href="" aria-label="5"></a>    loss.backward()                   <span class="co"># BPTT</span></span>
-<span id="cb8-6"><a href="" aria-label="6"></a>    nn.utils.clip_grad_norm_(</span>
-<span id="cb8-7"><a href="" aria-label="7"></a>        model.parameters(), <span class="fl">1.0</span>)      <span class="co"># stability</span></span>
-<span id="cb8-8"><a href="" aria-label="8"></a>    optimizer.step()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="" aria-label="1"></a><span class="cf">for</span> xb, yb <span class="kw">in</span> train_loader:</span>
+<span id="cb7-2"><a href="" aria-label="2"></a>    optimizer.zero_grad()</span>
+<span id="cb7-3"><a href="" aria-label="3"></a>    pred <span class="op">=</span> model(xb)</span>
+<span id="cb7-4"><a href="" aria-label="4"></a>    loss <span class="op">=</span> loss_fn(pred, yb)</span>
+<span id="cb7-5"><a href="" aria-label="5"></a>    loss.backward()                   <span class="co"># BPTT</span></span>
+<span id="cb7-6"><a href="" aria-label="6"></a>    nn.utils.clip_grad_norm_(</span>
+<span id="cb7-7"><a href="" aria-label="7"></a>        model.parameters(), <span class="fl">1.0</span>)      <span class="co"># stability</span></span>
+<span id="cb7-8"><a href="" aria-label="8"></a>    optimizer.step()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="takeaway">
 <p><code>loss.backward()</code> differentiates through the <strong>unrolled recurrent computations</strong>.</p>
 </div>
@@ -3132,10 +2481,10 @@ Score multivariate sensor windows for abnormal behavior.</p>
 <section id="pytorch-tensor-and-return-value-pitfalls" class="slide level2">
 <h2>PyTorch tensor and return-value pitfalls</h2>
 <div class="slide-content">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="" aria-label="1"></a>core <span class="op">=</span> torch.nn.LSTM(<span class="dv">1</span>, <span class="dv">16</span>, batch_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb9-2"><a href="" aria-label="2"></a>sequence_states, (h_last, c_last) <span class="op">=</span> core(x)</span>
-<span id="cb9-3"><a href="" aria-label="3"></a><span class="co"># x: (N, T, 1); sequence_states: (N, T, 16)</span></span>
-<span id="cb9-4"><a href="" aria-label="4"></a>pred <span class="op">=</span> head(sequence_states[:, <span class="op">-</span><span class="dv">1</span>, :])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="" aria-label="1"></a>core <span class="op">=</span> torch.nn.LSTM(<span class="dv">1</span>, <span class="dv">16</span>, batch_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-2"><a href="" aria-label="2"></a>sequence_states, (h_last, c_last) <span class="op">=</span> core(x)</span>
+<span id="cb8-3"><a href="" aria-label="3"></a><span class="co"># x: (N, T, 1); sequence_states: (N, T, 16)</span></span>
+<span id="cb8-4"><a href="" aria-label="4"></a>pred <span class="op">=</span> head(sequence_states[:, <span class="op">-</span><span class="dv">1</span>, :])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="question">
 <p>Why does <code>sequence_states[:, -1, :]</code> refer to the <strong>last timestep</strong> only when <code>batch_first=True</code>?</p>
 </div>
@@ -3358,13 +2707,13 @@ Score multivariate sensor windows for abnormal behavior.</p>
 <h2>From tokens to an LSTM classifier</h2>
 <div class="slide-content">
 <p><strong>Text processing chain</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href="" aria-label="1"></a>"not very good" → tokenizer → integer IDs</span>
-<span id="cb10-2"><a href="" aria-label="2"></a>     ↓</span>
-<span id="cb10-3"><a href="" aria-label="3"></a>embedding vectors (T × E)</span>
-<span id="cb10-4"><a href="" aria-label="4"></a>     ↓</span>
-<span id="cb10-5"><a href="" aria-label="5"></a>LSTM hidden/cell states</span>
-<span id="cb10-6"><a href="" aria-label="6"></a>     ↓</span>
-<span id="cb10-7"><a href="" aria-label="7"></a>classification head → class probabilities</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a href="" aria-label="1"></a>"not very good" → tokenizer → integer IDs</span>
+<span id="cb9-2"><a href="" aria-label="2"></a>     ↓</span>
+<span id="cb9-3"><a href="" aria-label="3"></a>embedding vectors (T × E)</span>
+<span id="cb9-4"><a href="" aria-label="4"></a>     ↓</span>
+<span id="cb9-5"><a href="" aria-label="5"></a>LSTM hidden/cell states</span>
+<span id="cb9-6"><a href="" aria-label="6"></a>     ↓</span>
+<span id="cb9-7"><a href="" aria-label="7"></a>classification head → class probabilities</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="takeaway">
 <p>Fit vocabulary and preprocessing rules on the <strong>training corpus</strong>; evaluate on unseen documents.</p>
 </div>
@@ -3511,33 +2860,7 @@ Score multivariate sensor windows for abnormal behavior.</p>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
-<section id="gru-equations-in-brief" class="slide level2">
-<h2>GRU equations in brief</h2>
-<div class="slide-content">
-<p>A common GRU formulation uses update gate <span class="math inline">\(z_t\)</span> and reset gate <span class="math inline">\(r_t\)</span>:</p>
-<p><span class="math display">\[z_t=\sigma(W_zx_t+U_zh_{t-1}+b_z),\quad r_t=\sigma(W_rx_t+U_rh_{t-1}+b_r).\]</span></p>
-<p><span class="math display">\[\tilde h_t=\tanh(W_hx_t+U_h(r_t\odot h_{t-1})+b_h).\]</span></p>
-<p><span class="math display">\[h_t=(1-z_t)\odot\tilde h_t+z_t\odot h_{t-1}.\]</span></p>
-<div class="small">
-<p>Gate naming and update orientation vary across presentations; these equations define our convention.</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 5 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 5 minutes. Compare the GRU with LSTM at a high level: both modulate information, but a standard GRU combines internal memory with the exposed hidden representation and uses two named gate families plus a candidate. Explain the update gate convention on the slide: high z retains more previous h, low z adopts more of the candidate. Some expositions swap z and (1−z) terms by convention, so learners must check equations rather than labels alone. Reset gate modulates how much prior state contributes when computing candidate. Do not claim GRU always outperforms LSTM or has identical implementations across libraries.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<p>:::</p>
 </section>
 <section id="how-should-we-choose" class="slide level2">
 <h2>How should we choose?</h2>
@@ -3560,61 +2883,6 @@ Score multivariate sensor windows for abnormal behavior.</p>
 <p><strong>Instructor timing:</strong> approximately 2 minute(s). <strong>Section:</strong> Applications.</p>
 <p>Connect with graduate-level scientific practice. Repeated seeds and confidence intervals for empirical comparisons are preferable to a one-run anecdote. Ask students which baseline they would use for each of the three application families.</p>
 <p><strong>Expanded four-hour teaching guidance:</strong> Treat model selection as an empirical question. Begin with a good baseline, then compare architectures under matched data and tuning budgets. Account for sequence length, latency, hardware, interpretability, drift, and failure costs. Emphasize chronological evaluation and the distinction between in-sample fit and deployment performance.</p>
-<p><strong>Checkpoint:</strong> Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="capstone-design-a-defensible-sequence-experiment" class="slide level2">
-<h2>Capstone: design a defensible sequence experiment</h2>
-<div class="slide-content">
-<div class="question">
-<p><strong>Group design (5 minutes):</strong> Predict tomorrow’s electricity demand from the previous 24 hourly observations plus temperature.</p>
-</div>
-<p>Write a one-page protocol with: 1. Input/target tensor shapes and forecast horizon. 2. Chronological split and train-only preprocessing. 3. Naive and seasonal baselines. 4. RNN and LSTM candidates with a matching tuning budget. 5. Metrics, uncertainty, and leakage checks.</p>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 8 minute(s). <strong>Section:</strong> Extended four-hour lecture.</p>
-<p>Timing: 8 minutes. Give five minutes for group design and three minutes for class feedback. A possible input tensor shape is (N,24,F), where F includes demand and temperature features actually known at forecast time. Discuss whether tomorrow’s temperature measurement is available or only a forecast; do not leak future realized weather. A reasonable baseline includes last observed demand and same-hour previous-day demand, depending on task frequency. Use expanding-window validation to tune hyperparameters; hold out a final later test period. Report RMSE and MAE in original units, compare seeds and error regimes. Students should explicitly state data availability and the deployment forecast origin. Encourage a short rationale for model choice rather than selecting LSTM solely because it is sophisticated.</p>
-<p><strong>Discussion prompt:</strong> Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="five-essential-takeaways" class="slide level2">
-<h2>Five essential takeaways</h2>
-<div class="slide-content">
-<ol type="1">
-<li>Sequential data carry meaning in <strong>order and history</strong>.</li>
-<li>Vanilla RNNs repeatedly update a <strong>shared hidden state</strong>.</li>
-<li>BPTT can yield <strong>vanishing or exploding</strong> gradients.</li>
-<li>LSTM gates selectively <strong>retain, write, and expose</strong> memory.</li>
-<li>Reliable experiments require <strong>chronological splits and baselines</strong>.</li>
-</ol>
-<div class="takeaway">
-<p><strong>Exit question:</strong> Why is an additive cell-state path useful?</p>
-</div>
-</div>
-<aside class="notes">
-<p><strong>Instructor timing:</strong> approximately 1 minute(s). <strong>Section:</strong> Conclusions.</p>
-<p>Give students 30 seconds to answer the exit question. Expected answer: the additive update can preserve a more direct gradient path when forget gates are near one, helping certain long-range dependencies. It does not eliminate all instability.</p>
-<p><strong>Expanded four-hour teaching guidance:</strong> Ask five short questions: what is recurrence, what gets shared, what is BPTT, why can gradients vanish, and how does the LSTM cell update work? Answering without reading equations shows robust understanding. Invite students to relate the concepts to their own sequential datasets.</p>
 <p><strong>Checkpoint:</strong> Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {

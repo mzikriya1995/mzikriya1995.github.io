@@ -123,10 +123,9 @@ Reveal the obvious next term after students respond. Explain that realistic sequ
 
 1. **Represent** sequential data and tasks.
 2. **Derive** the RNN hidden-state update.
-3. **Understand** BPTT and gradient instability.
-4. **Derive** the LSTM gates and cell-state update.
-5. **Implement** one-step forecasting in R and Python.
-6. **Evaluate** against a sensible baseline.
+3. **Derive** the LSTM gates and cell-state update.
+4. **Implement** one-step forecasting in R and Python.
+5. **Evaluate** against a sensible baseline.
 
 ::: {.takeaway}
 Our teaching sequence: intuition → architecture → mathematics → calculation → code → interpretation.
@@ -158,7 +157,7 @@ State what success looks like: students can recognize input shapes, compute a sc
 :::
 ::: {.column width="47%"}
 ::: {.question}
-**Pair discussion (2 min):** Relate a familiar regression problem to a sequence prediction problem.
+**Pair discussion :** Relate a familiar regression problem to a sequence prediction problem.
 :::
 :::
 :::
@@ -188,10 +187,6 @@ Timing: 4 minutes. Allow two minutes for students to discuss, then address two m
 | LSTM | Gates, cell state, parameter count | Gate workshop |
 | Implementation | R and Python, leakage, baselines | Code walk-through |
 | Applications | NLP, anomalies, alternatives | Capstone design |
-
-::: {.small}
-Optional 10-minute break after the gradient block; notes contain teaching timings.
-:::
 
 :::::
 
@@ -235,7 +230,7 @@ Explain the difference between a time-series dataset and an unordered table. Rea
 ::::: {.slide-content}
 
 ::: {.columns}
-::: {.column width="50%"}
+::: {.column width="40%"}
 **Forecasting**  
 Predict future demand, load, or temperature.
 
@@ -245,7 +240,7 @@ Classify sentiment or tag words in sentences.
 **Monitoring**  
 Score multivariate sensor windows for abnormal behavior.
 :::
-::: {.column width="50%"}
+::: {.column width="60%"}
 ![Example of changing sensor readings](assets/anomaly.png){width="100%"}
 :::
 :::
@@ -339,9 +334,7 @@ Future inputs are unavailable at prediction time.
 A token label may legitimately use **left and right context** from that sentence.
 :::
 :::
-::: {.takeaway}
-Choose architecture and evaluation from the **information available at deployment**.
-:::
+
 
 :::::
 
@@ -423,9 +416,7 @@ $$\boxed{X\in\mathbb{R}^{N\times T\times F}}$$
 | $T$ | timesteps (lookback) | 24 |
 | $F$ | features per step | 1 |
 
-::: {.question}
-What shape represents 32 windows, each with 24 days and 3 sensors? **(32, 24, 3)**
-:::
+
 
 :::::
 
@@ -459,9 +450,7 @@ Sequences may have lengths $T_1=3$, $T_2=5$.
 | B | p | q | r | s | t |
 :::
 :::
-::: {.question}
-Why is a padding value of zero not automatically harmless?
-:::
+
 
 :::::
 
@@ -510,9 +499,7 @@ At each step:
 
 $$\boxed{\mathbf{h}_t=f(\mathbf{x}_t,\mathbf{h}_{t-1})}$$
 
-::: {.takeaway}
-$\mathbf{h}_t$ is a **learned representation** of the sequence prefix—not a perfect copy of the past.
-:::
+
 
 :::::
 
@@ -583,9 +570,7 @@ $$\mathbf{h}_t=\tanh(\mathbf{a}_t)$$
 :::
 :::
 
-::: {.card}
-The equation and the picture describe the same idea: **mix old information with new information**.
-:::
+
 
 :::::
 
@@ -1012,366 +997,7 @@ Define theta as all trainable parameters, eta as a learning rate, and MSE as a s
 **Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
 
 ::: 
-
-## Backpropagation Through Time (BPTT)
-
-::::: {.slide-content}
-
-![Forward pass and backward gradients in BPTT](assets/bptt_forward_backward.svg){width="98%"}
-
-::: {.takeaway}
-Easy way to remember BPTT:
-
-1. **Go forward** through the sequence.
-2. **Compute the loss**.
-3. **Go backward** through the unrolled steps.
-4. **Add up gradient contributions** for the shared weights.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 2 minute(s). **Section:** BPTT & gradients.
-
-Explain that ordinary backpropagation is applied to the unfolded computational graph. Shared weight matrices receive contributions from multiple timesteps. Many training frameworks perform BPTT automatically with autodifferentiation.
-
-**Expanded four-hour teaching guidance:** Draw the unrolled graph and indicate how loss at a late step sends derivative contributions to earlier shared weights. Parameter sharing means the gradient is the sum of contributions over time. Use a three-step chain and perform one derivative mentally. BPTT is ordinary reverse-mode automatic differentiation on the unfolded recurrent graph.
-
-**Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
-
-::: 
-
-## BPTT computational graph over three steps
-
-::::: {.slide-content}
-
-::: {.columns}
-::: {.column width="54%"}
-$$\frac{\partial\mathcal L}{\partial W_{hh}}=\sum_{t=1}^{T}\left.\frac{\partial\mathcal L}{\partial W_{hh}}\right|_{\mathrm{use\ at\ }t}.$$
-
-- The same recurrent weights are used at many timesteps.
-- So the final gradient is the **sum of contributions** from all those uses.
-- A late loss can still affect an early recurrent weight, but the path may be long and weak.
-:::
-::: {.column width="46%"}
-![BPTT idea over time](assets/bptt_forward_backward.svg){width="100%"}
-:::
-:::
-
-::: {.takeaway}
-One network, many uses, **one total gradient**.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 5 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 5 minutes. Draw three recurrent cells and their losses. Show that a loss at t=3 affects parameters used at t=3 directly and at t=2,t=1 through the hidden-state chain. Shared parameters mean the total gradient is a sum of contributions across all unrolled uses. Do not conflate these with three independent parameter matrices. Explain that automatic differentiation constructs the graph and accumulates gradients, but students should still understand the chain rule path. Ask whether a loss only at the last timestep can influence early recurrent weights. Yes, subject to gradient strength.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
-:::
-
-## Deriving one recurrent gradient path
-
-::::: {.slide-content}
-
-For a scalar $h_t=\tanh(wh_{t-1}+ux_t)$:
-
-$$\frac{\partial h_t}{\partial h_{t-1}}=w(1-h_t^2).$$
-
-For a loss $\mathcal L(h_3)$, the contribution to $h_1$ is:
-
-$$\frac{\partial\mathcal L}{\partial h_1}=\frac{\partial\mathcal L}{\partial h_3}\;\underbrace{w(1-h_3^2)}_{3\to2}\;\underbrace{w(1-h_2^2)}_{2\to1}.$$
-
-::: {.small}
-The vector case uses **Jacobian matrices** and matrix multiplication order matters.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 6 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 6 minutes. Derive the local scalar derivative using the chain rule. For h_t=tanh(z_t) and z_t=w h_(t−1)+u x_t, dh_t/dh_(t−1)=tanh'(z_t)w=(1−h_t²)w. Multiply local derivatives to trace influence from h3 back to h1. With w=0.5 and h2,h3 around zero, the product is approximately 0.25 before multiplying the downstream loss derivative. In the vector case, replace scalars by Jacobians J_t = diag(1−h_t²)W_hh. Emphasize this is a pathway analysis; actual loss gradients can include additional terms and time-indexed losses.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
-:::
-
-## Why long-range gradients are difficult
-
-::::: {.slide-content}
-
-For $k<t$, the chain rule gives:
-
-$$\frac{\partial\mathbf h_t}{\partial\mathbf h_k}=\prod_{j=k+1}^{t}\frac{\partial\mathbf h_j}{\partial\mathbf h_{j-1}}.$$
-
-::: {.small}
-Repeated **Jacobian matrix products** can shrink or amplify gradients depending on their singular values, the weights, and activation derivatives.
-:::
-
-::: {.takeaway}
-Long dependency paths can be hard to optimize even when information would be useful.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 2 minute(s). **Section:** BPTT & gradients.
-
-Use the product notation as a conceptual shorthand: matrix multiplication order is important. Explain that it is the local derivatives, not merely the weights, that determine gradient propagation. Avoid claiming every RNN necessarily has vanishing gradients.
-
-**Expanded four-hour teaching guidance:** The Jacobian product is a matrix product, not an unstructured scalar multiplication. The norm of the full product can shrink or grow depending on the evolving state, activation slopes, and weight spectra. Distinguish the mathematical tendency from a guarantee; nonlinear saturation and optimization interactions complicate behavior. Ask why long temporal gaps increase the number of factors in the product.
-
-**Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
-
-::: 
-
-## Vanishing gradients: a toy illustration
-
-::::: {.slide-content}
-
-![Toy repeated factors illustrating gradient shrinking and growth](assets/gradients.png){width="92%"}
-
-::: {.card}
-For a scalar repeated factor $0.65$: $0.65^{20}\approx0.00018$.
-:::
-
-Small updates to parameters handling distant history → **slow or ineffective learning**.
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 2 minute(s). **Section:** BPTT & gradients.
-
-Identify this chart as a stylized scalar analogy, not gradients measured in the network. The colored rising line is an exploding case and the declining line a vanishing case; the y axis is log scale. State that actual RNN gradients involve matrices and nonlinearities.
-
-**Expanded four-hour teaching guidance:** Read the toy curve in logarithmic scale: repeated multiplication by 0.75 shrinks small derivatives rapidly. Explain that these are illustrative scalar factors and not measured gradients from a specific trained RNN. In tanh RNNs, derivatives can be small when activations saturate. Connect this observation to why information from an early input may receive little learning signal.
-
-**Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
-
-::: 
-
-## Gradient products: decay versus explosion
-
-::::: {.slide-content}
-
-![Illustrative gradient factor products on log scale](assets/gradient_product_log.png){width="83%"}
-
-$$0.75^{20}\approx0.00317,\qquad 1.15^{20}\approx16.37.$$
-
-::: {.question}
-What happens after **40** steps? Explain why repeated multiplications matter.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 5 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 5 minutes. Invite a quick estimate before revealing that 0.75^40 is about 10^-5 while 1.15^40 is approximately 268. The chart is illustrative: real RNN Jacobians are matrices, can vary across time, and interact with nonlinearity. Use logarithmic vertical scale to show both trajectories clearly. Ask participants to distinguish an example of gradient decay from a claim that a particular trained RNN exhibits these exact magnitudes. The lesson is about sensitivity of long products to local factors.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
-:::
-
-## Why small activation derivatives matter
-
-::::: {.slide-content}
-
-$$J_t=\frac{\partial h_t}{\partial h_{t-1}}=\operatorname{diag}(1-h_t^2)W_{hh}.$$
-
-::: {.columns}
-::: {.column width="50%"}
-**State near zero**
-- $h_t\approx0$
-- $\tanh'$ is near 1
-- less attenuation from activation
-:::
-::: {.column width="50%"}
-**State near ±1**
-- $|h_t|\approx1$
-- $\tanh'$ is near 0
-- potentially strong attenuation
-:::
-:::
-::: {.takeaway}
-Both activation derivatives and recurrent weights shape the Jacobian.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 4 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 4 minutes. Explain where the diagonal derivative matrix comes from: tanh acts elementwise on each preactivation coordinate, and its derivative is 1−h². Multiply by W_hh to account for sensitivity to the previous hidden vector. A near-zero hidden activation leaves a derivative near one from tanh alone, but W_hh could still cause shrinking or amplification. A saturated hidden coordinate introduces a small diagonal factor. Students should not conclude that choosing a large recurrent matrix always solves vanishing gradients because it can create exploding behavior elsewhere.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
-:::
-
-## Exploding gradients: instability
-
-::::: {.slide-content}
-
-A scalar repeated factor above 1 grows rapidly:
-
-$$1.35^{20}\approx404.$$
-
-- Updates may become erratic or numerically unstable.
-- **Gradient norm clipping** limits the size of computed updates.
-- Clipping is useful but does **not** create long-term memory.
-
-::: {.takeaway}
-Vanishing and exploding gradients are distinct phenomena requiring different mitigation strategies.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 2 minute(s). **Section:** BPTT & gradients.
-
-Explain that the displayed 404 is an illustrative scaling product, not a measured gradient. Show clipping as stabilizing optimization, not necessarily making generalization better. Point out that normalization and careful initialization can also help.
-
-**Expanded four-hour teaching guidance:** An exploding gradient can yield huge parameter updates, destabilize the loss, or produce numerical overflow. The product of Jacobians may amplify perturbations even when hidden states remain bounded under tanh. Distinguish exploding gradients from large parameter values and from a badly scaled input. Introduce clipping as a safeguard, not an optimality guarantee.
-
-**Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
-
-::: 
-
-## Training strategies and tradeoffs
-
-::::: {.slide-content}
-
-| Strategy | Main purpose | Limitation |
-|---|---|---|
-| Gradient clipping | Bound excessive gradient norm | Does not fix vanishing |
-| Truncated BPTT | Reduce backward graph length | Limits learning across longer spans |
-| Orthogonal initialization | Improve recurrent dynamics | No universal solution |
-| Gated cells (LSTM/GRU) | Learn selective memory updates | More parameters and compute |
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 2 minute(s). **Section:** BPTT & gradients.
-
-Define truncated BPTT correctly: the state can be carried forward while the gradient graph is detached at a chosen horizon. This distinguishes a finite training horizon from simply discarding all previous information.
-
-**Expanded four-hour teaching guidance:** Discuss gradient clipping after backpropagation and before optimizer step. Truncated BPTT limits the gradient path length but does not magically increase long-range supervision. Input normalization and careful initialization may help; nevertheless, no single trick makes every recurrent model learn arbitrary-length dependencies. Compare strategies by what issue each actually addresses.
-
-**Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
-
-::: 
-
-## Gradient clipping: mathematical rule
-
-::::: {.slide-content}
-
-![Geometry of global-norm gradient clipping](assets/clipping_geometry.png){width="83%"}
-
-$$g_{\mathrm{clipped}}=g\min\left(1,\frac{\tau}{\lVert g\rVert_2}\right).$$
-
-::: {.takeaway}
-Clipping limits gradient **norm**, not the underlying model's memory problem.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 5 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 5 minutes. Define g as the stacked gradient of all trainable parameters and τ as the chosen clipping threshold. If ||g|| is below τ no change occurs; otherwise all components are multiplied by the same positive scalar to preserve direction. Compute an example with g=(3,4), norm 5, τ=1: the clipped vector is (0.6,0.8). The chart illustrates this geometry. Emphasize clipping is applied after loss.backward in PyTorch and before optimizer.step, as in the example. Very small thresholds may hinder learning; it is a stabilization tool, not a guarantee of good generalization.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
-:::
-
-## Truncated BPTT and state detachment
-
-::::: {.slide-content}
-
-**Full BPTT:** backpropagate through all $T$ unrolled steps.
-
-**Truncated BPTT:** process chunks of length $K$ and stop gradients across a chosen chunk boundary.
-
-```{.python}
-# Conceptual truncated BPTT for a recurrent state
-state = state.detach()  # preserve value, cut graph
-```
-
-::: {.question}
-What historical influence is still present in the **forward state**, and what gradient path is deliberately cut?
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 5 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 5 minutes. Clarify that truncated BPTT does not necessarily reset the forward state; it often carries a detached state value from one chunk to the next. Thus information can still flow forward across chunks, while gradients do not backpropagate through the entire history. Show a time axis split into chunks of K steps. This reduces memory use and may stabilize training, but limits direct learning signals over very long delays. An important coding caveat is that PyTorch's tuple of LSTM hidden and cell states must both be detached when carrying recurrent state between chunks. Explain why this is separate from gradient clipping.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
-:::
-
-## Think–pair–share: gradient directions
-
-::::: {.slide-content}
-
-::: {.question}
-For a simplified scalar chain of **15 derivatives**:
-
-1. What happens if the average multiplier is **0.7**?
-2. What happens if it is **1.3**?
-3. Why is this only an analogy for a real RNN?
-:::
-
-::: {.fragment}
-$0.7^{15}\approx0.00475$; $1.3^{15}\approx51.2$.
-
-The actual system multiplies **Jacobians**, not one scalar factor.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 2 minute(s). **Section:** BPTT & gradients.
-
-Spend about one minute collecting answers. Emphasize that students should not overgeneralize from the scalar example. If time allows, connect answers to gradients of recurrent weights near the beginning of a long sequence.
-
-**Expanded four-hour teaching guidance:** Ask learners whether a product of factors of magnitude below one tends to vanish; then ask whether alternating factors can change the conclusion. Let them explain why the direction and singular values matter for matrices. Avoid confusing stable forward hidden activations with stable backward gradients.
-
-**Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
-
-::: 
-
-## Why better memory is needed
-
-::::: {.slide-content}
-
-::: {.columns}
-::: {.column width="48%"}
-A simple RNN keeps rewriting one hidden state.
-
-That can be enough for short patterns, but for longer patterns we often want a model that can more carefully:
-
-- **keep** useful old information,
-- **add** important new information,
-- **hide or show** information when needed.
-:::
-::: {.column width="52%"}
-![RNN memory versus LSTM controlled memory](assets/rnn_vs_lstm_memory.svg){width="100%"}
-:::
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 2 minute(s). **Section:** BPTT & gradients.
-
-Transition to LSTM intuitively: a model should choose which information to keep and which to replace. Do not claim the LSTM perfectly preserves long-term dependencies; it improves gradient paths under suitable gate settings.
-
-**Expanded four-hour teaching guidance:** Motivate gates as an architectural intervention that enables the model to control retention and writing. The goal is not perfect memory and certainly not human-like understanding. Point out that an LSTM trades increased parameter count and computation for a more flexible memory pathway.
-
-**Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
-
-::: 
+ 
 
 ## From RNN to LSTM
 
@@ -1627,32 +1253,7 @@ Timing: 5 minutes. Explain that each gate is a vector rather than one global swi
 **Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
 :::
 
-## Controlled LSTM gate counterfactuals
 
-::::: {.slide-content}
-
-Given $c_{t-1}=0.7$ and $\tilde c_t=-0.2$:
-
-| Scenario | $f_t$ | $i_t$ | Updated $c_t$ |
-|:--|--:|--:|--:|
-| Preserve | 1.0 | 0.0 | $0.70$ |
-| Overwrite | 0.0 | 1.0 | $-0.20$ |
-| Blend | 0.8 | 0.5 | $0.46$ |
-
-$$c_t=f_tc_{t-1}+i_t\tilde c_t.$$
-
-::: {.fragment .takeaway}
-The output gate then determines how much of $\tanh(c_t)$ is exposed.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 5 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 5 minutes. Calculate the three states with the class. For preserve, c=1×0.7+0×(−0.2)=0.7. For overwrite, c=−0.2. For blend, c=0.8×0.7+0.5×(−0.2)=0.46. Explain the candidate memory may be negative and gates are nonnegative, so writing a negative candidate can reduce the cell value. Stress that state values are model representations, not literal physical quantities unless a specific interpretability study supports that claim. Use this exercise to test that students can distinguish retaining, writing and exposing.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
 :::
 
 ## Cell-state update: retain + write
@@ -1872,26 +1473,7 @@ The approximation deliberately treats gate values as locally fixed; in the full 
 
 ## Direct cell-state gradient versus full derivative
 
-::::: {.slide-content}
 
-From $c_t=f_t\odot c_{t-1}+i_t\odot\tilde c_t$:
-
-$$\left.\frac{\partial c_t}{\partial c_{t-1}}\right|_{\mathrm{gates\ fixed}}=\operatorname{diag}(f_t).$$
-
-![Memory retention under different forget gates](assets/memory_retention.png){width="80%"}
-
-::: {.small}
-The **complete** derivative also contains indirect dependencies through the gates; the plot isolates the direct retention route.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 6 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 6 minutes. Derive the direct derivative by treating gate outputs as constants: dc_t/dc_previous = f_t coordinatewise. Over k repeated timesteps with constant f and no writes, retention is f^k. Show that f=0.99 preserves roughly 74% after 30 steps whereas f=0.5 becomes extremely small. Then explain the key qualification: in a real LSTM gates themselves depend on h_previous, which depends on previous c, so total gradients also include indirect paths. The additive cell state gives a potentially favorable route but is not an unrestricted highway to arbitrary temporal learning.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
 :::
 
 ## What LSTMs do not automatically solve
@@ -1918,62 +1500,7 @@ Timing: 4 minutes. Give one counterexample per bullet: high-frequency inputs can
 **Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
 :::
 
-## Activity: control the gates
 
-::::: {.slide-content}
-
-::: {.question}
-Assume $c_{t-1}=0.7$ and candidate $\tilde c_t=-0.4$.
-
-**Case A:** $f_t=1, i_t=0$ → new $c_t$?  
-**Case B:** $f_t=0, i_t=1$ → new $c_t$?  
-**Case C:** $f_t=0.5, i_t=0.5$ → new $c_t$?
-:::
-
-::: {.fragment}
-**Solutions:** A = 0.7, B = −0.4, C = 0.15.
-:::
-
-::: {.small}
-If $o_t=0$, then $h_t=0$ regardless of these cell values.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 2 minute(s). **Section:** LSTM.
-
-Allocate one minute for arithmetic and one minute for interpretation. The exact gate values 0 and 1 are idealized endpoints; sigmoid outputs approach them but ordinarily do not equal them with finite logits. Reinforce that output gating does not delete cell state.
-
-**Expanded four-hour teaching guidance:** Convert the conceptual gate question into arithmetic with three cases. Retain: f≈1,i≈0; overwrite: f≈0,i≈1; hide: o≈0 with nonzero c. Ask students to state the cell and hidden outcomes separately. This distinction is the key learning check for the section.
-
-**Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
-
-::: 
-
-## Workshop: calculate an LSTM step
-
-::::: {.slide-content}
-
-::: {.question}
-**Work in pairs (3 minutes).** Given $c_{t-1}=-0.3$, $f=0.6$, $i=0.4$, $\tilde c=0.5$, and $o=0.8$, compute $c_t$ and $h_t$.
-:::
-
-::: {.fragment}
-$$c_t=0.6(-0.3)+0.4(0.5)=-0.18+0.20=\boxed{0.02}.$$
-:::
-::: {.fragment}
-$$h_t=0.8\tanh(0.02)\approx\boxed{0.016}.$$
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 6 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 6 minutes. Give three minutes for the calculation, then invite a pair to solve it at the board. Students must first multiply forget and prior cell, then input gate and candidate memory, then add both contributions. The hidden state is obtained from tanh of updated c and output-gate multiplication. Watch for the common mistake of applying tanh before the cell update or using c_previous in the final hidden expression. Ask whether a small hidden output implies that the cell content from earlier times was necessarily small. In this example yes c_t is small, but more generally a small output gate can hide a large cell value.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
 :::
 
 ## Practical case study: forecast one step
@@ -2031,30 +1558,7 @@ Clarify that validation and test windows can include historical observations fro
 
 ::: 
 
-## Leakage checklist for sequence experiments
 
-::::: {.slide-content}
-
-| Question | Safe practice |
-|:--|:--|
-| When was a value available? | Define the forecast origin |
-| When was preprocessing fitted? | Training period only |
-| Were windows randomly split? | Prefer target-time ordering |
-| Were hyperparameters tuned on test? | Keep test untouched |
-| Were lagged targets aligned correctly? | Check indices explicitly |
-
-::: {.takeaway}
-Forecast accuracy is meaningless if the evaluation uses unavailable future information.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 5 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 5 minutes. Work through a hypothetical normalization error: scaling all 500 observations with the full-sample mean uses future test distribution information to transform the training data. The effect may be subtle but it is still leakage. A more direct error is allowing the prediction window to include its own target. Another is randomly dividing near-duplicate overlapping windows across train and test. Define the forecast origin for every target and verify the latest permitted input timestamp is strictly earlier. Discuss exceptions: known future calendar features may be available ahead of time; availability, not timestamp alone, is the correct principle.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
 :::
 
 ## Rolling-origin validation
@@ -2684,30 +2188,7 @@ Explain LSTM and GRU are recurrent, while Transformers use attention rather than
 
 ::: 
 
-## GRU equations in brief
 
-::::: {.slide-content}
-
-A common GRU formulation uses update gate $z_t$ and reset gate $r_t$:
-
-$$z_t=\sigma(W_zx_t+U_zh_{t-1}+b_z),\quad r_t=\sigma(W_rx_t+U_rh_{t-1}+b_r).$$
-
-$$\tilde h_t=\tanh(W_hx_t+U_h(r_t\odot h_{t-1})+b_h).$$
-
-$$h_t=(1-z_t)\odot\tilde h_t+z_t\odot h_{t-1}.$$
-
-::: {.small}
-Gate naming and update orientation vary across presentations; these equations define our convention.
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 5 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 5 minutes. Compare the GRU with LSTM at a high level: both modulate information, but a standard GRU combines internal memory with the exposed hidden representation and uses two named gate families plus a candidate. Explain the update gate convention on the slide: high z retains more previous h, low z adopts more of the candidate. Some expositions swap z and (1−z) terms by convention, so learners must check equations rather than labels alone. Reset gate modulates how much prior state contributes when computing candidate. Do not claim GRU always outperforms LSTM or has identical implementations across libraries.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
 :::
 
 ## How should we choose?
@@ -2736,58 +2217,6 @@ Choose a model by **task-specific evidence**, not architecture popularity.
 Connect with graduate-level scientific practice. Repeated seeds and confidence intervals for empirical comparisons are preferable to a one-run anecdote. Ask students which baseline they would use for each of the three application families.
 
 **Expanded four-hour teaching guidance:** Treat model selection as an empirical question. Begin with a good baseline, then compare architectures under matched data and tuning budgets. Account for sequence length, latency, hardware, interpretability, drift, and failure costs. Emphasize chronological evaluation and the distinction between in-sample fit and deployment performance.
-
-**Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
-
-::: 
-
-## Capstone: design a defensible sequence experiment
-
-::::: {.slide-content}
-
-::: {.question}
-**Group design (5 minutes):** Predict tomorrow's electricity demand from the previous 24 hourly observations plus temperature.
-:::
-
-Write a one-page protocol with:
-1. Input/target tensor shapes and forecast horizon.
-2. Chronological split and train-only preprocessing.
-3. Naive and seasonal baselines.
-4. RNN and LSTM candidates with a matching tuning budget.
-5. Metrics, uncertainty, and leakage checks.
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 8 minute(s). **Section:** Extended four-hour lecture.
-
-Timing: 8 minutes. Give five minutes for group design and three minutes for class feedback. A possible input tensor shape is (N,24,F), where F includes demand and temperature features actually known at forecast time. Discuss whether tomorrow's temperature measurement is available or only a forecast; do not leak future realized weather. A reasonable baseline includes last observed demand and same-hour previous-day demand, depending on task frequency. Use expanding-window validation to tune hyperparameters; hold out a final later test period. Report RMSE and MAE in original units, compare seeds and error regimes. Students should explicitly state data availability and the deployment forecast origin. Encourage a short rationale for model choice rather than selecting LSTM solely because it is sophisticated.
-
-**Discussion prompt:** Ask students to justify one assumption, interpretation, or step on this slide; confirm that they can distinguish an illustrative example from a measured experimental result.
-:::
-
-## Five essential takeaways
-
-::::: {.slide-content}
-
-1. Sequential data carry meaning in **order and history**.
-2. Vanilla RNNs repeatedly update a **shared hidden state**.
-3. BPTT can yield **vanishing or exploding** gradients.
-4. LSTM gates selectively **retain, write, and expose** memory.
-5. Reliable experiments require **chronological splits and baselines**.
-
-::: {.takeaway}
-**Exit question:** Why is an additive cell-state path useful?
-:::
-
-:::::
-
-::: {.notes}
-**Instructor timing:** approximately 1 minute(s). **Section:** Conclusions.
-
-Give students 30 seconds to answer the exit question. Expected answer: the additive update can preserve a more direct gradient path when forget gates are near one, helping certain long-range dependencies. It does not eliminate all instability.
-
-**Expanded four-hour teaching guidance:** Ask five short questions: what is recurrence, what gets shared, what is BPTT, why can gradients vanish, and how does the LSTM cell update work? Answering without reading equations shows robust understanding. Invite students to relate the concepts to their own sequential datasets.
 
 **Checkpoint:** Before advancing, ask one learner to restate the central equation or diagram in their own words. If the class is unsure, repeat the numerical or graphical interpretation; use the next slide only after resolving the mismatch.
 
